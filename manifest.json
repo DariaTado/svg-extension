@@ -1,0 +1,69 @@
+  {
+    "name": "svg-extension",
+    "version": "1.0",
+    "description": "manipulates SVG",
+    "permissions": [
+      "activeTab",
+      "storage",
+      "webNavigation"
+    ],
+    "content_security_policy":"script-src 'self' https://kit.fontawesome.com/954d55f6cf.js; object-src 'self'",
+    "content_scripts": [
+      {
+        "matches": [
+          "https://ci-hvactool.tado.com/auxiliaryControl/search/*"
+          , "https://ci-hvactool.tado.com/auxiliaryControl/show/*"
+          , "https://ci-hvactool.tado.com/boilerControl/search/*"
+          , "https://ci-hvactool.tado.com/boilerControl/show/*"
+          , "https://ci-hvactool.tado.com/boilerControlWithFitsIn/search/*"
+          , "https://ci-hvactool.tado.com/boilerControlWithFitsIn/show/*"
+          , "https://ci-hvactool.tado.com/boiler/search/*"
+          , "https://ci-hvactool.tado.com/boiler/show/*"
+          , "https://ci-hvactool.tado.com/genericSystem/search/*"
+          , "https://ci-hvactool.tado.com/genericSystem/show/*"
+          , "https://ci-hvactool.tado.com/remote/search/*"
+          , "https://ci-hvactool.tado.com/remote/show/*"
+          , "https://ci-hvactool.tado.com/roomThermostatReceiver/search/*"
+          , "https://ci-hvactool.tado.com/roomThermostatReceiver/show/*"
+          , "https://ci-hvactool.tado.com/roomThermostat/search/*"
+          , "https://ci-hvactool.tado.com/roomThermostat/show/*"
+          
+          , "https://hvactool.tado.com/auxiliaryControl/search/*"
+          , "https://hvactool.tado.com/auxiliaryControl/show/*"
+          , "https://hvactool.tado.com/boilerControl/search/*"
+          , "https://hvactool.tado.com/boilerControl/show/*"
+          , "https://hvactool.tado.com/boilerControlWithFitsIn/search/*"
+          , "https://hvactool.tado.com/boilerControlWithFitsIn/show/*"
+          , "https://hvactool.tado.com/boiler/search/*"
+          , "https://hvactool.tado.com/boiler/show/*"
+          , "https://hvactool.tado.com/genericSystem/search/*"
+          , "https://hvactool.tado.com/genericSystem/show/*"
+          , "https://hvactool.tado.com/remote/search/*"
+          , "https://hvactool.tado.com/remote/show/*"
+          , "https://hvactool.tado.com/roomThermostatReceiver/search/*"
+          , "https://hvactool.tado.com/roomThermostatReceiver/show/*"
+          , "https://hvactool.tado.com/roomThermostat/search/*"
+          , "https://hvactool.tado.com/roomThermostat/show/*"
+        ],
+        "js": [
+          "contentScript.js"
+        ]
+      }
+    ],    
+    "web_accessible_resources": [
+      "index.html"
+      ,"svg/labling-BR.svg"
+      ,"svg/labling-BP.svg"
+      ,"svg/labling-RU.svg"
+    ],
+    "icons": {
+      "16": "images/cat-solid_16.png",
+      "24": "images/cat-solid_24.png",
+      "32": "images/cat-solid_32.png",
+      "48": "images/cat-solid_48.png",
+      "64": "images/cat-solid_64.png",
+      "128": "images/cat-solid_128.png",
+      "256": "images/cat-solid_256.png"
+    },
+    "manifest_version": 2
+  }
