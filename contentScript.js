@@ -1,4 +1,6 @@
 {
+    const global_fontSize = "10px"
+
     const systemTypes = [{ type: "roomThermostat", nameForFile: "RT" }
     , { type: "roomThermostatReceiver", nameForFile: "RF_Receiver" }
     , { type: "auxiliaryControl", nameForFile: "External_Controller" }
@@ -89,8 +91,12 @@ const devices = [{
 }]
 
 function getSystemInfoFromWindow() {
-    let system = {}
-    system.id = parseInt(document.querySelector("#id").value)
+    if (!document.querySelector("#id")){ console.log("#id not found in the document. Wrong callee?"); return null }
+    let system = { id : parseInt(document.querySelector("#id").value) }
+    if (!document.querySelector("form[action][method=get]").getAttribute("action").match(/^\/(\w+)\//)) { 
+        console.log("System class cannot be detected from the form action. Wrong callee?"); 
+        return null
+    }
     system.type = document.querySelector("form[action][method=get]").getAttribute("action").match(/^\/(\w+)\//)[1]
     let cssManufacturer = `#show-${system.type} [class*=manufacturers] [class*=manufacturer] img[title]`
     //console.log(cssManufacturer)
@@ -113,131 +119,35 @@ function getSystemInfoFromWindow() {
     }
 
     let cssInterfaces = "div[class*=interface][data-id]"
-    let intList = document.querySelectorAll(cssInterfaces)
-    let intCnt = 0
-    if (intList && (0 < intList.length)) {
+    let interfaceNodeList = document.querySelectorAll(cssInterfaces)
+    let interfaceIndex = 0
+    if (interfaceNodeList && (0 < interfaceNodeList.length)) {
         let interfaces = []
-        for (let intNode of intList) {
+        for (let interfaceNode of interfaceNodeList) {
             let interface = {}
-
-            interface.compatibilityId = parseInt(intNode.getAttribute("data-id"))
-
-            let cssInterface = cssInterfaces.replace(/\[data\-id\]/, `[data-id='${interface.compatibilityId}']`)
-
-            interface.name = intNode.querySelector("div.interface-name a").textContent
-            interface.id = intNode.querySelector("div.interface-name a").getAttribute("href").match(/\d+/g)[0]
-            interface.connectorName = intNode.querySelector("div.connector input[data-field=connector][value]").getAttribute("value")
-            let tbmList = intNode.querySelectorAll("[class*=terminal-blocks-matchings] [class*=terminal-blocks-matching]")
-
-            if (tbmList) {
-                let tbms = []
-                let tbmIndex = 0
-                for (let tbmNode of tbmList) {
-                    let tbm = {}
-
-                    let deviceLongName = tbmNode.querySelector("legend").firstChild.textContent
-                    tbm.deviceLongName = deviceLongName
-                    let deviceId = devices.filter(deviceObj => { return deviceLongName.match(deviceObj.pattern) })[0].id
-
-                    let legend = tbmNode.querySelector("legend").lastChild.textContent
-
-                    let tbmId = parseInt(tbmNode.querySelector("object[data]").data.match(/tbmId\=(\d+)/)[1])
-
-                    if (tbmId) { tbm.id = tbmId }
-                    if (deviceId) { tbm.deviceId = deviceId }
-                    if (legend && ("" < legend) && (deviceLongName !== legend)) {
-                        tbm.legend = legend
-                        if (legend.match(/bridge\s+not\s+present/gi)) { tbm.bridgePresent = false }
-                        else if (legend.match(/bridge\s+present/gi)) { tbm.bridgePresent = true }
-                    }
-
-                    tbms.push(tbm)
-                }
-                if (0 < tbms.length) { interface.tbms = tbms }
-            }
+            interface.id = interfaceNode.querySelector("div.interface-name a").getAttribute("href").match(/\d+/g)[0]
+            interface.compatibilityId = parseInt(interfaceNode.getAttribute("data-id"))
+            interface.name = interfaceNode.querySelector("div.interface-name a").textContent
+            interface.connectorName = interfaceNode.querySelector("div.connector input[data-field=connector][value]").getAttribute("value")
+            
+            
+            let terminalsAndLabels = Array.from(
+                    document.querySelectorAll(`div[class*=interface][data-id='${interface.compatibilityId}'] div.connectorFieldsAndValues div[class*=connectorFieldsColumn]:nth-child(2) [class=connector-field-props][data-field-name]`)
+                    )
+                .map( elem => { return { [elem.getAttribute("data-field-name")]: elem.querySelector("[class=connector-field-value]").textContent }} )
+                .reduce( (acc, cur) => {
+                    acc[Object.keys(cur)[0]] = cur[Object.keys(cur)[0]]
+                    return acc
+                }, {})
+            interface.terminalsAndLabels = terminalsAndLabels
+            console.log(interface.name, interface.terminalsAndLabels)
+            
             interfaces.push(interface)
-
-            intCnt++
+            interfaceIndex++
         }
         system.interfaces = interfaces
     }
     return system
-}
-
-function makeFileNameFromParams(params) {
-    if (params) {
-        const version = 4.4
-        let devicePrefix = devices.filter(device => params.deviceId === device.id)[0].prefix
-        let systemNameForFile = systemTypes.filter(systemType => params.systemType === systemType.type)[0].nameForFile
-        let legend = null
-        if (params.hasOwnProperty("bridgePresent")) {
-            if (("" !== params.bridgePresent) && (null !== params.bridgePresent) && (unknown !== params.bridgePresent)) {
-                if (params.bridgePresent) {
-                    legend = "bridge present"
-                } else {
-                    legend = "bridge not present"
-                }
-            }
-        }
-        let fileName = [devicePrefix + version
-            , [systemNameForFile, "Template"].join("_")
-            , legend
-            , params.locale]
-            .filter(elem => elem)
-            .join(" - ")
-
-        return fileName
-    }
-    return null
-}
-
-
-const global_fontSize = "10px"
-
-
-function injectMenu(parentElement, legend, items, selected, id, classAttr) {
-    //TODO: move to CSS: menuSelectElement.style.fontSize = 10
-    //console.log("menu\t" + id)
-    //console.log(items)
-    if (items) {
-        //console.log("items found!")
-        if (legend) {
-            //console.log("legend present!")
-            let menuLegendElement = document.createElement("legend")
-            menuLegendElement.textContent = legend
-            parentElement.appendChild(menuLegendElement)
-            menuLegendElement.style.fontSize = global_fontSize
-        }
-        let menuSelectElement = document.createElement("select")
-        menuSelectElement.id = id
-        if (classAttr) { menuSelectElement.setAttribute("class", classAttr) }
-        for (let item of items) {
-            //console.log(item)
-            //console.log(typeof items)
-            let menuOption = document.createElement("option")
-            if (("object" === typeof item) && (item.hasOwnProperty("value"))) {
-                menuOption.value = item.value
-                menuOption.textContent = item.legend
-                if (selected === item.value) { menuOption.setAttribute("selected", "selected") }
-            } else {
-                menuOption.value = item
-                menuOption.textContent = item
-                if (selected === item) { menuOption.setAttribute("selected", "selected") }
-            }
-            menuSelectElement.appendChild(menuOption)
-        }
-        parentElement.appendChild(menuSelectElement)
-        menuSelectElement.style.fontSize = global_fontSize
-        return menuSelectElement
-    }
-}
-
-function injectLanguageMenu(parentElement, id) {
-    return injectMenu(parentElement, "", ["en", "de", "es", "it", "fr", "nl"], "en", "language-menu-" + id, "language menu")
-}
-
-function injectDeviceMenu(parentElement, devices, selectedDevice, id) {
-    return injectMenu(parentElement, "", devices, selectedDevice, "device-menu-" + id, "device menu")
 }
 
 function injectActionElement(parentElement, legend, urlExpression, tagName, classValue) {
@@ -245,97 +155,52 @@ function injectActionElement(parentElement, legend, urlExpression, tagName, clas
     actionElement.setAttribute("class", classValue)
     actionElement.textContent = legend
     actionElement.setAttribute("onclick", `window.open(${urlExpression})`)
-    parentElement.appendChild(actionElement)
+    console.log("button added, onclick:",actionElement.getAttribute("onclick"), "url expression:", urlExpression )
     actionElement.style.fontSize = global_fontSize
+    
+    parentElement.appendChild(actionElement)
     return actionElement
 }
 
-function injectInterfaceAction(parentElement, system, interface, tbm) {
-    const docEndpoint = "https://script.google.com/a/tado.com/macros/s/AKfycbyyu3I8pzXvG92XDi2ct8xKfQ2b6fCP5ENX81KI2ryC/dev"
-    let flowEndpoint = chrome.runtime.getURL("index.html")
+function injectInterfaceAction(parentElement, system, interface) {
+    let endpoint = chrome.runtime.getURL("index.html")
     let params = {
-        systemId: system.id
-        , systemType: system.type
-        , manufacturer: system.manufacturer
-        , systemName: system.name
-        , interfaceCompatibilityId: interface.compatibilityId
-        , interfaceName: interface.name
-        , connectorName: interface.connectorName
-        //, locale: "en"
-        //, deviceId: tbmDeviceId
-        //, tbmId: tbmId
-        //, tbmLegend: legend
-        //, bridgePresent: bridgePresent
+        interface:{
+            id: interface.id
+            , name: interface.name
+            , connector: interface.connector
+            , terminalsAndLabels: interface.terminalsAndLabels
+        } 
     }
-
-    let defaultDevice = -1 !== ["roomThermostat", "remote"].indexOf(system.type)
-        ? 13 //BU01
-        : -1 !== ["roomThermostatReceiver", "auxiliaryControl", "boiler", "boilerControl", "boilerControlWithFitsIn"].indexOf(system.type)
-            ? 12 //RU01
-            : 12 //RU01
-    let urlExpression = ""
-
-    if (tbm) {
-        params.tbmId = tbm.id
-        if (tbm.hasOwnProperty("legend")) { params.tbmLegend = tbm.legend }
-        if (tbm.hasOwnProperty("bridgePresent")) { params.bridgePresent = tbm.bridgePresent }
-        if (tbm.hasOwnProperty("deviceLongName")) { params.deviceLongName = tbm.deviceLongName }
-        params.deviceId = tbm.deviceId
-        injectLanguageMenu(parentElement, `${interface.compatibilityId}-${tbm.id}`)
-        urlExpression += ` +'&locale=' + document.getElementById('language-menu-${interface.compatibilityId}-${tbm.id}').value`
-    } else {
-        let deviceMenuItems = devices
-            .sort((a, b) => a.boxHw < b.boxHw ? -1 : a.id - b.id)
-            .map(device => { return { value: device.id, legend: device.boxHw } })
-        injectDeviceMenu(parentElement, deviceMenuItems, defaultDevice, interface.compatibilityId)
-        urlExpression += ` +'&deviceId=' + document.getElementById('device-menu-${interface.compatibilityId}').value`
-        injectLanguageMenu(parentElement, interface.compatibilityId)
-        urlExpression += ` +'&locale=' + document.getElementById('language-menu-${interface.compatibilityId}').value`
-    }
-
-    let payload = encodeURI(Object.keys(params).map(paramName => [paramName, params[paramName]].join("=")).join("&"))
-
-    let docUrl = [docEndpoint, payload].join("?")
-    let flowUrl = [flowEndpoint, payload].join("?")
-    let flowUrlExpression = `'${flowUrl}'${urlExpression}`
-    let docUrlExpression = `'${docUrl}'${urlExpression}`
-
-    
-    injectActionElement(parentElement, "d", docUrlExpression, "button", "text-button")
-    injectActionElement(parentElement, "f", flowUrlExpression, "button", "text-button")
+    injectActionElement(parentElement, "labels...", `'${[endpoint, obj2payload(params)].join("?")}'`, "button", "text-button")
 }
 
-function loopInterfaces(system) {
+function obj2payload(obj){
+    return obj2payloadRecursive(obj)
+}
+
+function obj2payloadRecursive(obj, name){
+    if (("object" === typeof obj)&&(!Array.isArray(obj))){
+        return Object.keys(obj)
+            .filter( elem => {return elem} )
+            .map( elem => { return obj2payloadRecursive(obj[elem], [name, elem].filter( elem => {return elem }).join(".")) })
+            .join("&")
+    } else {
+        return [name, obj].join("=")
+    }
+}
+
+function injectInterfaceActionsAll(system) {
     if (system.hasOwnProperty("interfaces")) {
         for (let interface of system.interfaces) {
             if (!interface.name.match(/WIRELESS/)) {
-                let cssInterface = `div[class*=interface][data-id='${interface.compatibilityId}']`
-                let intNode = document.querySelector(cssInterface)
-                let noTbmNode = document.createElement("div")
-                noTbmNode.setAttribute("class", "interface-flow")
-                noTbmNode.style.borderWidth = "0.1px"
-                noTbmNode.style.borderColor = "#ffffff"//"#fbe895" //yellow "Sweet Corn"
-                noTbmNode.style.borderStyle = "solid"
-                let node1 = intNode.firstElementChild
-                node1.appendChild(noTbmNode)
-                injectInterfaceAction(noTbmNode, system, interface)
-
-                if (interface.hasOwnProperty("tbms")) {
-                    let tbmList = intNode.querySelectorAll("[class*=terminal-blocks-matchings] [class*=terminal-blocks-matching]")
-                    for (let tbmNode of tbmList) {
-                        let newTbmNode = document.createElement("div")
-                        newTbmNode.setAttribute("class", "interface-tbm-flow")
-                        newTbmNode.style.borderWidth = "0.1px"
-                        newTbmNode.style.borderColor = "#ffffff" //"#bcde88" //green "Yellow Green"
-                        newTbmNode.style.borderStyle = "solid"
-
-                        tbmNode.appendChild(newTbmNode)
-
-                        let url = tbmNode.querySelector("div[class*=terminal-blocks] > object[data]").getAttribute("data")
-                        let tbmNodeId = parseInt(url.match(/tbmId\=(\d+)/)[1])
-                        let tbmObj = interface.tbms.filter(tbm => { return tbmNodeId === tbm.id })[0]
-                        injectInterfaceAction(newTbmNode, system, interface, tbmObj)
-                    }
+                let cssInterface = `div[class*=interface][data-id='${interface.compatibilityId}'] div.interface-name`
+                let interfaceNode = document.querySelector(cssInterface)
+                console.log("Adding button to the interface", interface.name, interface.id, interface.compatibilityId, interfaceNode, cssInterface)
+                if (!interfaceNode){
+                    console.log("Cannot find CSS selector:", cssInterface)
+                } else {
+                    let lgButton = injectInterfaceAction(interfaceNode, system, interface ) 
                 }
             }
         }
@@ -348,16 +213,20 @@ console.log(
    | |                                            | |
    | |                                            | |
    | |                                            | |
-   | |            My content Script !             | |
+   | |            Content Script (svg)            | |
    | |                                            | |
    | |                                            | |
  __| |ds__________________________________________| |__
 (__   ____________________________________________   __)
    | |                                            | |`
 )
+if (document.querySelector("#id")){
+    document.title = parseInt(document.querySelector("#id").value) 
+    let system = getSystemInfoFromWindow()
+    console.log(system)
+    injectInterfaceActionsAll(system)
+} else {
+    console.log("Cannot find #id on the page. Wrong page?")
+}
 
-let systemId = parseInt(document.querySelector("#id").value)
-document.title = systemId 
-let endpoint = chrome.runtime.getURL("index.html")
-console.log(endpoint)
 }

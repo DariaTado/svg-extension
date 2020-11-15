@@ -1,13 +1,41 @@
   {
     "name": "svg-extension",
     "version": "1.0",
-    "description": "manipulates SVG",
+    "description": "displays svg",
     "permissions": [
       "activeTab",
-      "storage",
-      "webNavigation"
+      
+      "tabs"
     ],
+    "background": {
+      "scripts": ["background.js"],
+      "persistent": false
+    },
     "content_security_policy":"script-src 'self' https://kit.fontawesome.com/954d55f6cf.js; object-src 'self'",
+    "browser_action": {
+      "default_icon": {
+        "16": "images/cat-orange_16.png",
+      "24": "images/cat-orange_24.png",
+      "32": "images/cat-orange_32.png",
+      "48": "images/cat-orange_48.png",
+      "64": "images/cat-orange_64.png",
+      "128": "images/cat-orange_128.png",
+      "256": "images/cat-orange_256.png"
+      }
+    },
+    "web_accessible_resources": [
+      "index.html"
+    ],
+    "icons": {
+      "16": "images/cat-solid_16.png",
+      "24": "images/cat-solid_24.png",
+      "32": "images/cat-solid_32.png",
+      "48": "images/cat-solid_48.png",
+      "64": "images/cat-solid_64.png",
+      "128": "images/cat-solid_128.png",
+      "256": "images/cat-solid_256.png"
+    },
+    "manifest_version": 2,
     "content_scripts": [
       {
         "matches": [
@@ -49,21 +77,5 @@
           "contentScript.js"
         ]
       }
-    ],    
-    "web_accessible_resources": [
-      "index.html"
-      ,"svg/labling-BR.svg"
-      ,"svg/labling-BP.svg"
-      ,"svg/labling-RU.svg"
-    ],
-    "icons": {
-      "16": "images/cat-solid_16.png",
-      "24": "images/cat-solid_24.png",
-      "32": "images/cat-solid_32.png",
-      "48": "images/cat-solid_48.png",
-      "64": "images/cat-solid_64.png",
-      "128": "images/cat-solid_128.png",
-      "256": "images/cat-solid_256.png"
-    },
-    "manifest_version": 2
+    ]
   }

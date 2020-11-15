@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink= "http://www.w3.org/1999/xlink"
-      id="svg" version="1.0" width="846" height="530"
-      viewBox="0.00 0.00 423 265"
-      enable-background="new 0 0 423 265" x="0px" y="0px">
+      id="svg" version="1.0" width="470" height="530"
+      viewBox="0.00 0.00 235 265"
+      enable-background="new 0 0 235 265" x="0px" y="0px">
    <defs>
 	<style type="text/css">
 		<![CDATA[
@@ -22,63 +22,7 @@
    <circle cx="24" cy="24" r="22" stroke="#3A86AD" stroke-width="3"
     fill="transparent"></circle>
    <text text-anchor="middle" y="36" fill="#3A86AD" stroke="#3A86AD" stroke-width="2" stroke-miterlimit="10"
-      font-family="Journal" transform="scale(0.70 1)" x="34" font-size="34">NO</text>
-</g>
-
-<g title="system terminal label arrow">
-   <line x1="23.465" y1="47.123" x2="23.526" y2="112.953" fill="none" stroke="#3A86AD"
-       stroke-width="2" stroke-miterlimit="10" />
-   <polygon fill="#3A86AD" points="16.583,110.917 23.573,123 30.543,110.904"/>
-</g>
-
-<line x1="0" y1="100.457" x2="47" y2="100.457" fill="none" stroke="#333333" stroke-width="1.5" stroke-miterlimit="10"/>
-
-<g title="tado terminal sticker">
-   <rect x="0" y="174.5" fill="#999999" width="47" height="63.5" />
-
-   
-   <text text-anchor="middle" x="30" y="215" transform="scale(0.75 1)" fill="#FFFFFF" font-family="'HelveticaNeue-Bold'" font-size="15">NO</text>
-   
-   <rect x="4" y="115" rx="3" ry="3" width="39" height="119" fill="none" stroke="#333333" stroke-width="0.5" stroke-miterlimit="10"></rect>
-</g>
-
-<line x1="0" y1="264" x2="47" y2="264" fill="none" stroke="#333333" stroke-width="1.5" stroke-miterlimit="10" />
-
-</g><g transform="translate(47, 0)">
-      
-<g title="system terminal label">
-   <circle cx="24" cy="24" r="22" stroke="#3A86AD" stroke-width="3"
-   stroke-dasharray="5" fill="transparent"></circle>
-   <text text-anchor="middle" y="36" fill="#3A86AD" stroke="#3A86AD" stroke-width="2" stroke-miterlimit="10"
-      font-family="Journal" transform="scale(0.70 1)" x="34" font-size="34">NC</text>
-</g>
-
-<g title="system terminal label arrow">
-   <line x1="23.465" y1="47.123" x2="23.526" y2="112.953" fill="none" stroke="#3A86AD"
-      stroke-dasharray="5" stroke-width="2" stroke-miterlimit="10" />
-   <polygon fill="#3A86AD" points="16.583,110.917 23.573,123 30.543,110.904"/>
-</g>
-
-<line x1="0" y1="100.457" x2="47" y2="100.457" fill="none" stroke="#333333" stroke-width="1.5" stroke-miterlimit="10"/>
-
-<g title="tado terminal sticker">
-   <rect x="0" y="174.5" fill="#999999" width="47" height="63.5" />
-
-   
-   <text text-anchor="middle" x="30" y="215" transform="scale(0.75 1)" fill="#FFFFFF" font-family="'HelveticaNeue-Bold'" font-size="15">NC</text>
-   
-   <rect x="4" y="115" rx="3" ry="3" width="39" height="119" fill="none" stroke="#333333" stroke-width="0.5" stroke-miterlimit="10"></rect>
-</g>
-
-<line x1="0" y1="264" x2="47" y2="264" fill="none" stroke="#333333" stroke-width="1.5" stroke-miterlimit="10" />
-
-</g><g transform="translate(94, 0)">
-      
-<g title="system terminal label">
-   <circle cx="24" cy="24" r="22" stroke="#3A86AD" stroke-width="3"
-    fill="transparent"></circle>
-   <text text-anchor="middle" y="36" fill="#3A86AD" stroke="#3A86AD" stroke-width="2" stroke-miterlimit="10"
-      font-family="Journal" transform="scale(0.70 1)" x="34" font-size="34">COM</text>
+      font-family="Journal" transform="scale(0.70 1)" x="34" font-size="34">com</text>
 </g>
 
 <g title="system terminal label arrow">
@@ -100,21 +44,49 @@
 
 <line x1="0" y1="264" x2="47" y2="264" fill="none" stroke="#333333" stroke-width="1.5" stroke-miterlimit="10" />
 
-</g><g transform="translate(141, 0)">
+</g><g transform="translate(47, 0)">
       
 <g title="system terminal label">
    <circle cx="24" cy="24" r="22" stroke="#3A86AD" stroke-width="3"
-   stroke-dasharray="5" fill="transparent"></circle>
+    fill="transparent"></circle>
    <text text-anchor="middle" y="36" fill="#3A86AD" stroke="#3A86AD" stroke-width="2" stroke-miterlimit="10"
-      font-family="Journal" transform="scale(0.70 1)" x="34" font-size="34">P1</text>
+      font-family="Journal" transform="scale(0.70 1)" x="34" font-size="34">no</text>
 </g>
 
 <g title="system terminal label arrow">
    <line x1="23.465" y1="47.123" x2="23.526" y2="112.953" fill="none" stroke="#3A86AD"
-      stroke-dasharray="5" stroke-width="2" stroke-miterlimit="10" />
+       stroke-width="2" stroke-miterlimit="10" />
    <polygon fill="#3A86AD" points="16.583,110.917 23.573,123 30.543,110.904"/>
 </g>
 
+<line x1="0" y1="100.457" x2="47" y2="100.457" fill="none" stroke="#333333" stroke-width="1.5" stroke-miterlimit="10"/>
+
+<g title="tado terminal sticker">
+   <rect x="0" y="174.5" fill="#999999" width="47" height="63.5" />
+
+   
+   <text text-anchor="middle" x="30" y="215" transform="scale(0.75 1)" fill="#FFFFFF" font-family="'HelveticaNeue-Bold'" font-size="15">NO</text>
+   
+   <rect x="4" y="115" rx="3" ry="3" width="39" height="119" fill="none" stroke="#333333" stroke-width="0.5" stroke-miterlimit="10"></rect>
+</g>
+
+<line x1="0" y1="264" x2="47" y2="264" fill="none" stroke="#333333" stroke-width="1.5" stroke-miterlimit="10" />
+
+</g><g transform="translate(94, 0)">
+
+<g title="system terminal label">
+   <circle cx="24" cy="24" r="22" stroke="#3A86AD" stroke-width="3"
+    fill="transparent"></circle>
+   <text text-anchor="middle" y="36" fill="#3A86AD" stroke="#3A86AD" stroke-width="2" stroke-miterlimit="10"
+      font-family="Journal" transform="scale(0.70 1)" x="34" font-size="34">p1</text>
+</g>
+
+<g title="system terminal label arrow">
+   <line x1="23.465" y1="47.123" x2="23.526" y2="112.953" fill="none" stroke="#3A86AD"
+       stroke-width="2" stroke-miterlimit="10" />
+   <polygon fill="#3A86AD" points="16.583,110.917 23.573,123 30.543,110.904"/>
+</g>
+      
 <line x1="0" y1="100.457" x2="47" y2="100.457" fill="none" stroke="#333333" stroke-width="1.5" stroke-miterlimit="10"/>
 
 <g title="tado terminal sticker">
@@ -128,21 +100,21 @@
 
 <line x1="0" y1="264" x2="47" y2="264" fill="none" stroke="#333333" stroke-width="1.5" stroke-miterlimit="10" />
 
-</g><g transform="translate(188, 0)">
+</g><g transform="translate(141, 0)">
 
 <g title="system terminal label">
    <circle cx="24" cy="24" r="22" stroke="#3A86AD" stroke-width="3"
-   stroke-dasharray="5" fill="transparent"></circle>
+    fill="transparent"></circle>
    <text text-anchor="middle" y="36" fill="#3A86AD" stroke="#3A86AD" stroke-width="2" stroke-miterlimit="10"
-      font-family="Journal" transform="scale(0.70 1)" x="34" font-size="34">P2</text>
+      font-family="Journal" transform="scale(0.70 1)" x="34" font-size="34">p2</text>
 </g>
 
 <g title="system terminal label arrow">
    <line x1="23.465" y1="47.123" x2="23.526" y2="112.953" fill="none" stroke="#3A86AD"
-      stroke-dasharray="5" stroke-width="2" stroke-miterlimit="10" />
+       stroke-width="2" stroke-miterlimit="10" />
    <polygon fill="#3A86AD" points="16.583,110.917 23.573,123 30.543,110.904"/>
 </g>
-      
+
 <line x1="0" y1="100.457" x2="47" y2="100.457" fill="none" stroke="#333333" stroke-width="1.5" stroke-miterlimit="10"/>
 
 <g title="tado terminal sticker">
@@ -156,18 +128,18 @@
 
 <line x1="0" y1="264" x2="47" y2="264" fill="none" stroke="#333333" stroke-width="1.5" stroke-miterlimit="10" />
 
-</g><g transform="translate(235, 0)">
+</g><g transform="translate(188, 0)">
 
 <g title="system terminal label">
    <circle cx="24" cy="24" r="22" stroke="#3A86AD" stroke-width="3"
-   stroke-dasharray="5" fill="transparent"></circle>
+    fill="transparent"></circle>
    <text text-anchor="middle" y="36" fill="#3A86AD" stroke="#3A86AD" stroke-width="2" stroke-miterlimit="10"
-      font-family="Journal" transform="scale(0.70 1)" x="34" font-size="34">P3</text>
+      font-family="Journal" transform="scale(0.70 1)" x="34" font-size="34">p3</text>
 </g>
 
 <g title="system terminal label arrow">
    <line x1="23.465" y1="47.123" x2="23.526" y2="112.953" fill="none" stroke="#3A86AD"
-      stroke-dasharray="5" stroke-width="2" stroke-miterlimit="10" />
+       stroke-width="2" stroke-miterlimit="10" />
    <polygon fill="#3A86AD" points="16.583,110.917 23.573,123 30.543,110.904"/>
 </g>
       
@@ -178,84 +150,6 @@
 
    
    <text text-anchor="middle" x="30" y="215" transform="scale(0.75 1)" fill="#FFFFFF" font-family="'HelveticaNeue-Bold'" font-size="15">P3</text>
-   
-   <rect x="4" y="115" rx="3" ry="3" width="39" height="119" fill="none" stroke="#333333" stroke-width="0.5" stroke-miterlimit="10"></rect>
-</g>
-
-<line x1="0" y1="264" x2="47" y2="264" fill="none" stroke="#333333" stroke-width="1.5" stroke-miterlimit="10" />
-
-</g><g transform="translate(282, 0)">
-
-<g title="system terminal label">
-   <circle cx="24" cy="24" r="22" stroke="#3A86AD" stroke-width="3" fill="transparent"></circle>
-   <text text-anchor="middle" y="36" fill="#3A86AD" stroke="#3A86AD" stroke-width="2" stroke-miterlimit="10"
-      font-family="Journal" transform="scale(0.70 1)" x="34" font-size="34">A</text>
-</g>
-
-<g title="system terminal label arrow">
-   <line x1="23.465" y1="47.123" x2="23.526" y2="112.953" fill="none" stroke="#3A86AD" stroke-width="2" stroke-miterlimit="10" />
-   <polygon fill="#3A86AD" points="16.583,110.917 23.573,123 30.543,110.904"/>
-</g>
-      
-<line x1="0" y1="100.457" x2="47" y2="100.457" fill="none" stroke="#333333" stroke-width="1.5" stroke-miterlimit="10"/>
-
-<g title="tado terminal sticker">
-   <rect x="0" y="174.5" fill="#999999" width="47" height="63.5" />
-
-   
-   <text text-anchor="middle" x="30" y="215" transform="scale(0.75 1)" fill="#FFFFFF" font-family="'HelveticaNeue-Bold'" font-size="15">A</text>
-   
-   <rect x="4" y="115" rx="3" ry="3" width="39" height="119" fill="none" stroke="#333333" stroke-width="0.5" stroke-miterlimit="10"></rect>
-</g>
-
-<line x1="0" y1="264" x2="47" y2="264" fill="none" stroke="#333333" stroke-width="1.5" stroke-miterlimit="10" />
-
-</g><g transform="translate(329, 0)">
-
-<g title="system terminal label">
-   <circle cx="24" cy="24" r="22" stroke="#3A86AD" stroke-width="3" fill="transparent"></circle>
-   <text text-anchor="middle" y="36" fill="#3A86AD" stroke="#3A86AD" stroke-width="2" stroke-miterlimit="10"
-      font-family="Journal" transform="scale(0.70 1)" x="34" font-size="34">–</text>
-</g>
-
-<g title="system terminal label arrow">
-   <line x1="23.465" y1="47.123" x2="23.526" y2="112.953" fill="none" stroke="#3A86AD" stroke-width="2" stroke-miterlimit="10" />
-   <polygon fill="#3A86AD" points="16.583,110.917 23.573,123 30.543,110.904"/>
-</g>
-      
-<line x1="0" y1="100.457" x2="47" y2="100.457" fill="none" stroke="#333333" stroke-width="1.5" stroke-miterlimit="10"/>
-
-<g title="tado terminal sticker">
-   <rect x="0" y="174.5" fill="#999999" width="47" height="63.5" />
-
-   
-   <text text-anchor="middle" x="30" y="215" transform="scale(0.75 1)" fill="#FFFFFF" font-family="'HelveticaNeue-Bold'" font-size="15">-</text>
-   
-   <rect x="4" y="115" rx="3" ry="3" width="39" height="119" fill="none" stroke="#333333" stroke-width="0.5" stroke-miterlimit="10"></rect>
-</g>
-
-<line x1="0" y1="264" x2="47" y2="264" fill="none" stroke="#333333" stroke-width="1.5" stroke-miterlimit="10" />
-
-</g><g transform="translate(376, 0)">
-
-<g title="system terminal label">
-   <circle cx="24" cy="24" r="22" stroke="#3A86AD" stroke-width="3" fill="transparent"></circle>
-   <text text-anchor="middle" y="36" fill="#3A86AD" stroke="#3A86AD" stroke-width="2" stroke-miterlimit="10"
-      font-family="Journal" transform="scale(0.70 1)" x="34" font-size="34">+</text>
-</g>
-
-<g title="system terminal label arrow">
-   <line x1="23.465" y1="47.123" x2="23.526" y2="112.953" fill="none" stroke="#3A86AD" stroke-width="2" stroke-miterlimit="10" />
-   <polygon fill="#3A86AD" points="16.583,110.917 23.573,123 30.543,110.904"/>
-</g>
-
-<line x1="0" y1="100.457" x2="47" y2="100.457" fill="none" stroke="#333333" stroke-width="1.5" stroke-miterlimit="10"/>
-
-<g title="tado terminal sticker">
-   <rect x="0" y="174.5" fill="#999999" width="47" height="63.5" />
-
-   
-   <text text-anchor="middle" x="30" y="215" transform="scale(0.75 1)" fill="#FFFFFF" font-family="'HelveticaNeue-Bold'" font-size="15">+</text>
    
    <rect x="4" y="115" rx="3" ry="3" width="39" height="119" fill="none" stroke="#333333" stroke-width="0.5" stroke-miterlimit="10"></rect>
 </g>
