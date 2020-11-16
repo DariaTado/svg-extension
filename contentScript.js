@@ -130,17 +130,33 @@ function getSystemInfoFromWindow() {
             interface.name = interfaceNode.querySelector("div.interface-name a").textContent
             interface.connectorName = interfaceNode.querySelector("div.connector input[data-field=connector][value]").getAttribute("value")
             
+            let cssSelectorTerminalsAndLabels = `div[class*=interface][data-id='${interface.compatibilityId}'] div.connectorFieldsAndValues div[class*=connectorFieldsColumn]:nth-child(2) [class=connector-field-props][data-field-name]` 
+
             
             let terminalsAndLabels = Array.from(
-                    document.querySelectorAll(`div[class*=interface][data-id='${interface.compatibilityId}'] div.connectorFieldsAndValues div[class*=connectorFieldsColumn]:nth-child(2) [class=connector-field-props][data-field-name]`)
+                    document.querySelectorAll(cssSelectorTerminalsAndLabels)
                     )
                 .map( elem => { return { [elem.getAttribute("data-field-name")]: elem.querySelector("[class=connector-field-value]").textContent }} )
                 .reduce( (acc, cur) => {
                     acc[Object.keys(cur)[0]] = cur[Object.keys(cur)[0]]
                     return acc
                 }, {})
+
+            if (0 === Object.keys(terminalsAndLabels).length){
+                cssSelectorTerminalsAndLabels = `div[class*=interface][data-id='${interface.compatibilityId}'] div.connectorFieldsAndValues div[class*=connectorFieldsColumn]:nth-child(1) [class=connector-field-props][data-field-name]`
+
+                terminalsAndLabels = Array.from(
+                    document.querySelectorAll(cssSelectorTerminalsAndLabels)
+                    )
+                .map( elem => { return { [elem.getAttribute("data-field-name")]: elem.querySelector("[class=connector-field-value]").textContent }} )
+                .reduce( (acc, cur) => {
+                    acc[Object.keys(cur)[0]] = cur[Object.keys(cur)[0]]
+                    return acc
+                }, {})
+            }
+
             interface.terminalsAndLabels = terminalsAndLabels
-            console.log(interface.name, interface.terminalsAndLabels)
+            console.log(interface.name, interface.terminalsAndLabels, cssSelectorTerminalsAndLabels)
             
             interfaces.push(interface)
             interfaceIndex++

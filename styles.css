@@ -22,3 +22,10 @@ h2 {
     color: #3d7eb0;
     font-weight: bold;
 }
+
+.footer{
+    color: #999999;
+    font-weight: bold;
+    display: table;
+  margin: 0 auto;
+}

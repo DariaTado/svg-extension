@@ -1,26 +1,27 @@
   {
     "name": "svg-extension",
-    "version": "1.0",
-    "description": "displays svg",
+    "version": "1.1",
+    "description": "tado° Label Generator",
     "permissions": [
       "activeTab",
-      
       "tabs"
     ],
     "background": {
-      "scripts": ["background.js"],
+      "scripts": [
+        "background.js"
+      ],
       "persistent": false
     },
-    "content_security_policy":"script-src 'self' https://kit.fontawesome.com/954d55f6cf.js; object-src 'self'",
+    "content_security_policy": "script-src 'self' ; object-src 'self'",
     "browser_action": {
       "default_icon": {
         "16": "images/cat-orange_16.png",
-      "24": "images/cat-orange_24.png",
-      "32": "images/cat-orange_32.png",
-      "48": "images/cat-orange_48.png",
-      "64": "images/cat-orange_64.png",
-      "128": "images/cat-orange_128.png",
-      "256": "images/cat-orange_256.png"
+        "24": "images/cat-orange_24.png",
+        "32": "images/cat-orange_32.png",
+        "48": "images/cat-orange_48.png",
+        "64": "images/cat-orange_64.png",
+        "128": "images/cat-orange_128.png",
+        "256": "images/cat-orange_256.png"
       }
     },
     "web_accessible_resources": [
@@ -39,39 +40,38 @@
     "content_scripts": [
       {
         "matches": [
-          "https://ci-hvactool.tado.com/auxiliaryControl/search/*"
-          , "https://ci-hvactool.tado.com/auxiliaryControl/show/*"
-          , "https://ci-hvactool.tado.com/boilerControl/search/*"
-          , "https://ci-hvactool.tado.com/boilerControl/show/*"
-          , "https://ci-hvactool.tado.com/boilerControlWithFitsIn/search/*"
-          , "https://ci-hvactool.tado.com/boilerControlWithFitsIn/show/*"
-          , "https://ci-hvactool.tado.com/boiler/search/*"
-          , "https://ci-hvactool.tado.com/boiler/show/*"
-          , "https://ci-hvactool.tado.com/genericSystem/search/*"
-          , "https://ci-hvactool.tado.com/genericSystem/show/*"
-          , "https://ci-hvactool.tado.com/remote/search/*"
-          , "https://ci-hvactool.tado.com/remote/show/*"
-          , "https://ci-hvactool.tado.com/roomThermostatReceiver/search/*"
-          , "https://ci-hvactool.tado.com/roomThermostatReceiver/show/*"
-          , "https://ci-hvactool.tado.com/roomThermostat/search/*"
-          , "https://ci-hvactool.tado.com/roomThermostat/show/*"
-          
-          , "https://hvactool.tado.com/auxiliaryControl/search/*"
-          , "https://hvactool.tado.com/auxiliaryControl/show/*"
-          , "https://hvactool.tado.com/boilerControl/search/*"
-          , "https://hvactool.tado.com/boilerControl/show/*"
-          , "https://hvactool.tado.com/boilerControlWithFitsIn/search/*"
-          , "https://hvactool.tado.com/boilerControlWithFitsIn/show/*"
-          , "https://hvactool.tado.com/boiler/search/*"
-          , "https://hvactool.tado.com/boiler/show/*"
-          , "https://hvactool.tado.com/genericSystem/search/*"
-          , "https://hvactool.tado.com/genericSystem/show/*"
-          , "https://hvactool.tado.com/remote/search/*"
-          , "https://hvactool.tado.com/remote/show/*"
-          , "https://hvactool.tado.com/roomThermostatReceiver/search/*"
-          , "https://hvactool.tado.com/roomThermostatReceiver/show/*"
-          , "https://hvactool.tado.com/roomThermostat/search/*"
-          , "https://hvactool.tado.com/roomThermostat/show/*"
+          "https://ci-hvactool.tado.com/auxiliaryControl/search/*",
+          "https://ci-hvactool.tado.com/auxiliaryControl/show/*",
+          "https://ci-hvactool.tado.com/boilerControl/search/*",
+          "https://ci-hvactool.tado.com/boilerControl/show/*",
+          "https://ci-hvactool.tado.com/boilerControlWithFitsIn/search/*",
+          "https://ci-hvactool.tado.com/boilerControlWithFitsIn/show/*",
+          "https://ci-hvactool.tado.com/boiler/search/*",
+          "https://ci-hvactool.tado.com/boiler/show/*",
+          "https://ci-hvactool.tado.com/genericSystem/search/*",
+          "https://ci-hvactool.tado.com/genericSystem/show/*",
+          "https://ci-hvactool.tado.com/remote/search/*",
+          "https://ci-hvactool.tado.com/remote/show/*",
+          "https://ci-hvactool.tado.com/roomThermostatReceiver/search/*",
+          "https://ci-hvactool.tado.com/roomThermostatReceiver/show/*",
+          "https://ci-hvactool.tado.com/roomThermostat/search/*",
+          "https://ci-hvactool.tado.com/roomThermostat/show/*",
+          "https://hvactool.tado.com/auxiliaryControl/search/*",
+          "https://hvactool.tado.com/auxiliaryControl/show/*",
+          "https://hvactool.tado.com/boilerControl/search/*",
+          "https://hvactool.tado.com/boilerControl/show/*",
+          "https://hvactool.tado.com/boilerControlWithFitsIn/search/*",
+          "https://hvactool.tado.com/boilerControlWithFitsIn/show/*",
+          "https://hvactool.tado.com/boiler/search/*",
+          "https://hvactool.tado.com/boiler/show/*",
+          "https://hvactool.tado.com/genericSystem/search/*",
+          "https://hvactool.tado.com/genericSystem/show/*",
+          "https://hvactool.tado.com/remote/search/*",
+          "https://hvactool.tado.com/remote/show/*",
+          "https://hvactool.tado.com/roomThermostatReceiver/search/*",
+          "https://hvactool.tado.com/roomThermostatReceiver/show/*",
+          "https://hvactool.tado.com/roomThermostat/search/*",
+          "https://hvactool.tado.com/roomThermostat/show/*"
         ],
         "js": [
           "contentScript.js"
