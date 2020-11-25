@@ -342,6 +342,7 @@ console.log(">>>>> Window url and input parameters:", JSON.stringify({
 //
 // Global variables, sorry
 //
+const pictureNames = ["labeling", "connect"]
 const menus = {} //menus will be generated later, onload of every SVG
 //prepare empty stickers with real tadoLabel names
 const allDeviceStickers = Object.keys(tadoStickers).reduce((accDevices, curDevice) => {
@@ -365,10 +366,10 @@ if (urlParams && (0 < Object.keys(urlParams).length)) {
             return accObj
         } ,{})
     for (let device in tadoStickers) {
-        let matchedStickers = matchDeviceWithSystemTerminalsAndLabels(device, notEmptyTerminalsAndLabels)
+        let matchedTadoLabels = matchDeviceWithSystemTerminalsAndLabels(device, notEmptyTerminalsAndLabels)
         //copy matched Stickers to the empty global sticker
-        for (let tadoLabel in matchedStickers) {
-            allDeviceStickers[device][tadoLabel] = matchedStickers[tadoLabel]
+        for (let matchedTadoLabel in matchedTadoLabels) {
+            allDeviceStickers[device][matchedTadoLabel] = matchedTadoLabels[matchedTadoLabel]
         }
         console.log(device, "sticker ==>", allDeviceStickers[device])
     }
@@ -389,173 +390,193 @@ for (let device of devices) {
         return allDeviceStickers[device][stickerName]
     }).length)) {
         //console.log("Device", device)
-        let deviceRoot = document.createElement("div")
-        deviceRoot.className = "device"
-        deviceRoot.id = [deviceRoot.className, device].join("-")
-        root.appendChild(deviceRoot)
+        let deviceContainer = document.createElement("div")
+        deviceContainer.className = "device-container"
+        deviceContainer.id = [deviceContainer.className, device].join("-")
+        root.appendChild(deviceContainer)
 
-        let heading = document.createElement("h2")
-        heading.textContent = device
-        deviceRoot.appendChild(heading)
+        let deviceHeading = document.createElement("h2")
+        deviceHeading.className = "device-heading"
+        deviceHeading.textContent = device
+        deviceContainer.appendChild(deviceHeading)
 
-        let top = document.createElement("div")
-        top.className = "menu wrapper"
-        top.id = [top.className, device].join("-")
-        deviceRoot.appendChild(top)
+        let menuContainer = document.createElement("div")
+        menuContainer.className = "menu-container"
+        menuContainer.id = [menuContainer.className, device].join("-")
+        deviceContainer.appendChild(menuContainer)
 
-        let svg = document.createElement("object")
-        svg.className = "svg"
-        svg.id = [svg.className, device].join("-")
-        //type="image/svg+xml" width="680" height="840"
-        svg.type = "image/svg+xml"
-        svg.width = 2 * 340
-        svg.height = 2 * 420
-        svg.data = `svg/labeling-${device.toUpperCase()}.svg`
-        //console.log("Inserting SVG from:", svg.data)
+        let pictures = document.createElement("div") // deviceRoot > h2, 
+        pictures.id = ["pictures", device].join("-")
+        pictures.className = "pictures-container"
+        deviceContainer.appendChild(pictures)
 
-        svg.onload = function () {
-            //console.log(`svg.onload fired, element.id:`, this.id);
-            console.log("onload", device)
-            let stickerNodes = this.contentDocument.querySelectorAll("g[transform*=translate] g[title*='terminal sticker']")
-            if (tadoStickers[device].length === stickerNodes.length) {
-                //console.log(device, "Generating menu from the SVG...")
-                let tsi = 0
-                //get actual info from the SVG sticker file ---> fill actual info into the 'menus' global structure
-                menus[device] = {}
-                for (let tadoSticker of tadoStickers[device]) {
-                    let x = stickerNodes[tsi].parentNode.getAttribute("transform").match(/translate\(\s*(\d+)\s*\,\s*(\d+)\s*\)/)[1]
-                    //circle, label, arrow
-                    let circle = stickerNodes[tsi].parentNode.querySelector("circle")
-                    let writing = stickerNodes[tsi].parentNode.querySelector("text")
-                    let arrowLine = stickerNodes[tsi].parentNode.querySelector("g[title='system terminal label arrow'] line")
-                    let arrowTip = stickerNodes[tsi].parentNode.querySelector("g[title='system terminal label arrow'] polygon")
-                    let labelGroup = stickerNodes[tsi].parentNode.querySelector("g[title*='system terminal label'")
-                    let arrowGroup = stickerNodes[tsi].parentNode.querySelector("g[title='system terminal label arrow']")
-                    let menuElem = {
-                        label: writing ? writing.textContent : null
-                        , present: circle ? true : false
-                        , dashed: circle ? circle.getAttribute("stroke-dasharray") ? true : false : false
-                        , x: x
-                        , hideSticker: false
-                        , writing: writing
-                        , circle: circle
-                        , labelGroup: labelGroup
-                        , arrowGroup: arrowGroup
-                        , arrowLine: arrowLine
-                        , arrowTip: arrowTip
-                        , group: stickerNodes[tsi].parentNode
-                    }
-                    menus[device][tadoSticker] = menuElem
-                    if (!useDefault) {
-                        if (allDeviceStickers[device][tadoSticker]) {
-                            menus[device][tadoSticker].label = allDeviceStickers[device][tadoSticker].writing
-                            menus[device][tadoSticker].present = true
-                            menus[device][tadoSticker].dashed = allDeviceStickers[device][tadoSticker].optional
-                            menus[device][tadoSticker].matchedTo = allDeviceStickers[device][tadoSticker].matchedWith
-                        } else {
-                            menus[device][tadoSticker].label = null
-                            menus[device][tadoSticker].present = false
-                            menus[device][tadoSticker].dashed = isTerminalOptional(device, tadoSticker)
+        
+        for (let pictureName of pictureNames){
+            let svgFileUrl = `svg/${pictureName}-${device.toUpperCase()}.svg`
+            let svgContainer = document.createElement("div")
+            svgContainer.className = "svg-container"
+            svgContainer.id = [svgContainer.className, device].join("-")
+            deviceContainer.appendChild(svgContainer)
+            //SVG download link
+            let downloadLink = document.createElement("a")
+            downloadLink.className="download-link"
+            downloadLink.id = ["downloadLink", device].join("-")
+            downloadLink.textContent = "download..."
+            downloadLink.download = svgFileUrl.split("/")[svgFileUrl.split("/").length - 1]
+            downloadLink.style.display = "none"
+            
+            //SVG itself
+            let svg = document.createElement("object")
+            svg.className = "svg"
+            svg.id = [svg.className, device].join("-")
+            //type="image/svg+xml" width="680" height="840"
+            svg.type = "image/svg+xml"
+            svg.width = 2 * 340
+            svg.height = 2 * 420
+            svg.data = svgFileUrl
+            //console.log("Inserting SVG from:", svg.data)
+            svgContainer.appendChild(downloadLink)
+            svgContainer.appendChild(svg)
+            //console.log("Inserted SVG from:", svg.data)
+            svg.onload = function () {
+                console.log("onload", device)
+                //read SVG elements for each tado label
+                let stickerNodes = this.contentDocument.querySelectorAll("g[transform*=translate] g[title*='terminal sticker']")
+                if (tadoStickers[device].length === stickerNodes.length) {
+                    let tsi = 0 //tado sticker index
+                    menus[device] = {}
+                    //read SVG elements of the corresponding SYSTEM label (circle, text, arrow)
+                    for (let tadoSticker of tadoStickers[device]) {
+                        let x = stickerNodes[tsi].parentNode.getAttribute("transform").match(/translate\(\s*(\d+)\s*\,\s*(\d+)\s*\)/)[1]
+                        //circle, label, arrow
+                        let circle = stickerNodes[tsi].parentNode.querySelector("circle")
+                        let writing = stickerNodes[tsi].parentNode.querySelector("text")
+                        let arrowLine = stickerNodes[tsi].parentNode.querySelector("g[title='system terminal label arrow'] line")
+                        let arrowTip = stickerNodes[tsi].parentNode.querySelector("g[title='system terminal label arrow'] polygon")
+                        let labelGroup = stickerNodes[tsi].parentNode.querySelector("g[title*='system terminal label'")
+                        let arrowGroup = stickerNodes[tsi].parentNode.querySelector("g[title='system terminal label arrow']")
+                        let menuElem = {
+                            label: writing ? writing.textContent : null
+                            , present: circle ? true : false
+                            , dashed: circle ? circle.getAttribute("stroke-dasharray") ? true : false : false
+                            , x: x
+                            , hideSticker: false
+                            , writing: writing
+                            , circle: circle
+                            , labelGroup: labelGroup
+                            , arrowGroup: arrowGroup
+                            , arrowLine: arrowLine
+                            , arrowTip: arrowTip
+                            , group: stickerNodes[tsi].parentNode
                         }
+                        menus[device][tadoSticker] = menuElem
+                        if (!useDefault) {
+                            if (allDeviceStickers[device][tadoSticker]) {
+                                menus[device][tadoSticker].label = allDeviceStickers[device][tadoSticker].writing
+                                menus[device][tadoSticker].present = true
+                                menus[device][tadoSticker].dashed = allDeviceStickers[device][tadoSticker].optional
+                                menus[device][tadoSticker].matchedTo = allDeviceStickers[device][tadoSticker].matchedWith
+                            } else {
+                                menus[device][tadoSticker].label = null
+                                menus[device][tadoSticker].present = false
+                                menus[device][tadoSticker].dashed = isTerminalOptional(device, tadoSticker)
+                            }
+                        }
+
+                        tsi++
                     }
+                    //console.log("Result menu content (before menu rendering)", menus[device])
 
-                    tsi++
-                }
-                //console.log("Result menu content (before menu rendering)", menus[device])
-                //Render physical menu elements and fill with actual info from 'menus' structure
-                let myMenu = svg.parentElement.getElementsByClassName("menu")[0]
-                if (0 < Object.keys(menus[device]).length) {
-                    //let table = document.createElement("table")
-                    //table.style.backgroundColor = "red"
-                    //myMenu.appendChild(table)
-                    //let tableRow = document.createElement("tr")
-                    //table.appendChild(tableRow)
-
-                    for (let tadoSticker in menus[device]) {
-                        let menuItemId = ["menuItem", device, tadoSticker].join("-")
-                        let menuItem = menus[device][tadoSticker]
-                        let cell = document.createElement("div")
-                        cell.id = menuItemId
-                        myMenu.appendChild(cell)
-
-                        let writingLabel = document.createElement("label")
-                        writingLabel.className = "tadoLabel tado-terminal-label"
-                        writingLabel.textContent = getFriendlyName(device, tadoSticker)
-                        cell.appendChild(writingLabel)
-                        let inputWriting = document.createElement("input")
-                        inputWriting.type = "text"
-                        inputWriting.value = menuItem.label
-                        inputWriting.id = [menuItemId, "writing"].join("-")
-                        inputWriting.className = "input-writing"
-                        //inputWriting.onchange=onWritingChange
-                        //inputWriting.onkeyup=onWritingKeyUp
-                        //inputWriting.onpaste=onWritingPaste
-                        inputWriting.oninput = onWritingInput
-                        cell.appendChild(inputWriting)
-                        writingLabel.for = inputWriting.id
-
-                        let dashedGroup = document.createElement("div")
-
-                        let inputDashed = document.createElement("input");
-                        inputDashed.type = "checkbox";
-                        inputDashed.checked = menuItem.dashed
-                        inputDashed.id = [menuItemId, "dashed"].join("-")
-                        inputDashed.oninput = onDashedInput
-
-                        let dashedLabel = document.createElement("label")
-                        dashedLabel.textContent = "dash:"
-                        dashedLabel.for = inputDashed.id
-
-                        dashedGroup.appendChild(dashedLabel)
-                        dashedGroup.appendChild(inputDashed)
-                        cell.appendChild(dashedGroup)
-
-                        let hideStickerGroup = document.createElement("div")
-
-                        let inputHideSticker = document.createElement("input");
-                        inputHideSticker.type = "checkbox";
-                        inputHideSticker.id = [menuItemId, "hideSticker"].join("-")
-                        inputHideSticker.checked = menuItem.hideSticker
-                        inputHideSticker.oninput = onHideStickerInput
-
-                        let hideStickerLabel = document.createElement("label")
-                        hideStickerLabel.textContent = "hide:"
-                        hideStickerLabel.for = inputHideSticker.id
-
-                        hideStickerGroup.appendChild(hideStickerLabel)
-                        hideStickerGroup.appendChild(inputHideSticker)
-                        cell.appendChild(hideStickerGroup)
-                    }
-                } else { console.log(device, "has no menu") }
-
-                //apply data from the URL's input params to the SVG
-                if (allDeviceStickers && allDeviceStickers[device]) {
+                    //Render physical menu elements and fill with actual info from 'menus' structure
                     if (0 < Object.keys(menus[device]).length) {
                         for (let tadoSticker in menus[device]) {
                             let menuItemId = ["menuItem", device, tadoSticker].join("-")
-                            let writingElemId = [menuItemId, "writing"].join("-")
-                            let dashElemId = [menuItemId, "dashed"].join("-")
-                            let writingInput = document.getElementById(writingElemId)
-                            writingInput.value = menus[device][tadoSticker].label
-                            let dashInput = document.getElementById(dashElemId)
-                            dashInput.checked = menus[device][tadoSticker].dashed
-                            updateWritingFromInput(writingInput)
-                            updateDashFromInputElement(dashInput)
+                            let menuItem = menus[device][tadoSticker]
+                            let cell = document.createElement("div")
+                            cell.id = menuItemId
+                            menuContainer.appendChild(cell)
+
+                            let writingLabel = document.createElement("label")
+                            writingLabel.className = "tadoLabel tado-terminal-label"
+                            writingLabel.textContent = getFriendlyName(device, tadoSticker)
+                            cell.appendChild(writingLabel)
+                            let inputWriting = document.createElement("input")
+                            inputWriting.type = "text"
+                            inputWriting.value = menuItem.label
+                            inputWriting.id = [menuItemId, "writing"].join("-")
+                            inputWriting.className = "input-writing"
+                            //inputWriting.onchange=onWritingChange
+                            //inputWriting.onkeyup=onWritingKeyUp
+                            //inputWriting.onpaste=onWritingPaste
+                            inputWriting.oninput = onWritingInput
+                            cell.appendChild(inputWriting)
+                            writingLabel.for = inputWriting.id
+
+                            let dashedGroup = document.createElement("div")
+
+                            let inputDashed = document.createElement("input");
+                            inputDashed.type = "checkbox";
+                            inputDashed.checked = menuItem.dashed
+                            inputDashed.id = [menuItemId, "dashed"].join("-")
+                            inputDashed.oninput = onDashedInput
+
+                            let dashedLabel = document.createElement("label")
+                            dashedLabel.textContent = "dash:"
+                            dashedLabel.for = inputDashed.id
+
+                            dashedGroup.appendChild(dashedLabel)
+                            dashedGroup.appendChild(inputDashed)
+                            cell.appendChild(dashedGroup)
+
+                            let hideStickerGroup = document.createElement("div")
+
+                            let inputHideSticker = document.createElement("input");
+                            inputHideSticker.type = "checkbox";
+                            inputHideSticker.id = [menuItemId, "hideSticker"].join("-")
+                            inputHideSticker.checked = menuItem.hideSticker
+                            inputHideSticker.oninput = onHideStickerInput
+
+                            let hideStickerLabel = document.createElement("label")
+                            hideStickerLabel.textContent = "hide:"
+                            hideStickerLabel.for = inputHideSticker.id
+
+                            hideStickerGroup.appendChild(hideStickerLabel)
+                            hideStickerGroup.appendChild(inputHideSticker)
+                            cell.appendChild(hideStickerGroup)
                         }
                     } else { console.log(device, "has no menu") }
-                } else {
-                    console.log("Script did not generate any sticker the device:", device)
-                }
-            } else {
-                console.log(device, "lengths do not match")
-                console.log(device, "tadoStickers", tadoStickers[device].length, "svg stickers", stickerNodes.length)
-                console.log(device, "tadoStickers", tadoStickers[device], "svg stickers", stickerNodes)
-            }
 
-        } // end of svg.onload() function
-        deviceRoot.appendChild(svg)
+                    //apply data from the URL's input params to the SVG
+                    if (allDeviceStickers && allDeviceStickers[device]) {
+                        if (0 < Object.keys(menus[device]).length) {
+                            for (let tadoSticker in menus[device]) {
+                                let menuItemId = ["menuItem", device, tadoSticker].join("-")
+                                let writingElemId = [menuItemId, "writing"].join("-")
+                                let dashElemId = [menuItemId, "dashed"].join("-")
+                                let writingInput = document.getElementById(writingElemId)
+                                writingInput.value = menus[device][tadoSticker].label
+                                let dashInput = document.getElementById(dashElemId)
+                                dashInput.checked = menus[device][tadoSticker].dashed
+                                updateWritingFromInput(writingInput)
+                                updateDashFromInputElement(dashInput)
+                            }
+                        } else { console.log(device, "has no menu") }
+                    } else {
+                        console.log("Script did not generate any sticker the device:", device)
+                    }
+                } else {
+                    console.log(device, "lengths do not match")
+                    console.log(device, "tadoStickers", tadoStickers[device].length, "svg stickers", stickerNodes.length)
+                    console.log(device, "tadoStickers", tadoStickers[device], "svg stickers", stickerNodes)
+                }
+                //SVG download link
+                //downloadLink.href = 'data:image/svg+xml;base64,' + encodeURIComponent((new XMLSerializer).serializeToString(svg))
+                //downloadLink.style.display = ""
+
+            } // end of svg.onload() function
+        }
     } else {
-        console.log("Skipping SVG for:", device)
+        console.log("useDefault or sticker data has not been generated for device:", device)
     }
 }
 

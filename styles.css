@@ -1,4 +1,4 @@
-.wrapper {
+.menu-container {
     display: grid;
     grid-template-columns: repeat(auto-fill, 47px);
     gap: 10px;
