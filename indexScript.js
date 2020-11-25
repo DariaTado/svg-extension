@@ -426,19 +426,19 @@ for (let device of devices) {
             downloadLink.style.display = "none"
             
             //SVG itself
-            let svg = document.createElement("object")
-            svg.className = "svg"
-            svg.id = [svg.className, device].join("-")
+            let svgObject = document.createElement("object")
+            svgObject.className = "svg"
+            svgObject.id = [svgObject.className, device].join("-")
             //type="image/svg+xml" width="680" height="840"
-            svg.type = "image/svg+xml"
-            svg.width = 2 * 340
-            svg.height = 2 * 420
-            svg.data = svgFileUrl
+            svgObject.type = "image/svg+xml"
+            svgObject.width = 2 * 340
+            svgObject.height = 2 * 420
+            svgObject.data = svgFileUrl
             //console.log("Inserting SVG from:", svg.data)
             svgContainer.appendChild(downloadLink)
-            svgContainer.appendChild(svg)
+            svgContainer.appendChild(svgObject)
             //console.log("Inserted SVG from:", svg.data)
-            svg.onload = function () {
+            svgObject.onload = function () {
                 console.log("onload", device)
                 //read SVG elements for each tado label
                 let stickerNodes = this.contentDocument.querySelectorAll("g[transform*=translate] g[title*='terminal sticker']")
@@ -570,8 +570,25 @@ for (let device of devices) {
                     console.log(device, "tadoStickers", tadoStickers[device], "svg stickers", stickerNodes)
                 }
                 //SVG download link
-                //downloadLink.href = 'data:image/svg+xml;base64,' + encodeURIComponent((new XMLSerializer).serializeToString(svg))
-                //downloadLink.style.display = ""
+                let svg = svgObject.contentDocument.getElementById("svg")
+                console.log(svg)
+                let serializer = new XMLSerializer()
+                let source = serializer.serializeToString(svg)
+                if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
+                    source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+                }
+                if (!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
+                    source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
+                }
+
+                //add xml declaration
+                source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
+
+                //convert svg source to URI data scheme.
+                var url = "data:image/svg+xml;charset=utf-8,"+encodeURIComponent(source);
+
+                downloadLink.href = url
+                downloadLink.style.display = ""
 
             } // end of svg.onload() function
         }
