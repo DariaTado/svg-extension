@@ -1,6 +1,6 @@
   {
     "name": "svg-extension",
-    "version": "1.2",
+    "version": "1.3",
     "description": "tado° Label Generator",
     "permissions": [
       "activeTab",
