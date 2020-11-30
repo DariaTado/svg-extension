@@ -5,6 +5,13 @@
     grid-auto-rows: minmax(100px, auto);    
 }
 
+.pictures-container {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    
+}
+
 h1 {
     color: #999999;
 }

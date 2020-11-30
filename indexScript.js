@@ -3,13 +3,21 @@ const isVerboseHideSticker = false
 const isVerboseDashed = false
 const isVerboseWriting = false
 const devices = ["BP", "BR", "BU", "RU", "LT", "TC"]
-const tadoStickers = {
+const deviceTerminals = {
     "BP": ["N", "L", "CH_COM", "CH_NC", "CH_NO", "HW_COM", "HW_NC", "HW_NO", "EARTH", "P1", "P2"],
     "BR": ["N", "L", "COM", "NC", "NO", "P1", "P2", "P3", "AnalogOut_A", "GND_B", "VCC_C"],
     "BU": ["N", "L", "NC2", "NC1", "NO2", "NO1", "AnalogOut_A", "GND_B", "VCC_C"],
     "RU": ["NO", "NC", "COM", "P1", "P2", "P3", "AnalogOut_A", "GND_B", "VCC_C"],
     "TC": ["COM", "NO", "P1", "P2", "P3"],
     "LT": ["NO", "NC", "COM", "P1", "P2", "P3"]
+}
+const defaultLabels = {
+    "BP": {"N":"N", "L":"L" ,"CH_NC":"2", "CH_NO":"4",  "HW_NC":"1", "HW_NO":"3", "EARTH":"\u23DA;"},
+    "BR": { "COM":"COM", "NO":"NO" },
+    "BU": {"N":"N", "L":"L", "NC2":"1", "NC1":"2", "NO2":"3", "NO1":"4"},
+    "RU": {"NO":"NO", "NC":"NC", "COM":"L", "P1":"N"},
+    "TC": {"COM":"COM", "NO":"NO", "P1":"L", "P2":"N"},
+    "LT": {"NO":"NO", "COM":"COM", "P1":"L", "P2":"N"}
 }
 const friendlyNames = {
     "BP": ["N", "L", "CH_COM", "CH_NC", "CH_NO", "HW_COM", "HW_NC", "HW_NO", "EARTH", "P1", "P2"],
@@ -28,6 +36,7 @@ const friendlyWritings = {
     "LT": ["NO", "NC", "COM", "P1", "P2", "P3"]
 }
 
+
 function addOrSetProperty(obj, nameStr, value) {
     //console.log("adding or setting property of", obj, nameStr, value)
     let names = nameStr.split(".")
@@ -43,8 +52,31 @@ function addOrSetProperty(obj, nameStr, value) {
     }
 }
 
+const connectLabel2tadoStickerMap = {
+    BP: {
+        LabelN: "N"
+        , LabelL: "L"
+        , LabelCHCOM: "CH_COM"
+        , LabelCHNC: "CH_NC"
+        , LabelCHNO: "CH_NO"
+        , LabelHWCOM: "HW_COM"
+        , LabelHWNC: "HW_NC"
+        , LabelHWNO: "HW_NO"
+        , LabelGround: "EARTH"
+    }
+
+}
+function getTadoStickerByConnectLabel(device, label){
+    if (connectLabel2tadoStickerMap.hasOwnProperty(device)){
+        if (connectLabel2tadoStickerMap[device].hasOwnProperty(label)){
+            return connectLabel2tadoStickerMap[device][label]
+        }
+    }
+    return null
+}
+
 function getFriendlyName(device, tadoSticker) {
-    let index = tadoStickers[device].indexOf(tadoSticker)
+    let index = deviceTerminals[device].indexOf(tadoSticker)
     if (-1 !== index) {
         let friendlyName = friendlyNames[device][index]
         return friendlyName ? friendlyName : tadoSticker
@@ -53,7 +85,7 @@ function getFriendlyName(device, tadoSticker) {
 }
 
 function getFriendlyWriting(device, tadoSticker) {
-    let index = tadoStickers[device].indexOf(tadoSticker)
+    let index = deviceTerminals[device].indexOf(tadoSticker)
     if (-1 !== index) {
         let friendlyName = friendlyWritings[device][index]
         return friendlyName ? friendlyName : tadoSticker
@@ -179,14 +211,14 @@ function onHideStickerChange(e) { handleHideStickerChange(e) }
 // ------------------------------------------------------------------------------------------------------
 function matchDeviceWithSystemTerminalsAndLabels(device, terminalsAndLabels) {
     // returns { matched, optional, writing } , where "matched" is the matched-with system's terminal name
-    console.log("Matching", device, tadoStickers[device], "with", terminalsAndLabels)
+    //console.log("Matching", device, tadoStickers[device], "with", terminalsAndLabels)
     let deviceStickerWithLabels = {}
     for (let systemTerminal in terminalsAndLabels) {
         let matchedTadoLabel = null
         let mandatory = false
         let stickerItem = null
         //console.log("device:", device, ", system terminal:", systemTerminal)
-        if (-1 !== tadoStickers[device].indexOf(systemTerminal)) {
+        if (-1 !== deviceTerminals[device].indexOf(systemTerminal)) {
             //exact match
             matchedTadoLabel = systemTerminal
 
@@ -312,14 +344,14 @@ function matchDeviceWithSystemTerminalsAndLabels(device, terminalsAndLabels) {
                 , matchedWith: systemTerminal
             }
         }
-        console.log("Result", device, systemTerminal, "=>", matchedTadoLabel)
+        //console.log("Result", device, systemTerminal, "=>", matchedTadoLabel)
     }
     if (0 < Object.keys(deviceStickerWithLabels).length) { return deviceStickerWithLabels }
     return null
 }
 
 console.log(
-` __| |____________________________________________| |__
+    ` __| |____________________________________________| |__
 (__   ____________________________________________   __)
    | |                                            | |
    | |                                            | |
@@ -343,11 +375,39 @@ console.log(">>>>> Window url and input parameters:", JSON.stringify({
 // Global variables, sorry
 //
 const pictureNames = ["labeling", "connect"]
-const menus = {} //menus will be generated later, onload of every SVG
+const isDimensionsSet = true
+const pictureScales = {
+    labeling: {
+        width: 1
+        , height: 1.5
+    }
+    , connect: {
+        width: 1
+        , height: 1
+    }
+}
+const pictureDimensions = {
+    labeling: {
+        width: 846
+        , height: 398
+    }
+    , connect: {
+        width: 340
+        , height: 420
+    }
+}
+const menus = devices.reduce( (accDevice, curDevice)=>{
+    accDevice[curDevice] = deviceTerminals[curDevice].reduce((accTerminal, curTerminal)=>{
+        accTerminal[curTerminal] = null
+        return accTerminal
+    },{})
+    return accDevice
+}, {})
+console.log("Initial menus:", menus)
 //prepare empty stickers with real tadoLabel names
-const allDeviceStickers = Object.keys(tadoStickers).reduce((accDevices, curDevice) => {
-    let emptyDeviceSticker = tadoStickers[curDevice].reduce((accTadoLabels, curTadoLabel) => {
-        accTadoLabels[curTadoLabel] = null
+const matchedTerminals = Object.keys(deviceTerminals).reduce((accDevices, curDevice) => {
+    let emptyDeviceSticker = deviceTerminals[curDevice].reduce((accTadoLabels, curTadoLabel) => {
+        accTadoLabels[curTadoLabel] = {}
         return accTadoLabels
     }, {})
     accDevices[curDevice] = emptyDeviceSticker
@@ -360,18 +420,19 @@ var useDefault = true
 if (urlParams && (0 < Object.keys(urlParams).length)) {
     console.log("URL params:", urlParams)
     let notEmptyTerminalsAndLabels = Object.keys(urlParams.interface.terminalsAndLabels)
-        .filter( key => { return urlParams.interface.terminalsAndLabels[key].length})
-        .reduce( (accObj, curKey) =>{
+        .filter(key => { return urlParams.interface.terminalsAndLabels[key].length })
+        .reduce((accObj, curKey) => {
             accObj[curKey] = urlParams.interface.terminalsAndLabels[curKey]
             return accObj
-        } ,{})
-    for (let device in tadoStickers) {
+        }, {})
+    for (let device of devices) {
         let matchedTadoLabels = matchDeviceWithSystemTerminalsAndLabels(device, notEmptyTerminalsAndLabels)
         //copy matched Stickers to the empty global sticker
         for (let matchedTadoLabel in matchedTadoLabels) {
-            allDeviceStickers[device][matchedTadoLabel] = matchedTadoLabels[matchedTadoLabel]
+            matchedTerminals[device][matchedTadoLabel] = matchedTadoLabels[matchedTadoLabel]
+            menus[device][matchedTadoLabel] = matchedTadoLabels[matchedTadoLabel]
         }
-        console.log(device, "sticker ==>", allDeviceStickers[device])
+        console.log(device, "sticker ==>", matchedTerminals[device])
     }
     useDefault = false
 } else {
@@ -386,9 +447,7 @@ if (urlParams && (0 < Object.keys(urlParams).length)) {
 //
 for (let device of devices) {
     //TODO: dont append the SVG if using URL params and generated an empty sticker
-    if (useDefault || (0 < Object.keys(allDeviceStickers[device]).filter(stickerName => {
-        return allDeviceStickers[device][stickerName]
-    }).length)) {
+    if (!useDefault && (0 < Object.keys(matchedTerminals[device]).filter(stickerName => { return matchedTerminals[device][stickerName] }).length)) {
         //console.log("Device", device)
         let deviceContainer = document.createElement("div")
         deviceContainer.className = "device-container"
@@ -405,56 +464,57 @@ for (let device of devices) {
         menuContainer.id = [menuContainer.className, device].join("-")
         deviceContainer.appendChild(menuContainer)
 
-        let pictures = document.createElement("div") // deviceRoot > h2, 
-        pictures.id = ["pictures", device].join("-")
-        pictures.className = "pictures-container"
-        deviceContainer.appendChild(pictures)
+        let picturesContainer = document.createElement("div") // deviceRoot > h2, 
+        picturesContainer.className = "pictures-container"
+        picturesContainer.id = [picturesContainer.className, device].join("-")
+        deviceContainer.appendChild(picturesContainer)
 
-        
-        for (let pictureName of pictureNames){
+        for (let pictureName of pictureNames) {
             let svgFileUrl = `svg/${pictureName}-${device.toUpperCase()}.svg`
-            let svgContainer = document.createElement("div")
+            let svgContainer = document.createElement("div") //svg-container contains download link and svg picture
             svgContainer.className = "svg-container"
-            svgContainer.id = [svgContainer.className, device].join("-")
-            deviceContainer.appendChild(svgContainer)
+            svgContainer.id = [svgContainer.className, pictureName, device].join("-")
+            picturesContainer.appendChild(svgContainer)
             //SVG download link
             let downloadLink = document.createElement("a")
-            downloadLink.className="download-link"
+            downloadLink.className = "download-link"
             downloadLink.id = ["downloadLink", device].join("-")
-            downloadLink.textContent = "download..."
+            downloadLink.textContent = `download ${pictureName}-${device}.svg`
             downloadLink.download = svgFileUrl.split("/")[svgFileUrl.split("/").length - 1]
             downloadLink.style.display = "none"
-            
+            svgContainer.appendChild(downloadLink)
             //SVG itself
             let svgObject = document.createElement("object")
             svgObject.className = "svg"
-            svgObject.id = [svgObject.className, device].join("-")
+            svgObject.id = [svgObject.className, pictureName, device].join("-")
             //type="image/svg+xml" width="680" height="840"
             svgObject.type = "image/svg+xml"
-            svgObject.width = 2 * 340
-            svgObject.height = 2 * 420
+            if (isDimensionsSet) {
+                svgObject.width = pictureScales[pictureName].width * pictureDimensions[pictureName].width
+                svgObject.height = pictureScales[pictureName].height * pictureDimensions[pictureName].height
+            }
             svgObject.data = svgFileUrl
             //console.log("Inserting SVG from:", svg.data)
-            svgContainer.appendChild(downloadLink)
             svgContainer.appendChild(svgObject)
             //console.log("Inserted SVG from:", svg.data)
             svgObject.onload = function () {
-                console.log("onload", device)
-                //read SVG elements for each tado label
-                let stickerNodes = this.contentDocument.querySelectorAll("g[transform*=translate] g[title*='terminal sticker']")
-                if (tadoStickers[device].length === stickerNodes.length) {
+                console.log("onload", device, pictureName)
+                if ("labeling" === pictureName) {
+                    //svg elements to the menu
+                    let labelingTerminalSticker = this.contentDocument.querySelectorAll("g[transform*=translate] g[title*='terminal sticker']")
+
                     let tsi = 0 //tado sticker index
-                    menus[device] = {}
+                    //menus[device] = {}
                     //read SVG elements of the corresponding SYSTEM label (circle, text, arrow)
-                    for (let tadoSticker of tadoStickers[device]) {
-                        let x = stickerNodes[tsi].parentNode.getAttribute("transform").match(/translate\(\s*(\d+)\s*\,\s*(\d+)\s*\)/)[1]
+                    for (let deviceTerminal of deviceTerminals[device]) {
+                        let x = labelingTerminalSticker[tsi].parentNode.getAttribute("transform").match(/translate\(\s*(\d+)\s*\,\s*(\d+)\s*\)/)[1]
                         //circle, label, arrow
-                        let circle = stickerNodes[tsi].parentNode.querySelector("circle")
-                        let writing = stickerNodes[tsi].parentNode.querySelector("text")
-                        let arrowLine = stickerNodes[tsi].parentNode.querySelector("g[title='system terminal label arrow'] line")
-                        let arrowTip = stickerNodes[tsi].parentNode.querySelector("g[title='system terminal label arrow'] polygon")
-                        let labelGroup = stickerNodes[tsi].parentNode.querySelector("g[title*='system terminal label'")
-                        let arrowGroup = stickerNodes[tsi].parentNode.querySelector("g[title='system terminal label arrow']")
+                        let circle = labelingTerminalSticker[tsi].parentNode.querySelector("circle")
+                        let writing = labelingTerminalSticker[tsi].parentNode.querySelector("text")
+                        let arrowLine = labelingTerminalSticker[tsi].parentNode.querySelector("g[title='system terminal label arrow'] line")
+                        let arrowTip = labelingTerminalSticker[tsi].parentNode.querySelector("g[title='system terminal label arrow'] polygon")
+                        let labelGroup = labelingTerminalSticker[tsi].parentNode.querySelector("g[title*='system terminal label'")
+                        let arrowGroup = labelingTerminalSticker[tsi].parentNode.querySelector("g[title='system terminal label arrow']")
                         let menuElem = {
                             label: writing ? writing.textContent : null
                             , present: circle ? true : false
@@ -467,19 +527,19 @@ for (let device of devices) {
                             , arrowGroup: arrowGroup
                             , arrowLine: arrowLine
                             , arrowTip: arrowTip
-                            , group: stickerNodes[tsi].parentNode
+                            , group: labelingTerminalSticker[tsi].parentNode
                         }
-                        menus[device][tadoSticker] = menuElem
+                        menus[device][deviceTerminal] = menuElem
                         if (!useDefault) {
-                            if (allDeviceStickers[device][tadoSticker]) {
-                                menus[device][tadoSticker].label = allDeviceStickers[device][tadoSticker].writing
-                                menus[device][tadoSticker].present = true
-                                menus[device][tadoSticker].dashed = allDeviceStickers[device][tadoSticker].optional
-                                menus[device][tadoSticker].matchedTo = allDeviceStickers[device][tadoSticker].matchedWith
+                            if (matchedTerminals[device][deviceTerminal]) {
+                                menus[device][deviceTerminal].label = matchedTerminals[device][deviceTerminal].writing
+                                menus[device][deviceTerminal].present = true
+                                menus[device][deviceTerminal].dashed = matchedTerminals[device][deviceTerminal].optional
+                                menus[device][deviceTerminal].matchedTo = matchedTerminals[device][deviceTerminal].matchedWith
                             } else {
-                                menus[device][tadoSticker].label = null
-                                menus[device][tadoSticker].present = false
-                                menus[device][tadoSticker].dashed = isTerminalOptional(device, tadoSticker)
+                                menus[device][deviceTerminal].label = null
+                                menus[device][deviceTerminal].present = false
+                                menus[device][deviceTerminal].dashed = isTerminalOptional(device, deviceTerminal)
                             }
                         }
 
@@ -547,7 +607,7 @@ for (let device of devices) {
                     } else { console.log(device, "has no menu") }
 
                     //apply data from the URL's input params to the SVG
-                    if (allDeviceStickers && allDeviceStickers[device]) {
+                    if (matchedTerminals && matchedTerminals[device]) {
                         if (0 < Object.keys(menus[device]).length) {
                             for (let tadoSticker in menus[device]) {
                                 let menuItemId = ["menuItem", device, tadoSticker].join("-")
@@ -562,16 +622,58 @@ for (let device of devices) {
                             }
                         } else { console.log(device, "has no menu") }
                     } else {
-                        console.log("Script did not generate any sticker the device:", device)
+                        console.log("I could not make any stickers for this device? -->", device)
                     }
-                } else {
-                    console.log(device, "lengths do not match")
-                    console.log(device, "tadoStickers", tadoStickers[device].length, "svg stickers", stickerNodes.length)
-                    console.log(device, "tadoStickers", tadoStickers[device], "svg stickers", stickerNodes)
+                } else if ("connect" === pictureName){
+                    //get wires from svg
+                    let innerSvg = this.contentDocument.styleSheets
+                    console.log("parsing", device, pictureName)
+                    let ruleMap = Array.from(this.contentDocument.styleSheets[0].cssRules)
+                        .filter( rule => {return rule.selectorText.match(/\.Label(.+)/)})
+                        .reduce( (acc, cur)=>{ 
+                            let connectLabel = cur.selectorText.match(/^\.(Label.+)$/)[1]
+                            let tadoSticker = getTadoStickerByConnectLabel(device, connectLabel)
+                            if (tadoSticker){
+                                let terminalGroup = this.contentDocument.querySelector(`g[class*=${connectLabel}]`)
+                                let wirePath = terminalGroup.querySelector("g > path")
+                                let stickerRect = terminalGroup.querySelector("g > rect")
+                                acc[tadoSticker]={ group: terminalGroup, wire: wirePath, sticker: stickerRect}
+                            }
+                            return acc
+                        }, {})
+                    console.log(device, "wire visibility rules:", ruleMap)
+                    if ("BP" === device){
+                        let bridgeRules = Array.from(this.contentDocument.styleSheets[0].cssRules)
+                        .filter( rule => {return rule.selectorText.match(/\.Label(.+)/)})
+                        console.log(bridgeRules)
+                    }
+                    
+                    if (0<this.contentDocument.styleSheets[0].cssRules.length){
+                        if (Object.keys(menus[device]).length === this.contentDocument.styleSheets[0].cssRules.length){
+
+                        } else {
+                            console.log(`menu length (${Object.keys(menus[device]).length}) != svg labels (${this.contentDocument.styleSheets[0].cssRules.length})`, device, pictureName )
+                        }
+                    }
+                    //apply menu values to the `connect-${device}.svg`
+                    if (matchedTerminals && matchedTerminals[device]) {
+                        if (0 < Object.keys(menus[device]).length) {
+                            for (let tadoSticker in menus[device]) {
+                                let wirePresent = menus[device][tadoSticker].label ? true : false
+                                let wireDashed = menus[device][tadoSticker].dashed
+                                
+                                //updateWritingFromInput(writingInput)
+                                //updateDashFromInputElement(dashInput)
+                            }
+                        } else { console.log(device, "has no menu") }
+                    } else {
+                        console.log("I could not make any stickers for this device? -->", device)
+                    }
                 }
+
                 //SVG download link
                 let svg = svgObject.contentDocument.getElementById("svg")
-                console.log(svg)
+                //console.log("Inner svg", device, pictureName, svg)
                 let serializer = new XMLSerializer()
                 let source = serializer.serializeToString(svg)
                 if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
@@ -585,7 +687,7 @@ for (let device of devices) {
                 source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
 
                 //convert svg source to URI data scheme.
-                var url = "data:image/svg+xml;charset=utf-8,"+encodeURIComponent(source);
+                var url = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(source);
 
                 downloadLink.href = url
                 downloadLink.style.display = ""
