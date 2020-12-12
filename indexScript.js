@@ -4,7 +4,8 @@ const isVerboseDashed = false
 const isVerboseWriting = false
 const devices = ["BP", "BR", "BU", "RU", "LT", "TC"]
 const deviceTerminals = {
-    "BP": ["N", "L", "CH_COM", "CH_NC", "CH_NO", "HW_COM", "HW_NC", "HW_NO", "EARTH", "P1", "P2"],
+    "BP": ["N", "L", "CH_COM", "CH_NC", "CH_NO", "HW_COM", "HW_NC", "HW_NO", "EARTH", "P1", "P2"
+        ,"Bridge_L_COM", "Bridge_COM_COM", "Bridge_L_HWCOM"],
     "BR": ["N", "L", "COM", "NC", "NO", "P1", "P2", "P3", "AnalogOut_A", "GND_B", "VCC_C"],
     "BU": ["N", "L", "NC2", "NC1", "NO2", "NO1", "AnalogOut_A", "GND_B", "VCC_C"],
     "RU": ["NO", "NC", "COM", "P1", "P2", "P3", "AnalogOut_A", "GND_B", "VCC_C"],
@@ -20,7 +21,8 @@ const defaultLabels = {
     "LT": { "NO": "NO", "COM": "COM", "P1": "L", "P2": "N" }
 }
 const friendlyNames = {
-    "BP": ["N", "L", "CH_COM", "CH_NC", "CH_NO", "HW_COM", "HW_NC", "HW_NO", "EARTH", "P1", "P2"],
+    "BP": ["N", "L", "CH_COM", "CH_NC", "CH_NO", "HW_COM", "HW_NC", "HW_NO", "EARTH", "P1", "P2"
+        ,"L_COM", "COM_COM", "L_HW"],
     "BR": ["N", "L", "COM", "NC", "NO", "P1", "P2", "P3", "A", "minus", "plus"],
     "BU": ["N", "L", "1", "4", "3", "4", "A", "minus", "plus"],
     "RU": ["NO", "NC", "COM", "P1", "P2", "P3", "A", "minus", "plus"],
@@ -134,14 +136,34 @@ function payload2obj(payload) {
 } */
 
 function applyDashed(isChecked, device, deviceTerminal) {
-    if (isChecked) {
-        menus[device][deviceTerminal].circle.setAttribute("stroke-dasharray", 5)
-        menus[device][deviceTerminal].arrowLine.setAttribute("stroke-dasharray", 5)
-        //TODO: implement the connect-svg 
-    } else {
-        menus[device][deviceTerminal].circle.removeAttribute("stroke-dasharray")
-        menus[device][deviceTerminal].arrowLine.removeAttribute("stroke-dasharray")
-        //TODO: implement the connect-svg 
+    if (!deviceTerminal.match(/^Bridge/)) {
+        if (isChecked) {
+            if (menus[device][deviceTerminal].circle){
+                menus[device][deviceTerminal].circle.setAttribute("stroke-dasharray",5)
+            }
+            if (menus[device][deviceTerminal].arrowLine){
+                menus[device][deviceTerminal].arrowLine.setAttribute("stroke-dasharray",5)
+            }
+            if (menus[device][deviceTerminal].connectWirePath){
+                menus[device][deviceTerminal].connectWirePath.style.strokeDasharray = 5
+            }
+            /* if (menus[device][deviceTerminal].connectStickerRect){
+                menus[device][deviceTerminal].connectStickerRect.style.strokeDasharray = 4
+            } */
+        } else {
+            if (menus[device][deviceTerminal].circle){
+                menus[device][deviceTerminal].circle.removeAttribute("stroke-dasharray")
+            }
+            if (menus[device][deviceTerminal].arrowLine){
+                menus[device][deviceTerminal].arrowLine.removeAttribute("stroke-dasharray")
+            }
+            if (menus[device][deviceTerminal].connectWirePath){
+                menus[device][deviceTerminal].connectWirePath.style.strokeDasharray = ""
+            }
+            /* if (menus[device][deviceTerminal].connectStickerRect){
+                menus[device][deviceTerminal].connectStickerRect.style.strokeDasharray = ""
+            } */
+        }
     }
 }
 
@@ -188,7 +210,7 @@ function applyNewWriting(newWriting, device, deviceTerminal) {
 
         
     } else { 
-        console.log(device, deviceTerminal, "ERROR writtenTextent in the menus is:", menus[device][deviceTerminal].writtenText) 
+        console.log(device, deviceTerminal, "written text is", menus[device][deviceTerminal].writtenText) 
     }
 }
 
@@ -205,7 +227,8 @@ function onWritingChanged(e) {
     if (element) {
         let device = element.id.split("-")[1]
         let deviceTerminal = element.id.split("-")[2]
-        applyNewWriting(element.value.toString(), device, deviceTerminal)
+        menus[device][deviceTerminal].label = element.value.toString()
+        applyMenu(device, deviceTerminal)
     } 
 }
 function onDashed(e) { 
@@ -366,33 +389,23 @@ function applyHide(checked, device, deviceTerminal){
     applyMenu(device, deviceTerminal)
 }
        
-
 function applyMenu(device, terminalName) {
     console.log(device, terminalName, "Apply Menu Settings", menus[device][terminalName])
     //TODO: labeling.svg
     applyNewWriting(menus[device][terminalName].label, device, terminalName)
+    calculateBridges()
     //connect.svg
-    if(terminalName.match(/^Bridge/)){
+    if( ("BP" === device) && terminalName.match(/^Bridge/) ){
         if (menus[device][terminalName].connectRule){
             menus[device][terminalName].connectRule.style.visibility = menus[device][terminalName].label && (0<menus[device][terminalName].label.length)
             ? "visible" : "hidden"
-            if (menus[device][terminalName].present && menus[device][terminalName].dashed) {
-                menus[device][terminalName].connectWirePath.style.strokeDasharray = "5"
-            } else {
-                menus[device][terminalName].connectWirePath.style.strokeDasharray = ""
-            } 
+            applyDashed(menus[device][terminalName].present && menus[device][terminalName].dashed, device,terminalName)
         }
     } else {
         if (menus[device][terminalName].connectRule){
             menus[device][terminalName].connectRule.style.visibility = menus[device][terminalName].label && (0<menus[device][terminalName].label.length)
                 ? "visible" : "hidden"
-            if (menus[device][terminalName].dashed) {
-                menus[device][terminalName].connectWirePath.style.strokeDasharray = "5"
-                menus[device][terminalName].connectStickerRect.style.strokeDasharray = "3"
-            } else {
-                menus[device][terminalName].connectWirePath.style.strokeDasharray = ""
-                menus[device][terminalName].connectStickerRect.style.strokeDasharray = ""
-            }
+                applyDashed(menus[device][terminalName].present && menus[device][terminalName].dashed, device,terminalName)
         }
     }
     if (menus[device][terminalName].hide){
@@ -414,8 +427,55 @@ function applyMenu(device, terminalName) {
         } 
     }
 }
+
+function applyBridges(){
+    
+}
+
+function calculateBridges(doCreateNewBridges) {
+    if (menus && menus.BP) {
+        if(doCreateNewBridges){
+            if (menus.BP.L.label && (!menus.BP["CH_COM"].label) && (!menus.BP["HW_COM"].label)) {
+                menus.BP["Bridge_COM_COM"] = { present: true }
+                menus.BP["Bridge_L_COM"] = { present: true }
+                menus.BP["Bridge_L_HWCOM"] = { present: false }
+            } else if (menus.BP.L.label && (!menus.BP["CH_COM"].label) && (menus.BP["CH_NO"].label || menus.BP["CH_NC"].label)) {
+                menus.BP["Bridge_COM_COM"] = { present: false }
+                menus.BP["Bridge_L_COM"] = { present: true }
+                menus.BP["Bridge_L_HWCOM"] = { present: false }
+            } else if (menus.BP.L.label && (!menus.BP["HW_COM"].label) && (menus.BP["HW_NO"].label || menus.BP["HW_NC"].label)) {
+                menus.BP["Bridge_COM_COM"] = { present: false }
+                menus.BP["Bridge_L_COM"] = { present: false }
+                menus.BP["Bridge_L_HWCOM"] = { present: true }
+            } else {
+                menus.BP["Bridge_COM_COM"] = { present: false }
+                menus.BP["Bridge_L_COM"] = { present: false }
+                menus.BP["Bridge_L_HWCOM"] = { present: false }
+            }
+        } else {
+            if (menus.BP.L.label && (!menus.BP["CH_COM"].label) && (!menus.BP["HW_COM"].label)) {
+                menus.BP["Bridge_COM_COM"].present = true 
+                menus.BP["Bridge_L_COM"].present = true 
+                menus.BP["Bridge_L_HWCOM"].present = false
+            } else if (menus.BP.L.label && (!menus.BP["CH_COM"].label) && (menus.BP["CH_NO"].label || menus.BP["CH_NC"].label)) {
+                menus.BP["Bridge_COM_COM"].present = false
+                menus.BP["Bridge_L_COM"].present = true 
+                menus.BP["Bridge_L_HWCOM"].present = false
+            } else if (menus.BP.L.label && (!menus.BP["HW_COM"].label) && (menus.BP["HW_NO"].label || menus.BP["HW_NC"].label)) {
+                menus.BP["Bridge_COM_COM"].present = false
+                menus.BP["Bridge_L_COM"].present = false
+                menus.BP["Bridge_L_HWCOM"].present = true 
+            } else {
+                menus.BP["Bridge_COM_COM"].present = false
+                menus.BP["Bridge_L_COM"].present = false
+                menus.BP["Bridge_L_HWCOM"].present = false
+            }
+        }
+    }
+}
+
 console.log(
-    ` __| |____________________________________________| |__
+` __| |____________________________________________| |__
 (__   ____________________________________________   __)
    | |                                            | |
    | |                                            | |
@@ -496,23 +556,7 @@ if (urlParams && (0 < Object.keys(urlParams).length)) {
         }
         console.log(device, "matched terminals", matchedTadoTerminals)
         if ("BP" === device){
-            if (menus.BP.L.label && !menus.BP["CH_COM"].label && !menus.BP["HW_COM"].label){
-                menus.BP["Bridge_COM_COM"]= {present: true}
-                menus.BP["Bridge_L_COM"] = {present: true}
-                menus.BP["Bridge_L_HWCOM"] = {present : false}
-            } else if (menus.BP.L.label && !menus.BP["CH_COM"].label && (menus.BP["CH_NO"].label || menus.BP["CH_NC"].label)){
-                menus.BP["Bridge_COM_COM"] = {present : false}
-                menus.BP["Bridge_L_COM"]={present: true}
-                menus.BP["Bridge_L_HWCOM"] = {present:false}
-            } else if (menus.BP.L.label && !menus.BP["HW_COM"].label && (menus.BP["HW_NO"].label || menus.BP["HW_NC"].label) ){
-                menus.BP["Bridge_COM_COM"] = {present : false}
-                menus.BP["Bridge_L_COM"] = {present :false}
-                menus.BP["Bridge_L_HWCOM"]={present: true}
-            } else {
-                menus.BP["Bridge_COM_COM"] = {present : false}
-                menus.BP["Bridge_L_COM"] = {present : false}
-                menus.BP["Bridge_L_HWCOM"] = {present : false}
-            }
+            calculateBridges(true)
             menus.BP.EARTH = {
                 present: true
                 , dashed: true
@@ -697,15 +741,19 @@ for (let device of Object.keys(menus)) {
                         }
                     })
                     let bridgeRules = Array.from(this.contentDocument.styleSheets[0].cssRules)
-                        .filter(rule => { return rule.selectorText.match(/\.BridgePosition(.+)/) })
+                        .filter(rule => { return rule.selectorText.match(/\.Bridge(.+)/) })
                     bridgeRules.forEach( rule => {
                         let bridgeGroup = this.contentDocument.querySelector(`g${rule.selectorText}`)
-                        let bridgeName = bridgeGroup.id.replace(/\-/g, "_")
-                        menus.BP[bridgeName].connectRule = rule
-                        menus.BP[bridgeName].connectGroup = bridgeGroup
-                        menus.BP[bridgeName].connectWirePath = bridgeGroup.querySelector("path")
-
-                        applyMenu(device, terminalName)
+                        let bridgeName = bridgeGroup.id.replace(/\-/g, "_").replace(/\_{2,}/g, "_")
+                        if(menus.BP[bridgeName]){
+                            menus.BP[bridgeName].connectRule = rule
+                            menus.BP[bridgeName].connectGroup = bridgeGroup
+                            menus.BP[bridgeName].connectWirePath = bridgeGroup.querySelector("path")
+                            console.log(device, "Going to apply bridge", bridgeName)
+                            applyMenu(device, bridgeName)
+                        } else {
+                            console.log(device, bridgeName, "menu not found")
+                        }
                     })
                 }
 
