@@ -5,7 +5,7 @@ const isVerboseWriting = false
 const devices = ["BP", "BR", "BU", "RU", "LT", "TC"]
 const deviceTerminals = {
     "BP": ["N", "L", "CH_COM", "CH_NC", "CH_NO", "HW_COM", "HW_NC", "HW_NO", "EARTH", "P1", "P2"
-        ,"Bridge_L_COM", "Bridge_COM_COM", "Bridge_L_HWCOM"],
+        , "Bridge_L_COM", "Bridge_COM_COM", "Bridge_L_HWCOM"],
     "BR": ["N", "L", "COM", "NC", "NO", "P1", "P2", "P3", "AnalogOut_A", "GND_B", "VCC_C"],
     "BU": ["N", "L", "NC2", "NC1", "NO2", "NO1", "AnalogOut_A", "GND_B", "VCC_C"],
     "RU": ["NO", "NC", "COM", "P1", "P2", "P3", "AnalogOut_A", "GND_B", "VCC_C"],
@@ -22,7 +22,7 @@ const defaultLabels = {
 }
 const friendlyNames = {
     "BP": ["N", "L", "CH_COM", "CH_NC", "CH_NO", "HW_COM", "HW_NC", "HW_NO", "EARTH", "P1", "P2"
-        ,"L_COM", "COM_COM", "L_HW"],
+        , "L_COM", "COM_COM", "L_HW"],
     "BR": ["N", "L", "COM", "NC", "NO", "P1", "P2", "P3", "A", "minus", "plus"],
     "BU": ["N", "L", "1", "4", "3", "4", "A", "minus", "plus"],
     "RU": ["NO", "NC", "COM", "P1", "P2", "P3", "A", "minus", "plus"],
@@ -65,9 +65,9 @@ const connectLabel2tadoStickerMap = {
         , HWNC: "HW_NC"
         , HWNO: "HW_NO"
         , Ground: "EARTH"
-        , "Bridge_COM-COM": "Bridge_COM-COM".replace(/\-/g,"_")
-        , "Bridge_L-COM": "Bridge_L-COM".replace(/\-/g,"_")
-        , "Bridge_L_-_HWCOM": "Bridge_L_-_HWCOM".replace(/\-/g,"_")
+        , "Bridge_COM-COM": "Bridge_COM-COM".replace(/\-/g, "_")
+        , "Bridge_L-COM": "Bridge_L-COM".replace(/\-/g, "_")
+        , "Bridge_L_-_HWCOM": "Bridge_L_-_HWCOM".replace(/\-/g, "_")
     }
 
 }
@@ -136,39 +136,40 @@ function payload2obj(payload) {
 } */
 
 function applyDashed(isChecked, device, deviceTerminal) {
-    if (!deviceTerminal.match(/^Bridge/)) {
-        if (isChecked) {
-            if (menus[device][deviceTerminal].circle){
-                menus[device][deviceTerminal].circle.setAttribute("stroke-dasharray",5)
-            }
-            if (menus[device][deviceTerminal].arrowLine){
-                menus[device][deviceTerminal].arrowLine.setAttribute("stroke-dasharray",5)
-            }
-            if (menus[device][deviceTerminal].connectWirePath){
-                menus[device][deviceTerminal].connectWirePath.style.strokeDasharray = 5
-            }
-            /* if (menus[device][deviceTerminal].connectStickerRect){
-                menus[device][deviceTerminal].connectStickerRect.style.strokeDasharray = 4
-            } */
-        } else {
-            if (menus[device][deviceTerminal].circle){
-                menus[device][deviceTerminal].circle.removeAttribute("stroke-dasharray")
-            }
-            if (menus[device][deviceTerminal].arrowLine){
-                menus[device][deviceTerminal].arrowLine.removeAttribute("stroke-dasharray")
-            }
-            if (menus[device][deviceTerminal].connectWirePath){
-                menus[device][deviceTerminal].connectWirePath.style.strokeDasharray = ""
-            }
-            /* if (menus[device][deviceTerminal].connectStickerRect){
-                menus[device][deviceTerminal].connectStickerRect.style.strokeDasharray = ""
-            } */
+    if (isChecked) {
+        if (menus[device][deviceTerminal].circle) {
+            menus[device][deviceTerminal].circle.setAttribute("stroke-dasharray", 5)
         }
+        if (menus[device][deviceTerminal].arrowLine) {
+            menus[device][deviceTerminal].arrowLine.setAttribute("stroke-dasharray", 5)
+        }
+        if (menus[device][deviceTerminal].connectWirePath) {
+            menus[device][deviceTerminal].connectWirePath.style.strokeDasharray = 5
+        }
+        /* if (menus[device][deviceTerminal].connectStickerRect){
+            menus[device][deviceTerminal].connectStickerRect.style.strokeDasharray = 4
+        } */
+    } else {
+        if (menus[device][deviceTerminal].circle) {
+            menus[device][deviceTerminal].circle.removeAttribute("stroke-dasharray")
+        }
+        if (menus[device][deviceTerminal].arrowLine) {
+            menus[device][deviceTerminal].arrowLine.removeAttribute("stroke-dasharray")
+        }
+        if (menus[device][deviceTerminal].connectWirePath) {
+            menus[device][deviceTerminal].connectWirePath.style.strokeDasharray = ""
+        }
+        /* if (menus[device][deviceTerminal].connectStickerRect){
+            menus[device][deviceTerminal].connectStickerRect.style.strokeDasharray = ""
+        } */
     }
 }
 
 function applyNewWriting(newWriting, device, deviceTerminal) {
     if (menus[device][deviceTerminal].writtenText) {
+        console.log((menus[device][deviceTerminal].writtenText.textContent !== newWriting)
+            ? ["New text", menus[device][deviceTerminal].writtenText.textContent, newWriting]
+            : "")
         menus[device][deviceTerminal].writtenText.textContent = newWriting
 
         if (newWriting && (3 < newWriting.toString().length)) {
@@ -194,7 +195,7 @@ function applyNewWriting(newWriting, device, deviceTerminal) {
             menus[device][deviceTerminal].writtenText.setAttribute("transform", newTransform)
             menus[device][deviceTerminal].circle.style.visibility = "visible"
         }
-        
+
         if (newWriting && ("" !== newWriting)) {
             if (isVerboseWriting) { console.log(device, deviceTerminal, "writing not empty") }
             menus[device][deviceTerminal].arrowGroup.style.visibility = "visible"
@@ -208,36 +209,36 @@ function applyNewWriting(newWriting, device, deviceTerminal) {
             //TODO: hide wires in the connect.svg
         }
 
-        
-    } else { 
-        console.log(device, deviceTerminal, "written text is", menus[device][deviceTerminal].writtenText) 
+
+    } else {
+        console.log(device, deviceTerminal, "written text is", menus[device][deviceTerminal].writtenText)
     }
 }
 
 function onHideSticker(e) {
     let element = e.target
-    if (element){
+    if (element) {
         let device = element.id.split("-")[1]
         let deviceTerminal = element.id.split("-")[2]
         applyHide(element.checked, device, deviceTerminal)
     }
 }
-function onWritingChanged(e) { 
+function onWritingChanged(e) {
     let element = e.target
     if (element) {
         let device = element.id.split("-")[1]
         let deviceTerminal = element.id.split("-")[2]
         menus[device][deviceTerminal].label = element.value.toString()
         applyMenu(device, deviceTerminal)
-    } 
+    }
 }
-function onDashed(e) { 
+function onDashed(e) {
     let element = e.target
     if (element) {
         let device = element.id.split("-")[1]
         let deviceTerminal = element.id.split("-")[2]
-        applyDashed(element.checked, device, deviceTerminal) 
-    } 
+        applyDashed(element.checked, device, deviceTerminal)
+    }
 }
 
 // ------------------------------------------------------------------------------------------------------
@@ -384,57 +385,45 @@ function matchDeviceAndSystem(device, systemTerminalsAndLabels) {
 }
 
 
-function applyHide(checked, device, deviceTerminal){
+function applyHide(checked, device, deviceTerminal) {
     menus[device][deviceTerminal].hide = checked
     applyMenu(device, deviceTerminal)
 }
-       
+
 function applyMenu(device, terminalName) {
     console.log(device, terminalName, "Apply Menu Settings", menus[device][terminalName])
+    menus[device][terminalName].present = terminalName.match(/^Bridge/) 
+        ? menus[device][terminalName].present
+        : menus[device][terminalName].label ? true : false
     //TODO: labeling.svg
     applyNewWriting(menus[device][terminalName].label, device, terminalName)
-    calculateBridges()
-    //connect.svg
-    if( ("BP" === device) && terminalName.match(/^Bridge/) ){
-        if (menus[device][terminalName].connectRule){
-            menus[device][terminalName].connectRule.style.visibility = menus[device][terminalName].label && (0<menus[device][terminalName].label.length)
-            ? "visible" : "hidden"
-            applyDashed(menus[device][terminalName].present && menus[device][terminalName].dashed, device,terminalName)
-        }
-    } else {
-        if (menus[device][terminalName].connectRule){
-            menus[device][terminalName].connectRule.style.visibility = menus[device][terminalName].label && (0<menus[device][terminalName].label.length)
-                ? "visible" : "hidden"
-                applyDashed(menus[device][terminalName].present && menus[device][terminalName].dashed, device,terminalName)
-        }
-    }
-    if (menus[device][terminalName].hide){
-        if (menus[device][terminalName].printedStickerGroup){
-            menus[device][terminalName].printedStickerGroup.style.display = "none"
-            //menus[device][deviceTerminal].printedStickerGroup.style.visibility = "hidden"
-        }
-        if (menus[device][terminalName].connectRule){
-            menus[device][terminalName].connectRule.style.visibility = "hidden"
-        }
-    } else {
-        if (menus[device][terminalName].printedStickerGroup){
-            menus[device][terminalName].printedStickerGroup.style.display = ""
-            //menus[device][deviceTerminal].printedStickerGroup.style.visibility = "visible"
-        }    
-        if (menus[device][terminalName].connectRule){
-            menus[device][terminalName].connectRule.style.visibility = menus[device][terminalName].label && (0<menus[device][terminalName].label.length)
-            ? "visible" : "hidden"
-        } 
-    }
-}
 
-function applyBridges(){
-    
+    //connect.svg
+    if (("BP" === device) && (-1 !== ["L","CH_COM","CH_NO","CH_NC", "HW_COM", "HW_NO", "HW_NC"].indexOf(terminalName)) )   {
+        calculateBridges()
+        applyMenu("BP", "Bridge_L_COM")
+        applyMenu("BP", "Bridge_COM_COM")
+        applyMenu("BP", "Bridge_L_HWCOM")
+    }
+    applyDashed(menus[device][terminalName].dashed, device, terminalName)
+    if (menus[device][terminalName].connectRule) {
+        menus[device][terminalName].connectRule.style.visibility = menus[device][terminalName].present && (!menus[device][terminalName].hide) 
+            ? "visible" : "hidden"
+    }
+    if (menus[device][terminalName].connectWirePath) {
+        menus[device][terminalName].connectWirePath.style.visibility = terminalName.match(/^Bridge/)
+            ? menus[device][terminalName].connectRule.style.visibility
+            : menus[device][terminalName].connectWirePath.style.visibility
+    }
+    if (menus[device][terminalName].printedStickerGroup) {
+        menus[device][terminalName].printedStickerGroup.style.display = menus[device][terminalName].hide ? "none" : ""
+        //menus[device][deviceTerminal].printedStickerGroup.style.visibility = "hidden"
+    }
 }
 
 function calculateBridges(doCreateNewBridges) {
     if (menus && menus.BP) {
-        if(doCreateNewBridges){
+        if (doCreateNewBridges) {
             if (menus.BP.L.label && (!menus.BP["CH_COM"].label) && (!menus.BP["HW_COM"].label)) {
                 menus.BP["Bridge_COM_COM"] = { present: true }
                 menus.BP["Bridge_L_COM"] = { present: true }
@@ -453,29 +442,32 @@ function calculateBridges(doCreateNewBridges) {
                 menus.BP["Bridge_L_HWCOM"] = { present: false }
             }
         } else {
-            if (menus.BP.L.label && (!menus.BP["CH_COM"].label) && (!menus.BP["HW_COM"].label)) {
-                menus.BP["Bridge_COM_COM"].present = true 
-                menus.BP["Bridge_L_COM"].present = true 
+            if (menus.BP.L.label && (!menus.BP["CH_COM"].label) && (!menus.BP["HW_COM"].label)
+                && (menus.BP["HW_NO"].label || menus.BP["HW_NC"].label)) {
+                menus.BP["Bridge_COM_COM"].present = true
+                menus.BP["Bridge_L_COM"].present = true
                 menus.BP["Bridge_L_HWCOM"].present = false
             } else if (menus.BP.L.label && (!menus.BP["CH_COM"].label) && (menus.BP["CH_NO"].label || menus.BP["CH_NC"].label)) {
                 menus.BP["Bridge_COM_COM"].present = false
-                menus.BP["Bridge_L_COM"].present = true 
+                menus.BP["Bridge_L_COM"].present = true
                 menus.BP["Bridge_L_HWCOM"].present = false
             } else if (menus.BP.L.label && (!menus.BP["HW_COM"].label) && (menus.BP["HW_NO"].label || menus.BP["HW_NC"].label)) {
                 menus.BP["Bridge_COM_COM"].present = false
                 menus.BP["Bridge_L_COM"].present = false
-                menus.BP["Bridge_L_HWCOM"].present = true 
+                menus.BP["Bridge_L_HWCOM"].present = true
             } else {
                 menus.BP["Bridge_COM_COM"].present = false
                 menus.BP["Bridge_L_COM"].present = false
                 menus.BP["Bridge_L_HWCOM"].present = false
             }
         }
+        console.log("Recalculate bridges", doCreateNewBridges ? "create new"
+            : ["Bridge_L_COM", "Bridge_COM_COM", "Bridge_L_HWCOM"].map(name => { name: return menus.BP[name].present }))
     }
 }
 
 console.log(
-` __| |____________________________________________| |__
+    ` __| |____________________________________________| |__
 (__   ____________________________________________   __)
    | |                                            | |
    | |                                            | |
@@ -555,7 +547,7 @@ if (urlParams && (0 < Object.keys(urlParams).length)) {
             menus[device][matchedTadoTerminal].matchedTo = matchedTadoTerminals[matchedTadoTerminal].matchedTo
         }
         console.log(device, "matched terminals", matchedTadoTerminals)
-        if ("BP" === device){
+        if ("BP" === device) {
             calculateBridges(true)
             menus.BP.EARTH = {
                 present: true
@@ -696,9 +688,9 @@ for (let device of Object.keys(menus)) {
                 console.log(device, "onload()2", pictureName)
                 let labelingTerminalSticker = this.contentDocument.querySelectorAll("g[transform*=translate] g[title*='terminal sticker']")
                 let maxTsi = Math.min(labelingTerminalSticker.length, Object.keys(deviceTerminals[device]).length)
-                
-                console.log(device,"terminalStickerNodes", labelingTerminalSticker, labelingTerminalSticker.length, "maxTsi", maxTsi, Object.keys(deviceTerminals[device]).length)
-                
+
+                console.log(device, "terminalStickerNodes", labelingTerminalSticker, labelingTerminalSticker.length, "maxTsi", maxTsi, Object.keys(deviceTerminals[device]).length)
+
                 //read SVG elements of the corresponding SYSTEM label (circle, text, arrow)
                 for (let tsi = 0; tsi < maxTsi; tsi++) {
                     let terminalName = deviceTerminals[device][Object.keys(deviceTerminals[device])[tsi]]
@@ -712,14 +704,14 @@ for (let device of Object.keys(menus)) {
                     menus[device][terminalName].systemTerminalLabelGroup = labelingTerminalSticker[tsi].parentNode.querySelector("g[title='system terminal label'")
                     menus[device][terminalName].arrowGroup = labelingTerminalSticker[tsi].parentNode.querySelector("g[title='system terminal label arrow']")
                     menus[device][terminalName].printedStickerGroup = labelingTerminalSticker[tsi].parentNode
-                    applyMenu(device,terminalName)
+                    applyMenu(device, terminalName)
                 }
                 // end reading elements from labeling.svg
             } else if ("connect" === pictureName) {
                 //get wires from svg
                 let innerSvg = this.contentDocument.styleSheets
                 console.log("parsing", device, pictureName)
-                
+
                 if ("BP" === device) {
                     console.log("Yes, I am a ", device)
                     let connectRules = Array.from(this.contentDocument.styleSheets[0].cssRules)
@@ -728,9 +720,9 @@ for (let device of Object.keys(menus)) {
                     connectRules.forEach(rule => {
                         //let className = rule.selectorText.match(/\.(Label.+)/)[1]
                         let printedLabelName = rule.selectorText.match(/\.Label(.+)/)[1]
-                        let terminalName = convertPrintedLabel2Terminal(device,printedLabelName )
+                        let terminalName = convertPrintedLabel2Terminal(device, printedLabelName)
                         console.log(device, "printedLabel", printedLabelName, "terminalName", terminalName, "menu dashed", menus[device][terminalName].dashed)
-                        if (terminalName){
+                        if (terminalName) {
                             menus[device][terminalName].connectRule = rule
                             let wireGroup = this.contentDocument.querySelector(`g${rule.selectorText}`)
                             menus[device][terminalName].connectGroup = wireGroup
@@ -742,10 +734,10 @@ for (let device of Object.keys(menus)) {
                     })
                     let bridgeRules = Array.from(this.contentDocument.styleSheets[0].cssRules)
                         .filter(rule => { return rule.selectorText.match(/\.Bridge(.+)/) })
-                    bridgeRules.forEach( rule => {
+                    bridgeRules.forEach(rule => {
                         let bridgeGroup = this.contentDocument.querySelector(`g${rule.selectorText}`)
                         let bridgeName = bridgeGroup.id.replace(/\-/g, "_").replace(/\_{2,}/g, "_")
-                        if(menus.BP[bridgeName]){
+                        if (menus.BP[bridgeName]) {
                             menus.BP[bridgeName].connectRule = rule
                             menus.BP[bridgeName].connectGroup = bridgeGroup
                             menus.BP[bridgeName].connectWirePath = bridgeGroup.querySelector("path")
@@ -757,12 +749,12 @@ for (let device of Object.keys(menus)) {
                     })
                 }
 
-                
+
                 //end of parsing the 'connect'.svg
             }
 
-            
-            
+
+
 
             //creating svg download link
             let svg = svgObject.contentDocument.getElementById("svg")
