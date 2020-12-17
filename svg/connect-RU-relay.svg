@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink= "http://www.w3.org/1999/xlink"
+      id="svg" version="1.0" width="340" height="420"
+      viewBox="0.00 0.00 340 420"
+      enable-background="new 0 0 340 420" x="0px" y="0px">
+     <defs>
+    <clipPath id="clip-path">
+      <circle cx="169.142" cy="253.053" r="158.937" fill="none"/>
+    </clipPath>
+    <clipPath id="clip-path-2">
+      <ellipse cx="168.142" cy="253.053" rx="160.393" ry="160.241" fill="none"/>
+    </clipPath>
+    <style type="text/css"><![CDATA[
+      #NO {
+        visibility: visible;
+      }
+      #NC {
+        visibility: hidden;
+      }
+      #COM {
+        visibility: visible;
+      }
+      #P1 {
+        visibility: hidden;
+      }
+      #P2 {
+        visibility: hidden;
+      }
+      #P3 {
+        visibility: hidden;
+      }
+    ]]></style>
+  </defs>
+  <g id="Not_Dynamic">
+    <g id="tado">
+      <g id="tado-2">
+        <line id="tado-3" x1="162.536" y1="110.621" x2="111.715" y2="110.621" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <polyline id="tado-4" points="110.119 112.697 109.364 112.464 108.377 112.29 107.158 112.116 105.763 112.058" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <polyline id="tado-5" points="105.763 111.303 107.332 111.303 108.784 111.477 109.888 111.651 111.408 112.127" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <line id="tado-6" x1="91.447" y1="110.621" x2="40.685" y2="110.621" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <line id="tado-7" x1="105.763" y1="112.058" x2="97.342" y2="112.058" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <line id="tado-8" x1="105.763" y1="111.303" x2="97.342" y2="111.303" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        <polyline id="tado-9" points="91.991 112.045 93.276 111.651 94.438 111.477 95.833 111.303 97.342 111.303" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <polyline id="tado-10" points="97.342 112.058 96.065 112.116 94.844 112.233 93.801 112.464 93.045 112.697" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <g id="tado-11">
+          <path id="tado-12" d="M19.939,96.494v-126.7A19.781,19.781,0,0,1,39.523-50.144l9.964-.027v-2.15h9.341v2.15h86.684v-2.15h9.344v2.15h10.509c9.582,0,18.238,9.273,18.238,18.854V94.921c0,9.583-9.052,18.567-18.634,18.567l-127.321-.041C28.062,113.447,19.939,103.47,19.939,96.494Z" fill="#fff" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+          <polyline id="tado-13" points="152.192 22.082 151.611 20.804 151.146 20.224 150.566 19.758 149.869 19.41 149.171 19.236 147.778 19.294 146.5 19.817 145.92 20.34 145.455 20.92 145.107 21.559 144.934 22.313 144.991 23.708" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <polyline id="tado-14" points="152.192 45.082 153.121 39.39 153.412 33.581 153.121 27.773 152.192 22.082" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <polyline id="tado-15" points="144.991 43.513 144.934 44.849 145.107 45.604 145.455 46.243 145.92 46.881 146.5 47.346 147.778 47.869 149.171 47.928 149.869 47.752 150.566 47.404 151.146 46.939 151.611 46.359 152.192 45.082" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <polyline id="tado-16" points="144.991 23.708 145.804 28.586 146.037 33.581 145.804 38.576 144.991 43.513" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <polyline id="tado-17" points="26.626 92.009 26.626 93.228 26.683 94.332 26.8 95.378 27.09 96.481 27.437 97.526 28.252 99.152 29.354 100.721 30.575 102.173 32.027 103.393 33.535 104.496 35.221 105.309 36.267 105.716 37.37 105.948 38.415 106.065 39.518 106.122 40.739 106.122" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <polyline id="tado-18" points="162.589 106.122 163.75 106.122 164.854 106.065 165.957 105.948 167.003 105.716 168.105 105.309 169.731 104.496 171.301 103.452 172.696 102.173 173.913 100.78 175.018 99.211 175.89 97.586 176.237 96.539 176.47 95.436 176.643 94.332 176.702 93.228 176.702 92.009" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line id="tado-19" x1="176.702" y1="92.009" x2="176.702" y2="-29.783" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <line id="tado-20" x1="26.626" y1="-29.783" x2="26.626" y2="92.009" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <line id="tado-21" x1="40.739" y1="106.122" x2="162.589" y2="106.122" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <polyline id="tado-22" points="22.097 92.009 22.154 93.52 22.211 94.913 22.385 96.191 22.56 97.179 22.85 98.167 23.198 99.095 23.604 100.024 24.01 100.896 24.533 101.709 25.115 102.579 25.695 103.452 26.275 104.09 26.857 104.786 27.496 105.427 28.135 106.007 29.005 106.761 29.877 107.459 31.039 108.213 32.201 108.911 33.653 109.55 35.105 110.073 36.614 110.42 37.486 110.536 38.358 110.594 39.113 110.653 39.81 110.653 40.739 110.653 91.267 110.824" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line id="tado-23" x1="22.097" y1="92.009" x2="22.097" y2="-29.783" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <line id="tado-24" x1="181.174" y1="-29.783" x2="181.174" y2="92.009" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <polyline id="tado-25" points="181.174 92.009 181.174 92.938 181.174 93.636 181.174 94.391 181.056 95.319 180.942 96.133 180.593 97.643 180.129 99.095 179.431 100.547 178.793 101.709 178.038 102.87 177.341 103.8 176.586 104.672 175.947 105.309 175.308 105.889 174.669 106.471 173.972 107.051 173.1 107.69 172.287 108.213 171.417 108.735 170.546 109.201 169.674 109.55 168.687 109.898 167.756 110.188 166.77 110.42 165.434 110.594 164.04 110.653 162.589 110.653 111.716 110.653" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <path id="tado-26" d="M92.922,108.063H110.35a1.358,1.358,0,0,1,1.358,1.358h0v1.958a1.358,1.358,0,0,1-1.359,1.359H92.923a1.36,1.36,0,0,1-1.36-1.36h0v-1.956a1.36,1.36,0,0,1,1.359-1.359Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <polyline id="tado-27" points="107.362 108.381 107.385 111.335 111.126 112.306" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <path id="tado-28" d="M168.607,70.949a6.748,6.748,0,0,1-6.559,6.435H40.873a6.165,6.165,0,0,1-6.209-6.12V19.3a6.166,6.166,0,0,1,6.209-6.12H161.962a6.764,6.764,0,0,1,6.645,6.361Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <path id="tado-29" d="M167.638,70.27a6.55,6.55,0,0,1-6.469,6.175H41.81A6.025,6.025,0,0,1,35.7,70.513v-50.4a6.028,6.028,0,0,1,6.113-5.935H161.523a6.028,6.028,0,0,1,6.115,5.935Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <path id="tado-30" d="M65.939,17.406h71.393a4.418,4.418,0,0,1,4.418,4.418v23.57a4.42,4.42,0,0,1-4.42,4.42H65.941a4.42,4.42,0,0,1-4.42-4.42h0V21.824a4.418,4.418,0,0,1,4.418-4.418Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <path id="tado-31" d="M57.123,33.472a3.6,3.6,0,0,1-3.6,3.6H45.587a3.6,3.6,0,0,1-3.6-3.6h0a3.6,3.6,0,0,1,3.6-3.6h7.94a3.6,3.6,0,0,1,3.6,3.6Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <rect id="tado-32" x="60.369" y="53.444" width="49.367" height="20.444" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <rect id="tado-33" x="118.217" y="53.444" width="24.683" height="20.444" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <line id="tado-34" x1="60.369" y1="57.046" x2="109.737" y2="57.046" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <line id="tado-35" x1="118.217" y1="57.046" x2="142.9" y2="57.046" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <line id="tado-36" x1="60.369" y1="64.829" x2="109.737" y2="64.829" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <rect id="tado-37" x="61.182" y="66.338" width="6.62" height="4.995" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <rect id="tado-38" x="69.416" y="66.338" width="6.621" height="4.995" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <rect id="tado-39" x="94.135" y="66.338" width="6.62" height="4.995" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <rect id="tado-40" x="102.371" y="66.338" width="6.619" height="4.995" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <rect id="tado-41" x="77.648" y="66.338" width="6.621" height="4.995" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <rect id="tado-42" x="85.844" y="66.338" width="6.62" height="4.995" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <rect id="tado-43" x="127.295" y="66.338" width="6.62" height="4.995" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <rect id="tado-44" x="135.529" y="66.338" width="6.62" height="4.995" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <rect id="tado-45" x="119.004" y="66.338" width="6.62" height="4.995" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <polyline id="tado-46" points="62.382 53.444 62.382 52.649 107.739 52.649 107.739 53.216" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <polyline id="tado-47" points="119.928 53.411 119.949 52.689 141.055 52.689 141.055 53.256" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <rect id="tado-48" x="61.503" y="73.889" width="6.063" height="1.468" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <rect id="tado-49" x="69.692" y="73.889" width="6.061" height="1.468" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <rect id="tado-50" x="78.022" y="73.889" width="6.061" height="1.468" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <rect id="tado-51" x="86.224" y="73.889" width="6.063" height="1.468" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <rect id="tado-52" x="94.368" y="73.889" width="6.061" height="1.468" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <rect id="tado-53" x="102.737" y="73.889" width="6.063" height="1.468" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <rect id="tado-54" x="119.297" y="73.889" width="6.063" height="1.468" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <rect id="tado-55" x="127.712" y="73.889" width="6.061" height="1.468" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <rect id="tado-56" x="136.04" y="73.889" width="6.063" height="1.468" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <line id="tado-57" x1="118.217" y1="64.829" x2="142.9" y2="64.829" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          <g id="tado-58">
+            <path id="tado-59" d="M67.205,60.957a3.039,3.039,0,1,1-3.039-3.039,3.038,3.038,0,0,1,3.039,3.039Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+            <path id="tado-60" d="M66.577,60.978a2.387,2.387,0,1,1-2.39-2.385A2.387,2.387,0,0,1,66.577,60.978Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+            <line id="tado-61" x1="62.078" y1="61.56" x2="66.085" y2="59.608" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <line id="tado-62" x1="62.429" y1="62.208" x2="66.436" y2="60.256" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </g>
+          <g id="tado-63">
+            <path id="tado-64" d="M75.755,60.957a3.039,3.039,0,1,1-3.039-3.039,3.038,3.038,0,0,1,3.039,3.039Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+            <path id="tado-65" d="M75.127,60.978a2.387,2.387,0,1,1-2.389-2.385h0A2.389,2.389,0,0,1,75.127,60.978Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+            <line id="tado-66" x1="70.628" y1="61.56" x2="74.635" y2="59.608" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <line id="tado-67" x1="70.979" y1="62.208" x2="74.986" y2="60.256" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </g>
+          <g id="tado-68">
+            <path id="tado-69" d="M83.968,60.957a3.039,3.039,0,1,1-3.039-3.039h0a3.038,3.038,0,0,1,3.037,3.039Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+            <path id="tado-70" d="M83.341,60.978a2.386,2.386,0,1,1-2.387-2.385h0A2.387,2.387,0,0,1,83.341,60.978Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+            <line id="tado-71" x1="78.843" y1="61.56" x2="82.85" y2="59.608" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <line id="tado-72" x1="79.192" y1="62.208" x2="83.199" y2="60.256" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </g>
+          <g id="tado-73">
+            <path id="tado-74" d="M92.293,60.957a3.039,3.039,0,1,1-3.04-3.039A3.038,3.038,0,0,1,92.293,60.957Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+            <path id="tado-75" d="M91.664,60.978a2.387,2.387,0,1,1-2.389-2.385h0A2.388,2.388,0,0,1,91.664,60.978Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+            <line id="tado-76" x1="87.166" y1="61.56" x2="91.172" y2="59.608" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <line id="tado-77" x1="87.517" y1="62.208" x2="91.521" y2="60.256" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </g>
+          <g id="tado-78">
+            <path id="tado-79" d="M100.37,60.957a3.039,3.039,0,1,1-3.039-3.039h0a3.038,3.038,0,0,1,3.037,3.039Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+            <path id="tado-80" d="M99.742,60.978a2.387,2.387,0,1,1-2.389-2.385h0A2.387,2.387,0,0,1,99.742,60.978Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+            <line id="tado-81" x1="95.245" y1="61.56" x2="99.25" y2="59.608" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <line id="tado-82" x1="95.594" y1="62.208" x2="99.601" y2="60.256" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </g>
+          <g id="tado-83">
+            <circle id="tado-84" cx="105.461" cy="60.957" r="3.039" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+            <path id="tado-85" d="M107.871,60.978a2.386,2.386,0,1,1-2.387-2.385h0A2.388,2.388,0,0,1,107.871,60.978Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+            <line id="tado-86" x1="103.373" y1="61.56" x2="107.38" y2="59.608" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <line id="tado-87" x1="103.724" y1="62.208" x2="107.729" y2="60.256" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </g>
+          <g id="tado-88">
+            <path id="tado-89" d="M125.456,60.957a3.039,3.039,0,1,1-3.039-3.039A3.038,3.038,0,0,1,125.456,60.957Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+            <path id="tado-90" d="M124.827,60.978a2.386,2.386,0,1,1-2.387-2.385h0A2.388,2.388,0,0,1,124.827,60.978Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+            <line id="tado-91" x1="120.329" y1="61.56" x2="124.336" y2="59.608" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <line id="tado-92" x1="120.68" y1="62.208" x2="124.685" y2="60.256" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </g>
+          <g id="tado-93">
+            <path id="tado-94" d="M133.534,60.957a3.039,3.039,0,1,1-3.039-3.039h0a3.038,3.038,0,0,1,3.038,3.038Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+            <path id="tado-95" d="M132.907,60.978a2.388,2.388,0,1,1-2.391-2.385h0A2.388,2.388,0,0,1,132.907,60.978Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+            <line id="tado-96" x1="128.407" y1="61.56" x2="132.413" y2="59.608" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <line id="tado-97" x1="128.757" y1="62.208" x2="132.764" y2="60.256" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </g>
+          <g id="tado-98">
+            <path id="tado-99" d="M141.663,60.957a3.039,3.039,0,1,1-3.039-3.039,3.038,3.038,0,0,1,3.039,3.039Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+            <path id="tado-100" d="M141.035,60.978a2.387,2.387,0,1,1-2.389-2.385h0A2.389,2.389,0,0,1,141.035,60.978Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+            <line id="tado-101" x1="136.536" y1="61.56" x2="140.543" y2="59.608" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+            <line id="tado-102" x1="136.887" y1="62.208" x2="140.892" y2="60.256" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </g>
+          <path id="tado-103" d="M166.327,70.241a5.726,5.726,0,0,1-5.13,5.115H41.687A5.323,5.323,0,0,1,36.8,70.413V20.437c0-2.428,2.232-5.17,4.672-5.17l120.037-.014c2.44,0,4.818,2.591,4.818,5.019Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <g id="tado-104">
+            <path id="tado-105" d="M95.612,90.5H92.473v3.78a.551.551,0,0,0,.552.55h.926v.922h-1.1A1.468,1.468,0,0,1,91.37,94.3V90.5h-.738v-.923h.746V88.1l1.1-.368v1.844h3.137Zm.366-.923h2.03a1.459,1.459,0,0,1,1.473,1.426V95.75h-1.1v-.457a1.531,1.531,0,0,1-1.3.555,2.041,2.041,0,1,1,0-4.067h1.29v-.753a.52.52,0,0,0-.512-.528H95.971Zm2.4,3.134H97.087A1.113,1.113,0,0,0,95.98,93.82a1.05,1.05,0,0,0,.992,1.105,1.1,1.1,0,0,0,.115,0c.927,0,1.29-.549,1.29-1.038Zm10.153-3.13c1.737,0,2.758,1.343,2.758,3.158,0,1.87-1.016,3.2-2.758,3.2-1.766,0-2.767-1.332-2.767-3.2,0-1.822,1-3.158,2.767-3.158m0,5.433c1.1,0,1.659-1.167,1.659-2.256s-.568-2.247-1.659-2.247c-1.11,0-1.665,1.15-1.665,2.248,0,1.114.566,2.252,1.665,2.252m-3.149-2.245V87.735h-1.106V90.13a2.551,2.551,0,0,0-1.645-.549c-1.769,0-2.763,1.332-2.763,3.189,0,1.748.994,3.168,2.763,3.168,1.739,0,2.75-1.424,2.751-3.168m-2.751,2.243c-1.2,0-1.655-1.16-1.655-2.249s.546-2.259,1.655-2.259,1.642,1.155,1.642,2.259c0,1.089-.539,2.249-1.642,2.249m9.942-7.286a1.477,1.477,0,1,0,1.476,1.478h0a1.478,1.478,0,0,0-1.476-1.477m0,2.585a1.108,1.108,0,1,1,1.106-1.11v0a1.106,1.106,0,0,1-1.105,1.109h0" fill="#999"/>
+          </g>
+          <polyline id="tado-106" points="92.008 112.603 95.841 111.405 95.841 108.063" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line id="tado-107" x1="95.841" y1="111.405" x2="107.385" y2="111.335" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+        </g>
+        <path id="tado-108" d="M97.729,33.959l-.116.708c-.016.1-.052.2-.077.3a7.242,7.242,0,0,1,1.584-.608l.027-.165Z" fill="none"/>
+        <g id="tado-109">
+          <g id="tado-110">
+            <ellipse id="tado-111" cx="102.026" cy="37.276" rx="6.55" ry="4.048" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="#fff"/>
+            <ellipse id="tado-112" cx="102.119" cy="37.323" rx="5.875" ry="3.451" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="#fff"/>
+            <path id="tado-113" d="M95.5,37.165l.057-10.6c.912-4.675,12.029-4.618,12.884-.228l.18,10.943" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+            <path id="tado-114" d="M95.5,27.872c-1.026-.8-2.109-6.043,6.613-5.929s7.753,5.017,6.442,6.1" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+            <path id="tado-115" d="M91.448,44.267a108.487,108.487,0,0,1-12.3,3.137A11.075,11.075,0,0,0,71.43,52.45h1.721c.069-.124,1.475-2.771,6.253-3.633a110.011,110.011,0,0,0,12.5-3.191c.377-.129,9.251-3.257,9.8-11.577l.011-.161a9.677,9.677,0,0,0-1.459.18C99.722,41.381,91.787,44.151,91.448,44.267Z" fill="#fff" stroke="#333" stroke-miterlimit="10" stroke-width="0.5"/>
+            <path id="tado-116" d="M89.54,41.25a53.729,53.729,0,0,1-8.884.9c-1.766.075-3.435.146-5.028.348-4.371.554-6.83,5.2-6.933,5.4l1.275.663c.021-.042,2.221-4.178,5.838-4.637,1.534-.194,3.174-.264,4.909-.338a55.521,55.521,0,0,0,9.113-.925c1.926-.4,8.975-3.272,9.743-7.941l.1-.511a7.225,7.225,0,0,0-1.586.62C97.219,38.288,91.36,40.875,89.54,41.25Z" fill="#fff" stroke="#333" stroke-miterlimit="10" stroke-width="0.5"/>
+            <path id="tado-117" d="M101.9,33.967c-.1,0-.2.006-.3.009l-.421-.01c0,.067-.025,6.731-1.909,9.684C97.091,47.065,90.8,47.7,87.771,48c-3.687.368-6.7,4.3-6.817,4.454l1.879.01c.024-.032,2.022-3,5.1-3.3,3.254-.328,10-.736,12.554-4.738,2.081-3.261,2.133-9.968,2.134-10.429C102.381,33.978,102.142,33.967,101.9,33.967Z" fill="#fff" stroke="#333" stroke-miterlimit="10" stroke-width="0.5"/>
+          </g>
+          <polygon id="tado-118" points="69.777 48.481 68.554 50.333 68.114 50.123 68.944 48.053 69.777 48.481" fill="#fff" stroke="#333" stroke-miterlimit="10" stroke-width="0.5"/>
+          <g id="tado-119">
+            <polygon id="tado-120" points="82.403 43.71 79.263 43.959 79.005 41.44 78.363 36.994 81.851 36.642 82.302 41.243 82.403 43.71" fill="#fff" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          </g>
+          <g id="tado-121">
+            <polygon id="tado-122" points="101.535 49.448 98.902 51.188 97.655 49.366 95.542 46.105 98.436 44.115 100.448 47.59 101.535 49.448" fill="#fff" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          </g>
+          <g id="tado-123">
+            <polygon id="tado-124" points="80.598 52.828 77.637 53.921 76.839 51.863 75.527 48.205 78.799 46.929 79.964 50.771 80.598 52.828" fill="#fff" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          </g>
+          <g id="tado-125">
+            <polyline id="tado-126" points="108.843 24.123 110.304 20.748 112.462 20.902" fill="#fff" stroke="#333" stroke-miterlimit="10" stroke-width="0.5"/>
+            <polyline id="tado-127" points="97.066 19.615 99.428 19.499 99.431 20.822 101.164 21.952" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+            <polyline id="tado-128" points="109.325 26.761 112.856 24.79 113.524 25.341 116.08 27.449 117.401 25.358" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+            <polyline id="tado-129" points="114.385 23.341 115.604 23.596 113.524 25.341" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+            <polyline id="tado-130" points="94.819 26.504 92.206 24.707 91.559 27.554 88.372 29.455 88.282 27.262" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+            <line id="tado-131" x1="90.419" y1="23.69" x2="91.955" y2="25.628" stroke-width="0.5" stroke="#333" stroke-linecap="round" stroke-linejoin="round" fill="none"/>
+          </g>
+        </g>
+      </g>
+    </g>
+    <g>
+      <line x1="107.48" y1="51.373" x2="128.487" y2="97.313" fill="none" stroke="#3a86ad" stroke-miterlimit="10" stroke-width="2"/>
+      <g>
+        <path d="M103.487,53.482a4.512,4.512,0,1,1,5.98,2.227A4.512,4.512,0,0,1,103.487,53.482Z" fill="#fff"/>
+        <path d="M102.938,53.731a5.111,5.111,0,1,0,2.523-6.774A5.112,5.112,0,0,0,102.938,53.731Zm8.206-3.752a3.912,3.912,0,1,1-5.184-1.93h0A3.916,3.916,0,0,1,111.144,49.979Z" fill="#3a86ad"/>
+      </g>
+    </g>
+    <circle id="circle-2" cx="170.142" cy="252.053" r="161.648" fill="#fff" stroke="#3a86ad" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+    <g clip-path="url(#clip-path)">
+      <g>
+        <polygon points="308.11 262.248 308.11 369.136 32.235 369.136 32.235 262.248 41.555 262.248 41.555 255.761 299.411 255.761 299.411 262.248 308.11 262.248" fill="#fff" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+        <line x1="42.176" y1="262.764" x2="302.207" y2="262.764" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <line x1="31.769" y1="265.955" x2="306.867" y2="265.955" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <line x1="32.546" y1="286.035" x2="308.11" y2="286.035" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <line x1="32.235" y1="328.667" x2="307.799" y2="328.667" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <g>
+          <path d="M72.695,307.47a17.245,17.245,0,1,1-17.342-17.147h.1A17.2,17.2,0,0,1,72.695,307.47Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <path d="M71.6,307.061a15.876,15.876,0,1,1-15.969-15.782h.1A15.831,15.831,0,0,1,71.6,307.061Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="47.375" y1="320.301" x2="68.959" y2="298.77" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="63.799" y1="293.65" x2="42.225" y2="315.107" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        </g>
+        <g>
+          <path d="M118.764,307.47a17.245,17.245,0,1,1-17.342-17.147h.1A17.2,17.2,0,0,1,118.764,307.47Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <path d="M117.664,307.061A15.876,15.876,0,1,1,101.7,291.279h.093A15.831,15.831,0,0,1,117.664,307.061Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="93.461" y1="320.32" x2="115.045" y2="298.788" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="109.922" y1="293.632" x2="88.311" y2="315.124" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        </g>
+        <g>
+          <path d="M164.413,307.47a17.244,17.244,0,1,1-17.34-17.147h.1a17.194,17.194,0,0,1,17.242,17.146Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <path d="M163.316,307.061a15.876,15.876,0,1,1-15.969-15.782h.093A15.833,15.833,0,0,1,163.316,307.061Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="139.098" y1="320.528" x2="160.906" y2="298.771" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="155.75" y1="293.646" x2="133.945" y2="315.334" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        </g>
+        <g>
+          <path d="M210.321,307.47a17.245,17.245,0,1,1-17.342-17.147h.1A17.2,17.2,0,0,1,210.321,307.47Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <path d="M209.222,307.061a15.876,15.876,0,1,1-15.969-15.782h.1A15.831,15.831,0,0,1,209.222,307.061Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="185.002" y1="320.301" x2="206.586" y2="298.77" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="201.426" y1="293.65" x2="179.852" y2="315.107" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        </g>
+        <g>
+          <path d="M256.388,307.47a17.245,17.245,0,1,1-17.342-17.147h.1A17.2,17.2,0,0,1,256.388,307.47Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <path d="M255.288,307.061a15.876,15.876,0,1,1-15.969-15.782h.093A15.832,15.832,0,0,1,255.288,307.061Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="231.088" y1="320.32" x2="252.672" y2="298.788" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="247.548" y1="293.632" x2="225.938" y2="315.124" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        </g>
+        <g>
+          <path d="M302.039,307.47A17.243,17.243,0,1,1,284.7,290.323h.1a17.194,17.194,0,0,1,17.242,17.146Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <path d="M300.942,307.061a15.876,15.876,0,1,1-15.969-15.782h.094A15.833,15.833,0,0,1,300.942,307.061Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="276.725" y1="320.528" x2="298.532" y2="298.771" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="293.377" y1="293.646" x2="271.572" y2="315.334" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        </g>
+        <g>
+          <polyline points="85.408 364.168 92.359 355.82 113.774 355.82 121.341 364.784" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="121.341" y1="364.784" x2="121.341" y2="337.402" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="84.791" y1="364.784" x2="121.341" y2="364.784" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="84.789" y1="337.402" x2="84.791" y2="364.784" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <polyline points="84.789 337.402 92.359 337.402 113.774 337.402 121.341 337.402" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="92.359" y1="337.402" x2="92.359" y2="355.82" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="113.774" y1="337.402" x2="113.793" y2="355.82" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        </g>
+        <g>
+          <polyline points="37.875 364.168 44.827 355.82 66.241 355.82 73.809 364.784" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="73.809" y1="364.784" x2="73.809" y2="337.402" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="37.259" y1="364.784" x2="73.809" y2="364.784" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="37.257" y1="337.402" x2="37.259" y2="364.784" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <polyline points="37.257 337.402 44.827 337.402 66.241 337.402 73.809 337.402" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="44.827" y1="337.402" x2="44.827" y2="355.82" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="66.241" y1="337.402" x2="66.26" y2="355.82" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        </g>
+        <g>
+          <polyline points="130.144 364.168 137.096 355.82 158.51 355.82 166.078 364.784" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="166.078" y1="364.784" x2="166.078" y2="337.402" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="129.528" y1="364.784" x2="166.078" y2="364.784" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="129.525" y1="337.402" x2="129.528" y2="364.784" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <polyline points="129.525 337.402 137.096 337.402 158.51 337.402 166.078 337.402" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="137.096" y1="337.402" x2="137.096" y2="355.82" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="158.51" y1="337.402" x2="158.529" y2="355.82" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        </g>
+        <g>
+          <polyline points="177.056 364.168 184.007 355.82 205.421 355.82 212.989 364.784" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="212.989" y1="364.784" x2="212.989" y2="337.402" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="176.439" y1="364.784" x2="212.989" y2="364.784" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="176.437" y1="337.402" x2="176.439" y2="364.784" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <polyline points="176.437 337.402 184.007 337.402 205.421 337.402 212.989 337.402" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="184.007" y1="337.402" x2="184.007" y2="355.82" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="205.421" y1="337.402" x2="205.441" y2="355.82" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        </g>
+        <g>
+          <polyline points="222.724 364.168 229.675 355.82 251.09 355.82 258.657 364.784" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="258.657" y1="364.784" x2="258.657" y2="337.402" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="222.108" y1="364.784" x2="258.657" y2="364.784" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="222.105" y1="337.402" x2="222.108" y2="364.784" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <polyline points="222.105 337.402 229.675 337.402 251.09 337.402 258.657 337.402" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="229.675" y1="337.402" x2="229.675" y2="355.82" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="251.09" y1="337.402" x2="251.109" y2="355.82" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        </g>
+        <g>
+          <polyline points="267.46 364.168 274.412 355.82 295.826 355.82 303.394 364.784" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="303.394" y1="364.784" x2="303.394" y2="337.402" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="266.844" y1="364.784" x2="303.394" y2="364.784" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="266.842" y1="337.402" x2="266.844" y2="364.784" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <polyline points="266.842 337.402 274.412 337.402 295.826 337.402 303.394 337.402" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="274.412" y1="337.402" x2="274.412" y2="355.82" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="295.826" y1="337.402" x2="295.846" y2="355.82" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        </g>
+        <g>
+          <polygon points="55.24 283.574 53.053 283.574 47.993 273.328 47.993 283.574 45.839 283.574 45.839 268.402 48.026 268.402 53.088 278.643 53.088 268.402 55.24 268.402 55.24 283.574" fill="#333"/>
+          <path d="M61.822,283.926c-3.377,0-5.739-3.267-5.739-7.94s2.362-7.941,5.739-7.941,5.736,3.268,5.736,7.941S65.2,283.926,61.822,283.926Zm0-13.467c-2.109,0-3.586,2.271-3.586,5.527s1.477,5.53,3.586,5.53,3.58-2.275,3.58-5.53-1.471-5.527-3.58-5.527Z" fill="#333"/>
+        </g>
+        <polygon points="101.877 283.572 99.689 283.572 94.628 273.324 94.628 283.572 92.473 283.572 92.473 268.399 94.663 268.399 99.721 278.636 99.721 268.399 101.877 268.399 101.877 283.572" fill="#333"/>
+        <path d="M108.457,283.926c-3.379,0-5.741-3.267-5.741-7.94s2.362-7.941,5.741-7.941a4.4,4.4,0,0,1,3.95,2.5l.206.373-1.648,1.939-.409-.861a2.4,2.4,0,0,0-2.1-1.538c-2.111,0-3.581,2.271-3.581,5.527s1.47,5.53,3.581,5.53a2.8,2.8,0,0,0,2.367-1.812l.385-.829,1.68,1.792-.2.384A4.621,4.621,0,0,1,108.457,283.926Z" fill="#333"/>
+        <path d="M137.859,283.923c-3.377,0-5.737-3.264-5.737-7.942s2.36-7.934,5.737-7.934a4.4,4.4,0,0,1,3.95,2.5l.209.374-1.651,1.93L139.96,272a2.4,2.4,0,0,0-2.1-1.536c-2.109,0-3.584,2.272-3.584,5.523s1.475,5.533,3.584,5.533a2.809,2.809,0,0,0,2.369-1.815l.385-.827,1.674,1.792-.2.387A4.628,4.628,0,0,1,137.859,283.923Z" fill="#333"/>
+        <path d="M147.714,283.923c-3.377,0-5.736-3.264-5.736-7.942s2.359-7.934,5.736-7.934,5.737,3.266,5.737,7.934S151.088,283.923,147.714,283.923Zm0-13.465c-2.108,0-3.578,2.272-3.578,5.523s1.47,5.533,3.578,5.533,3.581-2.275,3.581-5.533S149.821,270.458,147.714,270.458Z" fill="#333"/>
+        <polygon points="165.347 283.573 163.192 283.573 163.192 274.671 160.459 283.573 159.143 283.573 156.353 274.624 156.353 283.573 154.196 283.573 154.196 268.399 156.652 268.399 159.81 278.623 162.961 268.399 165.347 268.399 165.347 283.573" fill="#333"/>
+      </g>
+    </g>
+    <g clip-path="url(#clip-path-2)">
+      <g>
+        <path d="M132.823,286.826l-2.077-4.246,10.647,3.654-3.648,10.647-1.987-4.069a18.766,18.766,0,0,0,19.372,31.774l.067-.03a18.765,18.765,0,0,0,.227-34.18l2.734-5.958a25.323,25.323,0,0,1-.29,46.128l-.085.038a25.317,25.317,0,0,1-24.959-43.758Z" fill="#3a86ad"/>
+        <polyline points="286.383 484.757 279.877 477.362 283.802 463.558 172.488 346.322 173.927 341.314 151.086 320.37 145.016 309.607 149.79 303.994 161.043 311.683 180.446 334.384 186.058 332.918 300.969 446.659 313.725 443.77" fill="#fff" stroke="#343433" stroke-miterlimit="10" stroke-width="1.5"/>
+      </g>
+    </g>
+    <g>
+      <path d="M192.943,268.282a3.715,3.715,0,0,1,1.822.415,3.579,3.579,0,0,1,1.222,1.1,4.7,4.7,0,0,1,.687,1.556,7.654,7.654,0,0,1,0,3.611,4.675,4.675,0,0,1-.687,1.565,3.561,3.561,0,0,1-1.222,1.1,3.726,3.726,0,0,1-1.822.415h-2.636v5.454H187.8V268.282Zm-.687,7.158a3.9,3.9,0,0,0,.831-.086,1.632,1.632,0,0,0,.7-.33,1.683,1.683,0,0,0,.487-.692,3.825,3.825,0,0,0,0-2.344,1.7,1.7,0,0,0-.487-.692,1.655,1.655,0,0,0-.7-.33,3.963,3.963,0,0,0-.831-.085h-1.949v4.559Z" fill="#333" stroke="#333" stroke-miterlimit="10" stroke-width="0.25"/>
+      <path d="M201.348,283.493v-9.672h-2.813v-2.28a4.018,4.018,0,0,0,1.143-.117,2.566,2.566,0,0,0,.991-.489,2.917,2.917,0,0,0,.743-.927,4.031,4.031,0,0,0,.4-1.428h1.805v14.913Z" fill="#333" stroke="#333" stroke-miterlimit="10" stroke-width="0.25"/>
+    </g>
+    <g>
+      <path d="M283.935,268.281a3.711,3.711,0,0,1,1.821.415,3.573,3.573,0,0,1,1.223,1.1,4.7,4.7,0,0,1,.687,1.556,7.654,7.654,0,0,1,0,3.611,4.675,4.675,0,0,1-.687,1.565,3.555,3.555,0,0,1-1.223,1.1,3.722,3.722,0,0,1-1.821.415H281.3v5.454H278.79V268.281Zm-.687,7.158a3.9,3.9,0,0,0,.831-.086,1.637,1.637,0,0,0,.7-.33,1.692,1.692,0,0,0,.487-.692,3.825,3.825,0,0,0,0-2.344,1.705,1.705,0,0,0-.487-.692,1.661,1.661,0,0,0-.7-.33,3.963,3.963,0,0,0-.831-.085H281.3v4.559Z" fill="#333" stroke="#333" stroke-miterlimit="10" stroke-width="0.25"/>
+      <path d="M292.77,274.608a1.966,1.966,0,0,0,.776-.245,1.618,1.618,0,0,0,.591-.586,1.968,1.968,0,0,0,.232-1.022,2.067,2.067,0,0,0-.48-1.47,1.468,1.468,0,0,0-1.1-.512,1.417,1.417,0,0,0-1.3.756,3.648,3.648,0,0,0-.423,1.907H288.9a8.222,8.222,0,0,1,.311-2.1,5.221,5.221,0,0,1,.783-1.63,3.586,3.586,0,0,1,1.207-1.055,3.291,3.291,0,0,1,1.565-.372,3.63,3.63,0,0,1,1.343.266,3.573,3.573,0,0,1,1.206.8,4.166,4.166,0,0,1,.871,1.3,4.392,4.392,0,0,1,.336,1.769,4.447,4.447,0,0,1-.392,1.917,2.1,2.1,0,0,1-1.174,1.129v.043a2.455,2.455,0,0,1,1.453,1.193,4.324,4.324,0,0,1,.528,2.195,5.912,5.912,0,0,1-.343,2.087,4.592,4.592,0,0,1-.919,1.534,3.867,3.867,0,0,1-1.327.937,3.942,3.942,0,0,1-1.565.321,4.012,4.012,0,0,1-1.718-.363,3.584,3.584,0,0,1-1.318-1.054,5.019,5.019,0,0,1-.839-1.695,7.78,7.78,0,0,1-.28-2.3h2.157a5.661,5.661,0,0,0,.144,1.141,3.21,3.21,0,0,0,.368.937,1.92,1.92,0,0,0,.6.628,1.524,1.524,0,0,0,.855.235,1.626,1.626,0,0,0,1.294-.629,2.585,2.585,0,0,0,.527-1.715,2.745,2.745,0,0,0-.247-1.3,1.566,1.566,0,0,0-.632-.649,2.1,2.1,0,0,0-.839-.235q-.454-.031-.87-.032v-2.13A3.522,3.522,0,0,0,292.77,274.608Z" fill="#333" stroke="#333" stroke-miterlimit="10" stroke-width="0.25"/>
+    </g>
+    <g>
+      <path d="M238.521,268.282a3.715,3.715,0,0,1,1.822.415,3.57,3.57,0,0,1,1.222,1.1,4.7,4.7,0,0,1,.687,1.556,7.654,7.654,0,0,1,0,3.611,4.675,4.675,0,0,1-.687,1.565,3.552,3.552,0,0,1-1.222,1.1,3.726,3.726,0,0,1-1.822.415h-2.636v5.454h-2.509V268.282Zm-.687,7.158a3.891,3.891,0,0,0,.831-.086,1.637,1.637,0,0,0,.7-.33,1.683,1.683,0,0,0,.487-.692,3.825,3.825,0,0,0,0-2.344,1.7,1.7,0,0,0-.487-.692,1.661,1.661,0,0,0-.7-.33,3.956,3.956,0,0,0-.831-.085h-1.949v4.559Z" fill="#333" stroke="#333" stroke-miterlimit="10" stroke-width="0.25"/>
+      <path d="M243.746,271.936a6.286,6.286,0,0,1,.767-1.918,3.768,3.768,0,0,1,1.286-1.278,3.606,3.606,0,0,1,3.244-.138,3.639,3.639,0,0,1,1.222.916,4.434,4.434,0,0,1,.839,1.469,5.8,5.8,0,0,1,.312,1.96,6.123,6.123,0,0,1-.272,1.939,5.453,5.453,0,0,1-.719,1.438,6.979,6.979,0,0,1-1.015,1.14q-.567.512-1.142,1.012t-1.119,1.076a6.326,6.326,0,0,0-.958,1.342h5.288v2.6h-8.213a8.124,8.124,0,0,1,.28-2.258,6.714,6.714,0,0,1,.759-1.715,7.943,7.943,0,0,1,1.127-1.4q.647-.639,1.366-1.3.368-.34.783-.692a5.764,5.764,0,0,0,.759-.779,4.158,4.158,0,0,0,.575-.958,3.021,3.021,0,0,0,.232-1.214,2.7,2.7,0,0,0-.472-1.694,1.461,1.461,0,0,0-1.206-.607,1.214,1.214,0,0,0-.839.308,2.2,2.2,0,0,0-.551.81,4.6,4.6,0,0,0-.3,1.108,8.338,8.338,0,0,0-.088,1.2h-2.173A9.4,9.4,0,0,1,243.746,271.936Z" fill="#333" stroke="#333" stroke-miterlimit="10" stroke-width="0.25"/>
+    </g>
+  </g>
+  <g id="P3">
+    <g>
+      <path id="no-3" d="M281.953,138.805V255.341l11.01,0V150.48" fill="#fff" stroke="#333" stroke-miterlimit="10" stroke-width="0.5"/>
+      <polygon id="no-5" points="294.653 156.263 294.892 191.046 281.554 191.199 249.84 191.223 249.547 155.568 281.259 156.387 294.653 156.263" fill="#999" stroke="#333" stroke-miterlimit="10" stroke-width="1.5"/>
+      <line id="no-6" x1="281.259" y1="156.387" x2="281.554" y2="191.199" fill="none" stroke="#333" stroke-miterlimit="10" stroke-width="0.5"/>
+      <g>
+        <path d="M274.964,169.465a3.711,3.711,0,0,1-.415,1.821,3.563,3.563,0,0,1-1.1,1.223,4.7,4.7,0,0,1-1.555.687,7.658,7.658,0,0,1-3.612,0,4.675,4.675,0,0,1-1.565-.687,3.566,3.566,0,0,1-1.1-1.223,3.722,3.722,0,0,1-.415-1.821v-2.636h-5.454V164.32h15.211Zm-7.158-.687a3.888,3.888,0,0,0,.086.83,1.636,1.636,0,0,0,.33.7,1.692,1.692,0,0,0,.692.487,3.825,3.825,0,0,0,2.344,0,1.705,1.705,0,0,0,.692-.487,1.659,1.659,0,0,0,.33-.7,3.954,3.954,0,0,0,.085-.83v-1.949h-4.559Z" fill="#fff"/>
+        <path d="M268.637,178.3a1.966,1.966,0,0,0,.245.776,1.618,1.618,0,0,0,.586.591,1.97,1.97,0,0,0,1.022.232,2.067,2.067,0,0,0,1.47-.48,1.468,1.468,0,0,0,.512-1.1,1.417,1.417,0,0,0-.756-1.3,3.648,3.648,0,0,0-1.907-.423v-2.157a8.222,8.222,0,0,1,2.1.311,5.221,5.221,0,0,1,1.63.783,3.586,3.586,0,0,1,1.055,1.207,3.291,3.291,0,0,1,.372,1.565,3.63,3.63,0,0,1-.266,1.343,3.57,3.57,0,0,1-.8,1.206,4.182,4.182,0,0,1-1.3.871,4.392,4.392,0,0,1-1.769.336,4.45,4.45,0,0,1-1.917-.392,2.108,2.108,0,0,1-1.129-1.174h-.043a2.458,2.458,0,0,1-1.193,1.453,4.32,4.32,0,0,1-2.194.528,5.914,5.914,0,0,1-2.088-.343,4.587,4.587,0,0,1-1.533-.919,3.856,3.856,0,0,1-.938-1.327,3.942,3.942,0,0,1-.32-1.566,4.01,4.01,0,0,1,.362-1.717,3.577,3.577,0,0,1,1.055-1.318,5.013,5.013,0,0,1,1.694-.839,7.785,7.785,0,0,1,2.3-.28v2.157a5.661,5.661,0,0,0-1.141.144,3.193,3.193,0,0,0-.936.368,1.913,1.913,0,0,0-.629.6,1.522,1.522,0,0,0-.235.855,1.626,1.626,0,0,0,.629,1.294,2.587,2.587,0,0,0,1.715.527,2.729,2.729,0,0,0,1.3-.248,1.552,1.552,0,0,0,.649-.631,2.1,2.1,0,0,0,.235-.839c.021-.3.032-.594.032-.87h2.13A3.647,3.647,0,0,0,268.637,178.3Z" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+  <g id="P2">
+    <g>
+      <path id="com-3" d="M236.541,107.1V255.341h11.006V112.6" fill="#fff" stroke="#333" stroke-miterlimit="10" stroke-width="0.5"/>
+      <g>
+        <polygon id="com-5" points="250.091 204.099 250.33 238.882 236.992 239.035 205.278 239.059 204.984 203.404 236.697 204.223 250.091 204.099" fill="#999" stroke="#333" stroke-miterlimit="10" stroke-width="1.5"/>
+        <line id="com-6" x1="236.697" y1="204.223" x2="236.992" y2="239.035" fill="none" stroke="#333" stroke-miterlimit="10" stroke-width="0.5"/>
+      </g>
+      <g>
+        <path d="M229.94,217.325a3.7,3.7,0,0,1-.415,1.822,3.557,3.557,0,0,1-1.1,1.222,4.7,4.7,0,0,1-1.556.687,7.654,7.654,0,0,1-3.611,0,4.68,4.68,0,0,1-1.566-.687,3.549,3.549,0,0,1-1.1-1.222,3.715,3.715,0,0,1-.415-1.822v-2.636H214.73V212.18h15.21Zm-7.158-.687a3.956,3.956,0,0,0,.086.831,1.649,1.649,0,0,0,.33.7,1.686,1.686,0,0,0,.693.487,3.821,3.821,0,0,0,2.343,0,1.7,1.7,0,0,0,.693-.487,1.673,1.673,0,0,0,.33-.7,3.956,3.956,0,0,0,.085-.831v-1.949h-4.56Z" fill="#fff"/>
+        <path d="M226.287,222.55a6.3,6.3,0,0,1,1.918.767,3.756,3.756,0,0,1,1.277,1.286,3.61,3.61,0,0,1,.139,3.244,3.653,3.653,0,0,1-.916,1.222,4.439,4.439,0,0,1-1.47.839,5.8,5.8,0,0,1-1.96.312,6.121,6.121,0,0,1-1.938-.272,5.46,5.46,0,0,1-1.439-.719,7.013,7.013,0,0,1-1.139-1.015q-.511-.567-1.012-1.142t-1.076-1.119a6.326,6.326,0,0,0-1.342-.958v5.288h-2.6v-8.212a8.114,8.114,0,0,1,2.257.279,6.721,6.721,0,0,1,1.716.759,7.943,7.943,0,0,1,1.4,1.127q.638.647,1.3,1.366.34.368.692.783a5.7,5.7,0,0,0,.778.759,4.18,4.18,0,0,0,.958.575,3.03,3.03,0,0,0,1.215.232,2.7,2.7,0,0,0,1.693-.472,1.459,1.459,0,0,0,.608-1.206,1.215,1.215,0,0,0-.309-.839,2.2,2.2,0,0,0-.809-.551,4.6,4.6,0,0,0-1.109-.3,8.458,8.458,0,0,0-1.2-.088v-2.173A9.4,9.4,0,0,1,226.287,222.55Z" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+  <g id="P1">
+    <g>
+      <path id="no-3-2" data-name="no-3" d="M190.961,93.836V255.341l11.01,0V95.749" fill="#fff" stroke="#333" stroke-miterlimit="10" stroke-width="0.5"/>
+      <g>
+        <polygon id="no-5-2" data-name="no-5" points="203.745 156.734 203.984 191.517 190.646 191.67 158.932 191.695 158.639 156.04 190.351 156.859 203.745 156.734" fill="#999" stroke="#333" stroke-miterlimit="10" stroke-width="1.5"/>
+        <line id="no-6-2" data-name="no-6" x1="190.351" y1="156.859" x2="190.646" y2="191.67" fill="none" stroke="#333" stroke-miterlimit="10" stroke-width="0.5"/>
+      </g>
+      <g>
+        <path d="M182.917,171.1a3.7,3.7,0,0,1-.415,1.821,3.56,3.56,0,0,1-1.1,1.223,4.7,4.7,0,0,1-1.556.687,7.688,7.688,0,0,1-3.611,0,4.68,4.68,0,0,1-1.566-.687,3.553,3.553,0,0,1-1.1-1.223,3.711,3.711,0,0,1-.416-1.821v-2.637h-5.454v-2.508h15.211Zm-7.158-.687a3.9,3.9,0,0,0,.086.831,1.649,1.649,0,0,0,.33.7,1.689,1.689,0,0,0,.692.487,3.825,3.825,0,0,0,2.344,0,1.7,1.7,0,0,0,.693-.487,1.673,1.673,0,0,0,.33-.7,4.038,4.038,0,0,0,.085-.831v-1.95h-4.56Z" fill="#fff"/>
+        <path d="M167.706,179.507h9.672V176.7h2.281a4.018,4.018,0,0,0,.117,1.143,2.555,2.555,0,0,0,.489.99,2.892,2.892,0,0,0,.927.743,4.025,4.025,0,0,0,1.427.4v1.805H167.706Z" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+  <g id="COM">
+    <path id="com-3-2" data-name="com-3" d="M145.5,94.435V255.341h11.006V93.227" fill="#fff" stroke="#333" stroke-miterlimit="10" stroke-width="0.5"/>
+    <g id="com-4">
+      <polygon id="com-5-2" data-name="com-5" points="158.051 204.099 158.29 238.882 144.952 239.035 113.238 239.059 112.944 203.404 144.657 204.223 158.051 204.099" fill="#999" stroke="#333" stroke-miterlimit="10" stroke-width="1.5"/>
+      <line id="com-6-2" data-name="com-6" x1="144.657" y1="204.223" x2="144.952" y2="239.035" fill="none" stroke="#333" stroke-miterlimit="10" stroke-width="0.5"/>
+      <g id="com-7">
+        <path id="com-8" d="M122.294,211.836c-.053-3.024,3.2-5.2,7.925-5.269s8.037,1.985,8.077,5.015a3.911,3.911,0,0,1-2.461,3.581l-.369.189-1.969-1.446.858-.379a2.175,2.175,0,0,0,1.517-1.908c-.03-1.893-2.341-3.178-5.623-3.124s-5.557,1.414-5.528,3.3a2.566,2.566,0,0,0,1.867,2.095l.842.332-1.786,1.528-.388-.173C123.315,214.725,122.323,213.471,122.294,211.836Z" fill="#fff"/>
+        <path id="com-9" d="M122.434,220.669c-.05-3.024,3.21-5.19,7.93-5.265,4.7-.078,8.033,1.975,8.079,5.007s-3.2,5.194-7.913,5.274S122.487,223.7,122.434,220.669Zm13.582-.215c-.035-1.888-2.351-3.171-5.622-3.121-3.288.056-5.561,1.412-5.524,3.3s2.345,3.174,5.622,3.121,5.552-1.41,5.524-3.3Z" fill="#fff"/>
+        <polygon id="com-10" points="123.051 236.471 123.017 234.541 131.989 234.395 122.975 232.093 122.955 230.912 131.94 228.26 122.921 228.408 122.884 226.479 138.183 226.228 138.219 228.426 127.956 231.424 138.307 234.086 138.346 236.224 123.051 236.471" fill="#fff"/>
+      </g>
+    </g>
+  </g>
+  <g id="NC">
+    <g>
+      <path id="no-3-3" data-name="no-3" d="M99.658,108.993V255.345l11.01,0V104.133" fill="#fff" stroke="#333" stroke-miterlimit="10" stroke-width="0.5"/>
+      <g>
+        <polygon id="no-5-3" data-name="no-5" points="112.442 157.099 112.681 191.882 99.343 192.035 67.629 192.059 67.336 156.404 99.048 157.223 112.442 157.099" fill="#999" stroke="#333" stroke-miterlimit="10" stroke-width="1.5"/>
+        <line id="no-6-3" data-name="no-6" x1="99.048" y1="157.223" x2="99.343" y2="192.035" fill="none" stroke="#333" stroke-miterlimit="10" stroke-width="0.5"/>
+        <g>
+          <polygon points="76.875 173.395 76.875 171.118 87.544 165.849 76.875 165.849 76.875 163.605 92.671 163.605 92.671 165.885 82.014 171.151 92.671 171.151 92.671 173.395 76.875 173.395" fill="#fff"/>
+          <path d="M76.507,180.245c0-3.517,3.4-5.976,8.266-5.976s8.267,2.459,8.267,5.976a4.581,4.581,0,0,1-2.6,4.112l-.388.215-2.019-1.716.9-.426a2.5,2.5,0,0,0,1.6-2.186c0-2.2-2.365-3.728-5.754-3.728s-5.757,1.531-5.757,3.728a2.913,2.913,0,0,0,1.886,2.464l.863.4L79.9,184.858l-.4-.208A4.811,4.811,0,0,1,76.507,180.245Z" fill="#fff"/>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g id="NO">
+    <g id="no-2" data-name="no">
+      <g id="no-2-2" data-name="no-2">
+        <path id="no-3-4" data-name="no-3" d="M53.842,142.986V255.345l11.01,0V132.361" fill="#fff" stroke="#333" stroke-miterlimit="10" stroke-width="0.5"/>
+        <g id="no-4">
+          <polygon id="no-5-4" data-name="no-5" points="65.626 204.099 65.865 238.882 52.527 239.035 20.813 239.059 20.52 203.404 52.232 204.223 65.626 204.099" fill="#999" stroke="#333" stroke-miterlimit="10" stroke-width="1.5"/>
+          <line id="no-6-4" data-name="no-6" x1="52.232" y1="204.223" x2="52.527" y2="239.035" fill="none" stroke="#333" stroke-miterlimit="10" stroke-width="0.5"/>
+          <g id="no-7">
+            <polygon points="28.737 220.322 28.717 217.91 39.985 212.266 28.686 212.337 28.674 209.956 45.398 209.855 45.418 212.272 34.159 217.916 45.45 217.848 45.456 220.227 28.737 220.322" fill="#fff"/>
+            <path d="M28.387,227.584c-.017-3.724,3.567-6.352,8.72-6.379s8.773,2.543,8.791,6.275-3.555,6.342-8.717,6.37S28.411,231.307,28.387,227.584Zm14.851-.086c-.015-2.33-2.523-3.94-6.122-3.923-3.584.022-6.078,1.666-6.069,3.991s2.531,3.931,6.121,3.908S43.253,229.813,43.238,227.5Z" fill="#fff"/>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+
+</svg>

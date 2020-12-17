@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="utf-8"?>
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink= "http://www.w3.org/1999/xlink"
+      id="svg" version="1.0" width="340" height="420"
+      viewBox="0.00 0.00 340 420"
+      enable-background="new 0 0 340 420" x="0px" y="0px">
+     <defs>
+    <clipPath id="clip-path">
+      <circle id="cablea" cx="170.233" cy="251.844" r="158.937" fill="none"/>
+    </clipPath>
+    <clipPath id="clip-path-5">
+      <circle id="body-2" data-name="body" cx="173.055" cy="256.566" r="154.665" fill="none"/>
+    </clipPath>
+    <style type="text/css"><![CDATA[
+      #other {
+        visibility: hidden;
+      }
+      #minus {
+        visibility: visible;
+      }
+      #plus {
+        visibility: visible;
+      }
+    ]]></style>
+  </defs>
+  <g id="tado">
+    <g id="tado-2" data-name="tado">
+      <line id="tado-3" data-name="tado" x1="152.028" y1="112.832" x2="101.208" y2="112.832" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+      <polyline id="tado-4" data-name="tado" points="99.611 114.908 98.856 114.675 97.87 114.501 96.65 114.327 95.256 114.269" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+      <polyline id="tado-5" data-name="tado" points="95.256 113.514 96.824 113.514 98.276 113.689 99.381 113.862 100.9 114.338" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+      <line id="tado-6" data-name="tado" x1="80.94" y1="112.832" x2="30.178" y2="112.832" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+      <line id="tado-7" data-name="tado" x1="95.256" y1="114.269" x2="86.834" y2="114.269" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+      <line id="tado-8" data-name="tado" x1="95.256" y1="113.514" x2="86.834" y2="113.514" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+      <polyline id="tado-9" data-name="tado" points="81.483 114.256 82.768 113.862 83.93 113.689 85.325 113.514 86.834 113.514" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+      <polyline id="tado-10" data-name="tado" points="86.834 114.269 85.558 114.327 84.337 114.444 83.293 114.675 82.538 114.908" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+      <g id="tado-11" data-name="tado">
+        <path id="tado-12" data-name="tado" d="M9.432,98.705V-28A19.78,19.78,0,0,1,29.016-47.933l9.96-.027v-2.149h9.34v2.149H135v-2.149h9.344v2.149h10.509c9.581,0,18.237,9.273,18.237,18.854V97.133c0,9.582-9.051,18.566-18.633,18.566l-127.322-.04C17.555,115.659,9.432,105.681,9.432,98.705Z" fill="#fff" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+        <polyline id="tado-13" data-name="tado" points="141.684 24.293 141.104 23.015 140.639 22.435 140.058 21.97 139.362 21.621 138.664 21.447 137.271 21.505 135.993 22.028 135.413 22.551 134.947 23.132 134.6 23.771 134.426 24.524 134.483 25.919" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <polyline id="tado-14" data-name="tado" points="141.684 47.293 142.613 41.601 142.905 35.792 142.613 29.985 141.684 24.293" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <polyline id="tado-15" data-name="tado" points="134.483 45.724 134.426 47.06 134.6 47.815 134.947 48.454 135.413 49.093 135.993 49.557 137.271 50.08 138.664 50.139 139.362 49.963 140.058 49.615 140.639 49.151 141.104 48.57 141.684 47.293" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <polyline id="tado-16" data-name="tado" points="134.483 25.919 135.296 30.798 135.529 35.792 135.296 40.787 134.483 45.724" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <polyline id="tado-17" data-name="tado" points="16.118 94.22 16.118 95.44 16.176 96.543 16.292 97.589 16.582 98.692 16.93 99.737 17.744 101.364 18.847 102.933 20.068 104.385 21.52 105.605 23.027 106.708 24.714 107.52 25.759 107.928 26.862 108.16 27.908 108.276 29.01 108.333 30.231 108.333" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <polyline id="tado-18" data-name="tado" points="152.082 108.333 153.242 108.333 154.347 108.276 155.449 108.16 156.495 107.928 157.598 107.52 159.223 106.708 160.794 105.663 162.188 104.385 163.406 102.991 164.51 101.423 165.382 99.797 165.729 98.751 165.962 97.647 166.136 96.543 166.195 95.44 166.195 94.22" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <line id="tado-19" data-name="tado" x1="166.195" y1="94.22" x2="166.195" y2="-27.571" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <line id="tado-20" data-name="tado" x1="16.118" y1="-27.571" x2="16.118" y2="94.22" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <line id="tado-21" data-name="tado" x1="30.231" y1="108.333" x2="152.082" y2="108.333" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <polyline id="tado-22" data-name="tado" points="11.589 94.22 11.646 95.731 11.704 97.124 11.877 98.402 12.053 99.391 12.343 100.378 12.69 101.306 13.096 102.235 13.503 103.107 14.026 103.92 14.607 104.79 15.188 105.663 15.768 106.301 16.349 106.998 16.989 107.638 17.628 108.219 18.498 108.972 19.37 109.67 20.531 110.424 21.693 111.122 23.145 111.761 24.597 112.284 26.107 112.632 26.978 112.747 27.85 112.805 28.606 112.864 29.302 112.864 30.231 112.864 80.76 113.035" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <line id="tado-23" data-name="tado" x1="11.589" y1="94.22" x2="11.589" y2="-27.571" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <line id="tado-24" data-name="tado" x1="170.667" y1="-27.571" x2="170.667" y2="94.22" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <polyline id="tado-25" data-name="tado" points="170.667 94.22 170.667 95.149 170.667 95.847 170.667 96.602 170.549 97.531 170.434 98.344 170.085 99.854 169.621 101.306 168.923 102.758 168.286 103.92 167.53 105.081 166.834 106.011 166.078 106.883 165.439 107.52 164.8 108.1 164.161 108.682 163.465 109.262 162.593 109.901 161.78 110.424 160.91 110.946 160.038 111.412 159.166 111.761 158.18 112.109 157.249 112.399 156.262 112.632 154.927 112.805 153.532 112.864 152.082 112.864 101.208 112.864" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <path id="tado-26" data-name="tado" d="M82.416,110.274H99.841a1.359,1.359,0,0,1,1.359,1.359v1.958a1.358,1.358,0,0,1-1.358,1.358H82.416a1.36,1.36,0,0,1-1.36-1.36v-1.956A1.36,1.36,0,0,1,82.416,110.274Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <polyline id="tado-27" data-name="tado" points="96.855 110.592 96.877 113.546 100.618 114.518" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <path id="tado-28" data-name="tado" d="M158.1,73.16a6.75,6.75,0,0,1-6.56,6.435H30.365a6.165,6.165,0,0,1-6.209-6.119V21.506a6.166,6.166,0,0,1,6.209-6.12h121.09a6.764,6.764,0,0,1,6.645,6.361Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <path id="tado-29" data-name="tado" d="M157.131,72.481a6.551,6.551,0,0,1-6.47,6.175H31.3a6.026,6.026,0,0,1-6.114-5.933v-50.4A6.027,6.027,0,0,1,31.3,16.388H151.016a6.027,6.027,0,0,1,6.115,5.934Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <path id="tado-30" data-name="tado" d="M55.432,19.617h71.393a4.418,4.418,0,0,1,4.418,4.418v23.57a4.42,4.42,0,0,1-4.42,4.42H55.431a4.418,4.418,0,0,1-4.418-4.418V24.035A4.418,4.418,0,0,1,55.432,19.617Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <path id="tado-31" data-name="tado" d="M46.616,35.683a3.6,3.6,0,0,1-3.6,3.6H35.084a3.6,3.6,0,0,1-3.6-3.6h0a3.6,3.6,0,0,1,3.6-3.6h7.935a3.6,3.6,0,0,1,3.6,3.6Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <rect id="tado-32" data-name="tado" x="49.862" y="55.656" width="49.367" height="20.444" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <rect id="tado-33" data-name="tado" x="107.71" y="55.656" width="24.683" height="20.444" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <line id="tado-34" data-name="tado" x1="49.862" y1="59.257" x2="99.229" y2="59.257" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <line id="tado-35" data-name="tado" x1="107.71" y1="59.257" x2="132.392" y2="59.257" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <line id="tado-36" data-name="tado" x1="49.862" y1="67.04" x2="99.229" y2="67.04" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <rect id="tado-37" data-name="tado" x="50.675" y="68.549" width="6.62" height="4.995" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <rect id="tado-38" data-name="tado" x="58.909" y="68.549" width="6.621" height="4.995" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <rect id="tado-39" data-name="tado" x="83.628" y="68.549" width="6.62" height="4.995" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <rect id="tado-40" data-name="tado" x="91.863" y="68.549" width="6.619" height="4.995" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <rect id="tado-41" data-name="tado" x="67.141" y="68.549" width="6.621" height="4.995" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <rect id="tado-42" data-name="tado" x="75.337" y="68.549" width="6.62" height="4.995" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <rect id="tado-43" data-name="tado" x="116.788" y="68.549" width="6.62" height="4.995" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <rect id="tado-44" data-name="tado" x="125.022" y="68.549" width="6.62" height="4.995" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <rect id="tado-45" data-name="tado" x="108.496" y="68.549" width="6.62" height="4.995" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <polyline id="tado-46" data-name="tado" points="51.875 55.656 51.875 54.86 97.232 54.86 97.232 55.427" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <polyline id="tado-47" data-name="tado" points="109.421 55.623 109.441 54.9 130.548 54.9 130.548 55.467" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <rect id="tado-48" data-name="tado" x="50.996" y="76.1" width="6.063" height="1.468" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <rect id="tado-49" data-name="tado" x="59.185" y="76.1" width="6.061" height="1.468" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <rect id="tado-50" data-name="tado" x="67.514" y="76.1" width="6.061" height="1.468" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <rect id="tado-51" data-name="tado" x="75.717" y="76.1" width="6.063" height="1.468" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <rect id="tado-52" data-name="tado" x="83.86" y="76.1" width="6.061" height="1.468" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <rect id="tado-53" data-name="tado" x="92.23" y="76.1" width="6.063" height="1.468" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <rect id="tado-54" data-name="tado" x="108.79" y="76.1" width="6.063" height="1.468" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <rect id="tado-55" data-name="tado" x="117.204" y="76.1" width="6.061" height="1.468" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <rect id="tado-56" data-name="tado" x="125.532" y="76.1" width="6.063" height="1.468" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <line id="tado-57" data-name="tado" x1="107.71" y1="67.04" x2="132.392" y2="67.04" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <g id="tado-58" data-name="tado">
+          <path id="tado-59" data-name="tado" d="M56.7,63.168a3.039,3.039,0,1,1-3.04-3.038A3.038,3.038,0,0,1,56.7,63.168Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <path id="tado-60" data-name="tado" d="M56.069,63.19A2.387,2.387,0,1,1,53.683,60.8,2.387,2.387,0,0,1,56.069,63.19Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line id="tado-61" data-name="tado" x1="51.571" y1="63.772" x2="55.577" y2="61.819" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line id="tado-62" data-name="tado" x1="51.922" y1="64.419" x2="55.928" y2="62.467" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        </g>
+        <g id="tado-63" data-name="tado">
+          <path id="tado-64" data-name="tado" d="M65.248,63.168a3.039,3.039,0,1,1-3.04-3.038A3.04,3.04,0,0,1,65.248,63.168Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <path id="tado-65" data-name="tado" d="M64.619,63.19A2.387,2.387,0,1,1,62.233,60.8,2.387,2.387,0,0,1,64.619,63.19Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line id="tado-66" data-name="tado" x1="60.121" y1="63.772" x2="64.128" y2="61.819" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line id="tado-67" data-name="tado" x1="60.472" y1="64.419" x2="64.478" y2="62.467" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        </g>
+        <g id="tado-68" data-name="tado">
+          <path id="tado-69" data-name="tado" d="M73.461,63.168a3.039,3.039,0,1,1-3.038-3.038A3.038,3.038,0,0,1,73.461,63.168Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <path id="tado-70" data-name="tado" d="M72.834,63.19A2.387,2.387,0,1,1,70.448,60.8,2.388,2.388,0,0,1,72.834,63.19Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line id="tado-71" data-name="tado" x1="68.336" y1="63.772" x2="72.342" y2="61.819" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line id="tado-72" data-name="tado" x1="68.685" y1="64.419" x2="72.691" y2="62.467" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        </g>
+        <g id="tado-73" data-name="tado">
+          <path id="tado-74" data-name="tado" d="M81.785,63.168a3.039,3.039,0,1,1-3.039-3.038A3.039,3.039,0,0,1,81.785,63.168Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <path id="tado-75" data-name="tado" d="M81.156,63.19A2.386,2.386,0,1,1,78.77,60.8,2.388,2.388,0,0,1,81.156,63.19Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line id="tado-76" data-name="tado" x1="76.658" y1="63.772" x2="80.665" y2="61.819" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line id="tado-77" data-name="tado" x1="77.009" y1="64.419" x2="81.014" y2="62.467" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        </g>
+        <g id="tado-78" data-name="tado">
+          <path id="tado-79" data-name="tado" d="M89.863,63.168a3.039,3.039,0,1,1-3.038-3.038A3.038,3.038,0,0,1,89.863,63.168Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <path id="tado-80" data-name="tado" d="M89.234,63.19A2.387,2.387,0,1,1,86.849,60.8,2.386,2.386,0,0,1,89.234,63.19Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line id="tado-81" data-name="tado" x1="84.738" y1="63.772" x2="88.742" y2="61.819" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line id="tado-82" data-name="tado" x1="85.087" y1="64.419" x2="89.093" y2="62.467" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        </g>
+        <g id="tado-83" data-name="tado">
+          <circle id="tado-84" data-name="tado" cx="94.953" cy="63.168" r="3.039" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <path id="tado-85" data-name="tado" d="M97.364,63.19A2.387,2.387,0,1,1,94.977,60.8,2.388,2.388,0,0,1,97.364,63.19Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line id="tado-86" data-name="tado" x1="92.866" y1="63.772" x2="96.872" y2="61.819" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line id="tado-87" data-name="tado" x1="93.216" y1="64.419" x2="97.221" y2="62.467" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        </g>
+        <g id="tado-88" data-name="tado">
+          <path id="tado-89" data-name="tado" d="M114.948,63.168a3.039,3.039,0,1,1-3.039-3.038A3.039,3.039,0,0,1,114.948,63.168Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <path id="tado-90" data-name="tado" d="M114.32,63.19a2.387,2.387,0,1,1-2.387-2.386A2.388,2.388,0,0,1,114.32,63.19Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line id="tado-91" data-name="tado" x1="109.821" y1="63.772" x2="113.828" y2="61.819" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line id="tado-92" data-name="tado" x1="110.172" y1="64.419" x2="114.177" y2="62.467" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        </g>
+        <g id="tado-93" data-name="tado">
+          <path id="tado-94" data-name="tado" d="M123.026,63.168a3.039,3.039,0,1,1-3.038-3.038A3.038,3.038,0,0,1,123.026,63.168Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <path id="tado-95" data-name="tado" d="M122.4,63.19a2.387,2.387,0,1,1-2.388-2.386A2.388,2.388,0,0,1,122.4,63.19Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line id="tado-96" data-name="tado" x1="117.899" y1="63.772" x2="121.906" y2="61.819" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line id="tado-97" data-name="tado" x1="118.25" y1="64.419" x2="122.257" y2="62.467" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        </g>
+        <g id="tado-98" data-name="tado">
+          <path id="tado-99" data-name="tado" d="M131.156,63.168a3.039,3.039,0,1,1-3.04-3.038A3.04,3.04,0,0,1,131.156,63.168Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <path id="tado-100" data-name="tado" d="M130.527,63.19a2.386,2.386,0,1,1-2.386-2.386A2.388,2.388,0,0,1,130.527,63.19Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line id="tado-101" data-name="tado" x1="126.029" y1="63.772" x2="130.036" y2="61.819" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line id="tado-102" data-name="tado" x1="126.38" y1="64.419" x2="130.385" y2="62.467" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        </g>
+        <path id="tado-103" data-name="tado" d="M155.819,72.453a5.726,5.726,0,0,1-5.13,5.114H31.18a5.324,5.324,0,0,1-4.888-4.944V22.649c0-2.428,2.232-5.171,4.672-5.171L151,17.464c2.44,0,4.817,2.592,4.817,5.02Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <g id="tado-104" data-name="tado">
+          <path id="tado-105" data-name="tado" d="M85.1,92.713H81.966v3.78a.551.551,0,0,0,.554.55h.924l0,.922h-1.1a1.469,1.469,0,0,1-1.482-1.473V92.713h-.738v-.922h.747V90.314l1.1-.368v1.845H85.1Zm.366-.922H87.5a1.458,1.458,0,0,1,1.472,1.425v4.745h-1.1V97.5a1.536,1.536,0,0,1-1.3.555,2.041,2.041,0,1,1,0-4.067c.6,0,1.29,0,1.29,0v-.754a.52.52,0,0,0-.534-.528H85.47Zm2.395,3.131h-1.29a1.113,1.113,0,0,0-1.106,1.107,1.05,1.05,0,0,0,1.106,1.107c.927,0,1.29-.548,1.29-1.037Zm10.154-3.13c1.736,0,2.757,1.343,2.757,3.159,0,1.869-1.016,3.2-2.757,3.2-1.767,0-2.767-1.332-2.767-3.2,0-1.822,1-3.159,2.767-3.159m0,5.433c1.1,0,1.658-1.167,1.658-2.256s-.568-2.244-1.658-2.244c-1.11,0-1.666,1.151-1.666,2.248,0,1.114.566,2.252,1.666,2.252M94.87,94.979V89.946l-1.107,0v2.395a2.548,2.548,0,0,0-1.644-.548c-1.77,0-2.763,1.332-2.763,3.188,0,1.748.993,3.168,2.763,3.168,1.738,0,2.749-1.424,2.751-3.168m-2.751,2.249c-1.2,0-1.655-1.16-1.655-2.249s.545-2.259,1.655-2.259,1.641,1.156,1.641,2.259-.538,2.249-1.641,2.249m9.941-7.286a1.477,1.477,0,1,0,1.476,1.477,1.479,1.479,0,0,0-1.476-1.477m0,2.585a1.108,1.108,0,1,1,1.106-1.108,1.107,1.107,0,0,1-1.106,1.108" fill="#999"/>
+        </g>
+        <polyline id="tado-106" data-name="tado" points="81.5 114.814 85.333 113.616 85.333 110.274" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        <line id="tado-107" data-name="tado" x1="85.333" y1="113.616" x2="96.877" y2="113.546" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+      </g>
+      <path id="tado-108" data-name="tado" d="M87.222,36.17l-.116.709c-.017.1-.053.2-.078.3a7.24,7.24,0,0,1,1.584-.608l.028-.165Z" fill="none"/>
+      <g id="tado-109" data-name="tado">
+        <g id="tado-110" data-name="tado">
+          <ellipse cx="91.276" cy="39.746" rx="6.55" ry="4.048" fill="#fff" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <ellipse cx="91.368" cy="39.793" rx="5.875" ry="3.451" fill="#fff" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <path d="M84.75,39.635l.057-10.6c.912-4.675,12.029-4.618,12.884-.228l.179,10.943" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <path d="M84.75,30.342c-1.026-.8-2.11-6.043,6.613-5.929s7.753,5.017,6.442,6.1" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <path d="M112.66,54.92c-.008-.113-.233-2.81-3.539-5.259-1.541-1.141-4.413-1.9-7.454-2.7-2.989-.791-6.377-1.687-7.224-2.8-1.225-1.6-1.339-6.042-1.28-7.626a10.19,10.19,0,0,0-1.169-.156v-.028s-.453,6.376,1.306,8.681c1.146,1.5,4.476,2.383,8,3.315,2.776.734,5.646,1.493,6.966,2.471,2.724,2.017,2.951,4,2.961,4.11h-.1l1.537-.006Z" fill="#fff" stroke="#333" stroke-miterlimit="10" stroke-width="0.5"/>
+          <path d="M120.4,54.72c-.245-4.4-10.529-8.3-11.7-8.729-.568-.209-1.229-.433-1.952-.678-4.411-1.5-11.739-3.98-12.812-8.57a10.4,10.4,0,0,0-1.4-.277c1.019,5.577,8.65,8.481,13.748,10.208.71.241,1.36.461,1.918.665,5.248,1.926,10.63,5.108,10.761,7.461l-.008.147,1.458-.021Z" fill="#fff" stroke="#333" stroke-miterlimit="10" stroke-width="0.5"/>
+          <path d="M126.677,50.224c-.06-.132-1.554-3.223-8.144-4.062-6.147-.782-14.395-2.354-18.778-5.406a24.548,24.548,0,0,1-4.215-3.394,11.4,11.4,0,0,0-1.612-.656,14.7,14.7,0,0,0,5.006,5.228c4.7,3.1,13.111,4.851,19.417,5.654,5.643.718,6.981,3.16,7.024,3.243Z" fill="#fff" stroke="#333" stroke-miterlimit="10" stroke-width="0.5"/>
+        </g>
+        <polygon id="tado-111" data-name="tado" points="126.488 50.303 127.279 52.376 126.851 52.612 125.654 50.73 126.488 50.303" fill="#fff" stroke="#333" stroke-miterlimit="10" stroke-width="0.5"/>
+        <g id="tado-112" data-name="tado">
+          <polygon points="112.04 40.56 115.133 41.191 114.727 43.361 113.914 47.161 110.461 46.522 111.496 42.642 112.04 40.56" fill="#fff" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        </g>
+        <g id="tado-113" data-name="tado">
+          <polygon points="116.595 45.027 119.342 46.582 118.286 48.521 116.341 51.885 113.254 50.211 115.435 46.84 116.595 45.027" fill="#fff" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        </g>
+        <g id="tado-114" data-name="tado">
+          <polygon points="102.116 53.131 105.111 54.13 105.854 51.983 107.067 48.171 103.756 46.997 102.695 50.992 102.116 53.131" fill="#fff" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        </g>
+        <g id="tado-115" data-name="tado">
+          <polyline points="98.092 26.593 99.554 23.218 101.712 23.372" fill="#fff" stroke="#333" stroke-miterlimit="10" stroke-width="0.5"/>
+          <polyline points="86.315 22.085 88.678 21.969 88.681 23.292 90.413 24.422" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <polyline points="98.574 29.231 102.105 27.26 102.773 27.811 105.329 29.919 106.65 27.828" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <polyline points="103.635 25.811 104.853 26.066 102.773 27.811" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <polyline points="84.069 28.974 81.456 27.177 80.809 30.024 77.622 31.925 77.531 29.732" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+          <line x1="79.668" y1="26.16" x2="81.204" y2="28.098" fill="#fff" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g id="circle">
+    <g id="circle-2" data-name="circle">
+      <g id="circle-3" data-name="circle">
+        <line x1="110.387" y1="68.414" x2="140.96" y2="152.484" fill="#fff"/>
+        <g>
+          <line x1="112.046" y1="72.978" x2="140.96" y2="152.484" fill="none" stroke="#3a86ad" stroke-miterlimit="10" stroke-width="2"/>
+          <g>
+            <path d="M107.894,74.76a4.512,4.512,0,1,1,5.782,2.7A4.512,4.512,0,0,1,107.894,74.76Z" fill="#fff"/>
+            <path d="M107.33,74.965a5.112,5.112,0,1,0,3.057-6.551,5.118,5.118,0,0,0-3.057,6.551C108.293,77.614,106.366,72.317,107.33,74.965Zm8.48-3.084a3.912,3.912,0,1,1-5.013-2.339,3.916,3.916,0,0,1,5.013,2.339C116.547,73.909,115.072,69.854,115.81,71.881Z" fill="#3a86ad"/>
+          </g>
+        </g>
+      </g>
+      <circle id="circle-4" data-name="circle" cx="170.718" cy="251.933" r="161.648" fill="#fff" stroke="#3a86ad" stroke-linecap="round" stroke-linejoin="round" stroke-width="4"/>
+    </g>
+  </g>
+  <g id="other">
+    <g id="cablea-2" data-name="cablea">
+      <g clip-path="url(#clip-path)">
+        <g id="cablea-3" data-name="cablea">
+          <g id="cablea-4" data-name="cablea">
+            <rect id="cablea-5" data-name="cablea" x="121.388" y="49.963" width="11.215" height="202.828" fill="#fff" stroke="#333" stroke-miterlimit="10" stroke-width="0.5"/>
+          </g>
+          <g id="cablea-6" data-name="cablea">
+            <g id="cablea-7" data-name="cablea">
+              <polygon id="cablea-8" data-name="cablea" points="132.88 201.806 133.117 236.252 119.908 236.403 88.501 236.427 88.211 201.118 119.616 201.928 132.88 201.806" fill="#3a86ad" stroke="#000" stroke-miterlimit="10"/>
+              <line id="cablea-9" data-name="cablea" x1="119.616" y1="201.928" x2="119.908" y2="236.403" fill="#3a86ad" stroke="#000" stroke-miterlimit="10"/>
+              <g id="cablea-10" data-name="cablea">
+                <path id="cablea-11" data-name="cablea" d="M113.234,217.38v2.447L97.349,226.67v-3.232l3.634-1.479v-6.887l-3.634-1.437v-3.164Zm-9.826,3.591,6.459-2.444-6.459-2.493Z" fill="#fff"/>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g id="minus">
+    <g id="cablem-2" data-name="cablem">
+      <g clip-path="url(#clip-path)">
+        <g id="cablem-3" data-name="cablem">
+          <g id="cablem-4" data-name="cablem">
+            <rect id="cablem-5" data-name="cablem" x="168.321" y="55.579" width="11.249" height="197.213" fill="#fff" stroke="#333" stroke-miterlimit="10" stroke-width="0.5"/>
+          </g>
+          <g id="cablem-6" data-name="cablem">
+            <g id="cablem-7" data-name="cablem">
+              <polygon id="cablem-8" data-name="cablem" points="180.361 156.041 180.598 190.487 167.389 190.638 135.982 190.662 135.692 155.353 167.097 156.163 180.361 156.041" fill="#3a86ad" stroke="#000" stroke-miterlimit="10"/>
+              <line id="cablem-9" data-name="cablem" x1="167.097" y1="156.163" x2="167.389" y2="190.638" fill="#3a86ad" stroke="#000" stroke-miterlimit="10"/>
+              <g id="cablem-10" data-name="cablem">
+                <rect id="cablem-11" data-name="cablem" x="149.8" y="164.271" width="2.863" height="16.95" transform="translate(-1.157 1.02) rotate(-0.385)" fill="#fff"/>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g id="plus">
+    <g id="cablep-2" data-name="cablep">
+      <g id="cablep-3" data-name="cablep">
+        <g clip-path="url(#clip-path)">
+          <g id="cablep-4" data-name="cablep">
+            <g id="cablep-5" data-name="cablep">
+              <rect id="cablep-6" data-name="cablep" x="216.094" y="38.757" width="11.249" height="214.034" fill="#fff" stroke="#333" stroke-miterlimit="10" stroke-width="0.5"/>
+            </g>
+            <g id="cablep-7" data-name="cablep">
+              <g id="cablep-8" data-name="cablep">
+                <polygon id="cablep-9" data-name="cablep" points="228.414 201.806 228.651 236.252 215.442 236.403 184.035 236.427 183.745 201.118 215.15 201.928 228.414 201.806" fill="#3a86ad" stroke="#000" stroke-miterlimit="10"/>
+                <line id="cablep-10" data-name="cablep" x1="215.15" y1="201.928" x2="215.442" y2="236.403" fill="#3a86ad" stroke="#000" stroke-miterlimit="10"/>
+                <polygon id="cablep-11" data-name="cablep" points="208.042 217.459 201.125 217.278 201.307 210.36 198.485 210.286 198.304 217.203 191.383 217.021 191.31 219.842 198.227 220.023 198.047 226.948 200.865 227.022 201.049 220.099 207.97 220.28 208.042 217.459" fill="#fff"/>
+              </g>
+            </g>
+          </g>
+        </g>
+      </g>
+    </g>
+  </g>
+  <g id="body-3" data-name="body">
+    <g id="body-4" data-name="body">
+      <g id="body-5" data-name="body">
+        <g clip-path="url(#clip-path)">
+          <g id="body-6" data-name="body">
+            <g id="body-7" data-name="body">
+              <g id="body-8" data-name="body">
+                <g>
+                  <polyline points="111.402 258.247 103.996 258.252 103.996 276.975" fill="#fff"/>
+                  <polyline points="111.402 258.247 103.996 258.252 103.996 276.975" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                </g>
+                <g>
+                  <polyline points="244.196 328.3 244.196 283.664 244.196 276.814 244.196 258.166 234.93 258.171" fill="#fff"/>
+                  <polyline points="244.196 328.3 244.196 283.664 244.196 276.814 244.196 258.166 234.93 258.171" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                </g>
+                <g>
+                  <polygon points="103.996 276.975 103.996 258.252 111.402 258.252 111.402 252.698 234.93 252.698 234.93 258.252 244.196 258.166 244.196 336.997 244.026 365.476 103.847 365.476 103.996 276.975" fill="#fff"/>
+                  <polygon points="103.996 276.975 103.996 258.252 111.402 258.252 111.402 252.698 234.93 252.698 234.93 258.252 244.196 258.166 244.196 336.997 244.026 365.476 103.847 365.476 103.996 276.975" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5"/>
+                </g>
+              </g>
+              <g id="body-9" data-name="body">
+                <g id="body-10" data-name="body">
+                  <path id="body-11" data-name="body" d="M144.763,302.525A17.664,17.664,0,1,1,127.1,284.861,17.663,17.663,0,0,1,144.763,302.525Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+                  <path id="body-12" data-name="body" d="M143.637,302.1a16.262,16.262,0,1,1-16.26-16.258A16.261,16.261,0,0,1,143.637,302.1Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+                  <line id="body-13" data-name="body" x1="118.827" y1="315.743" x2="140.937" y2="293.564" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+                  <line id="body-14" data-name="body" x1="135.651" y1="288.29" x2="113.552" y2="310.393" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+                </g>
+                <g id="body-15" data-name="body">
+                  <path id="body-16" data-name="body" d="M191.953,302.525a17.664,17.664,0,1,1-17.664-17.664A17.663,17.663,0,0,1,191.953,302.525Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+                  <path id="body-17" data-name="body" d="M190.827,302.1a16.262,16.262,0,1,1-16.262-16.258A16.263,16.263,0,0,1,190.827,302.1Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+                  <line id="body-18" data-name="body" x1="166.035" y1="315.763" x2="188.144" y2="293.583" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+                  <line id="body-19" data-name="body" x1="182.896" y1="288.271" x2="160.759" y2="310.41" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+                </g>
+                <g id="body-20" data-name="body">
+                  <path id="body-21" data-name="body" d="M238.713,302.525a17.663,17.663,0,1,1-17.662-17.664A17.662,17.662,0,0,1,238.713,302.525Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+                  <path id="body-22" data-name="body" d="M237.589,302.1a16.262,16.262,0,1,1-16.262-16.258A16.263,16.263,0,0,1,237.589,302.1Z" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+                  <line id="body-23" data-name="body" x1="212.782" y1="315.977" x2="235.121" y2="293.565" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+                  <line id="body-24" data-name="body" x1="229.84" y1="288.286" x2="207.504" y2="310.626" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+                </g>
+              </g>
+              <line x1="244.387" y1="263.185" x2="104.187" y2="263.185" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+              <line x1="104.187" y1="263.376" x2="104.187" y2="283.996" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.245"/>
+              <line x1="244.387" y1="283.996" x2="244.387" y2="263.376" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+              <line x1="244.387" y1="282.852" x2="104.187" y2="282.852" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+              <line x1="244.385" y1="324.752" x2="104.185" y2="324.752" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+              <g id="body-25" data-name="body">
+                <polyline points="156.2 360.905 163.32 352.305 185.256 352.305 193.008 361.539" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+                <line x1="193.008" y1="361.539" x2="193.008" y2="333.332" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+                <line x1="155.568" y1="361.539" x2="193.008" y2="361.539" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+                <line x1="155.566" y1="333.332" x2="155.568" y2="361.539" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+                <polyline points="155.566 333.332 163.32 333.332 185.256 333.332 193.008 333.332" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+                <line id="body-26" data-name="body" x1="163.32" y1="333.332" x2="163.32" y2="352.305" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+                <line id="body-27" data-name="body" x1="185.256" y1="333.332" x2="185.275" y2="352.305" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+              </g>
+              <g id="body-28" data-name="body">
+                <polyline points="201.851 361.539 209.603 352.305 231.541 352.305 239.29 361.539" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+                <rect x="201.851" y="333.332" width="37.439" height="28.207" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+                <line id="body-29" data-name="body" x1="209.603" y1="333.332" x2="209.603" y2="352.305" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+                <line id="body-30" data-name="body" x1="231.561" y1="333.332" x2="231.561" y2="352.305" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+              </g>
+              <line id="body-31" data-name="body" x1="109.119" y1="258.572" x2="240.904" y2="258.74" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+              <g id="body-32" data-name="body">
+                <polyline points="109.437 360.905 116.558 352.305 138.493 352.305 146.245 361.539" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+                <line x1="146.245" y1="361.539" x2="146.245" y2="333.332" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+                <line x1="108.806" y1="361.539" x2="146.245" y2="361.539" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+                <line x1="108.803" y1="333.332" x2="108.806" y2="361.539" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+                <polyline points="108.803 333.332 116.558 333.332 138.493 333.332 146.245 333.332" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+                <line id="body-33" data-name="body" x1="116.558" y1="333.332" x2="116.558" y2="352.305" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+                <line id="body-34" data-name="body" x1="138.493" y1="333.332" x2="138.513" y2="352.305" fill="none" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
+              </g>
+              <g id="body-35" data-name="body">
+                <path id="body-36" data-name="body" d="M126.172,265.57h2.421l6.768,15.714h-3.195l-1.464-3.595h-6.813l-1.422,3.595h-3.131Zm3.553,9.72-2.418-6.391-2.467,6.391Z" fill="#262729"/>
+              </g>
+              <g id="body-37" data-name="body">
+                <rect id="body-38" data-name="body" x="166.934" y="272.194" width="14.59" height="2.465" fill="#262729"/>
+              </g>
+              <polygon id="body-39" data-name="body" points="228.613 272.278 222.564 272.278 222.564 266.231 220.098 266.231 220.098 272.278 214.049 272.278 214.049 274.744 220.098 274.744 220.098 280.798 222.564 280.798 222.564 274.744 228.613 274.744 228.613 272.278" fill="#262729"/>
+            </g>
+          </g>
+        </g>
+      </g>
+      <g id="body-40" data-name="body">
+        <g clip-path="url(#clip-path-5)">
+          <g id="body-41" data-name="body">
+            <g id="body-42" data-name="body">
+              <path id="body-43" data-name="body" d="M197.272,275.326l-3.585-5.693,15.615,3.559-3.538,15.619-3.43-5.458a26.716,26.716,0,0,0,32.241,42.032l.091-.053a26.718,26.718,0,0,0-4.89-48.4l2.959-8.845a36.045,36.045,0,0,1,6.622,65.318l-.115.068a36.043,36.043,0,0,1-41.97-58.145Z" fill="#3a86ad"/>
+            </g>
+          </g>
+          <polyline id="body-44" data-name="body" points="356.57 472.26 350.194 465.219 353.789 451.842 244.828 340.328 246.147 335.475 223.832 315.596 217.83 305.299 222.356 299.814 233.314 307.07 252.338 328.694 257.729 327.197 370.11 435.286 382.371 432.314" fill="#fff" stroke="#343433" stroke-miterlimit="10" stroke-width="1.5"/>
+        </g>
+      </g>
+    </g>
+  </g>
+
+</svg>
