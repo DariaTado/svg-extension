@@ -7,16 +7,19 @@
   'onCommitted', 'onCompleted', 'onDOMContentLoaded',
   'onErrorOccurred', 'onReferenceFragmentUpdated', 'onTabReplaced',
   'onHistoryStateUpdated']; */
-var eventList = [ 'onCompleted', 'onHistoryStateUpdated'];
+var eventList = ['onBeforeNavigate', 'onCreatedNavigationTarget',
+  'onCommitted', 'onCompleted', 'onDOMContentLoaded',
+  'onErrorOccurred', 'onReferenceFragmentUpdated', 'onTabReplaced',
+  'onHistoryStateUpdated'];
 eventList.forEach(function (e) {
   chrome.webNavigation[e].addListener(function (data) {
     if (typeof data) {
       if (data.url.match(/hvactool\.tado\.com\/(\w+)\//)) {
         let term = data.url.match(/hvactool\.tado\.com\/(\w+)\//)[1]
-        console.log(e, term);
+        //console.log(e, term);
         if (-1 !== [
           "translationModule"
-          ,"remote"
+          , "remote"
           , "roomThermostat"
           , "rfRoomThermostat"
           , "roomThermostatReceiver"
@@ -25,18 +28,26 @@ eventList.forEach(function (e) {
           , "boilerControl"
           , "boilerControlWithFitsIn"
         ].indexOf(term)) {
+          console.log(e, term)
           if (("onCompleted" === e) || ("onHistoryStateUpdated" === e)) {
             console.log("----> content script on:", data.tabId, data.url)
             chrome.tabs.executeScript(data.tabId, {
               file: "contentScript.js"
             })
+          } else {
+            //console.log(e, term, " - this event is ignored for this term by the extesion")
           }
+        } else {
+          //console.log(e, term, "ignore")
         }
 
+      } else {
+        console.log(e, "this traffic is not *hvactool*, thus is ignored by the extension")
       }
     }
-    else
-      console.error(chrome.i18n.getMessage('inHandlerError'), e);
+    else {
+      console.error('inHandlerError', e)
+    }
   });
 });
 // Reset the navigation state on startup. We only want to collect data within a
@@ -46,18 +57,22 @@ eventList.forEach(function (e) {
 }); */
 
 console.log(`
- __| |____________________________________________| |__
-(__   ____________________________________________   __)
-   | |                                            | |
-   | |            Background script               | |
-   | |                                            | |
-   | |      will add the index.html link          | |
-   | |           to the 'cat' button              | |
- __| |ds__________________________________________| |__
-(__   ____________________________________________   __)
-   | |                                            | |`)
+----------------------------------
+|                                |
+|         Background script      |
+|                                |
+|   will add the index.html link |
+|        to the 'cat' button     |
+|                                |
+`)
 const actionUrl = chrome.runtime.getURL("index.html")
 console.log("index.html's url:", actionUrl)
 chrome.browserAction.onClicked.addListener(function (window) {
   chrome.tabs.create({ url: actionUrl }) //opens the page with 'default' stickers
 })
+console.log(`
+|                                |
+|        Background script       |
+|            The End.            |
+|ds______________________________|
+`)

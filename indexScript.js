@@ -1,9 +1,10 @@
-const isVerboseGetParams = true
-const isVerboseHideSticker = false
-const isVerboseDashed = false
-const isVerboseWriting = false
-const devices = ["BP", "BR", "BU", "RU", "LT", "TC"]
-const deviceTerminals = {
+//
+// Global variables
+//
+
+
+const glbDevices = ["BP", "BR", "BU", "RU", "LT", "TC"]
+const glbDeviceTerminals = {
     "BP": ["N", "L", "CH_COM", "CH_NC", "CH_NO", "HW_COM", "HW_NC", "HW_NO", "EARTH", "P1", "P2"
         , "Bridge_L_COM", "Bridge_COM_COM", "Bridge_L_HWCOM"],
     "BR": ["N", "L", "COM", "NC", "NO", "P1", "P2", "P3", "AnalogOut_A", "GND_B", "VCC_C"],
@@ -12,7 +13,7 @@ const deviceTerminals = {
     "TC": ["COM", "NO", "P1", "P2", "P3"],
     "LT": ["NO", "NC", "COM", "P1", "P2", "P3"]
 }
-const defaultLabels = {
+const glbDefaultLabels = {
     "BP": { "N": "N", "L": "L", "CH_NC": "2", "CH_NO": "4", "HW_NC": "1", "HW_NO": "3", "EARTH": "\u23DA" },
     "BR": { "COM": "COM", "NO": "NO" },
     "BU": { "N": "N", "L": "L", "NC2": "1", "NC1": "2", "NO2": "3", "NO1": "4" },
@@ -20,7 +21,7 @@ const defaultLabels = {
     "TC": { "COM": "COM", "NO": "NO", "P1": "L", "P2": "N" },
     "LT": { "NO": "NO", "COM": "COM", "P1": "L", "P2": "N" }
 }
-const friendlyNames = {
+const glbFriendlyNames = {
     "BP": ["N", "L", "CH_COM", "CH_NC", "CH_NO", "HW_COM", "HW_NC", "HW_NO", "EARTH", "P1", "P2"
         , "L_COM", "COM_COM", "L_HW"],
     "BR": ["N", "L", "COM", "NC", "NO", "P1", "P2", "P3", "A", "minus", "plus"],
@@ -29,7 +30,7 @@ const friendlyNames = {
     "TC": ["COM", "NO", "P1", "P2", "P3"],
     "LT": ["NO", "NC", "COM", "P1", "P2", "P3"]
 }
-const friendlyWritings = {
+const glbFriendlyWritings = {
     "BP": ["N", "L", "COM", "NC", "NO", "HW COM", "HW Off", "HW On", "EARTH", "P1", "P2"],
     "BR": ["N", "L", "COM", "NC", "NO", "P1", "P2", "P3", "A", "\u2212", "+"],
     "BU": ["N", "L", "1", "4", "3", "4", "A", "\u2212", "+"],
@@ -37,24 +38,50 @@ const friendlyWritings = {
     "TC": ["COM", "NO", "P1", "P2", "P3"],
     "LT": ["NO", "NC", "COM", "P1", "P2", "P3"]
 }
-
-
-function addOrSetProperty(obj, nameStr, value) {
-    //console.log("adding or setting property of", obj, nameStr, value)
-    let names = nameStr.split(".")
-    if (1 < names.length) {
-        if (!obj.hasOwnProperty(names[0])) { obj[names[0]] = {} }
-        addOrSetProperty(obj[names[0]], names.slice(1, names.length).join("."), value)
-    } else {
-        if (value.match(/\[.*\]/) || value.match(/\{.*\}/)) {
-            obj[names[0]] = JSON.parse(value)
-        } else {
-            obj[names[0]] = value
-        }
+const glbPictureNames = ["labeling", "connect"]
+const glbUpdateSvgDimensions = true
+const glbPictureScales = {
+    labeling: {
+        width: 1
+        , height: 1.5
+    }
+    , connect: {
+        width: 1
+        , height: 1
+    }
+}
+const glbPictureDimensions = {
+    labeling: {
+        width: 846
+        , height: 398
+    }
+    , connect: {
+        width: 340
+        , height: 420
+    }
+}
+const glbPictureTypeSources = {
+    BR: "file"
+    , RU: "file"
+    , BU: "group"
+}
+const glbPictureTypes = {
+    BR: {
+        mains: ["N", "L"]
+        , potfree: ["COM", "NO", "NC", "P1", "P2"]
+        , digital: ["VCC_C", "GND_B", "AnalogOut_A"]
+    }
+    , RU: {
+        relay: ["COM", "NO", "NC", "P1", "P2"]
+        , digital: ["VCC_C", "GND_B", "AnalogOut_A"]
+    }
+    , BU: {
+        AnalogConnector: ["N", "L", "NC1", "NC2", "NO1", "NO2"]
+        , DigitalConnector: ["VCC_C", "GND_B", "AnalogOut_A"]
     }
 }
 
-const connectLabel2tadoStickerMap = {
+const glbSvg2deviceTerminals = {
     BP: {
         N: "N"
         , L: "L"
@@ -106,31 +133,54 @@ const connectLabel2tadoStickerMap = {
         , Plus: "VCC_C"
     }
 }
-function convertPrintedLabel2Terminal(device, label) {
-    if (connectLabel2tadoStickerMap.hasOwnProperty(device)) {
-        if (connectLabel2tadoStickerMap[device].hasOwnProperty(label)) {
-            return connectLabel2tadoStickerMap[device][label]
+
+function convertSvg2DeviceTerminal(device, label) {
+    if (glbSvg2deviceTerminals.hasOwnProperty(device)) {
+        if (glbSvg2deviceTerminals[device].hasOwnProperty(label)) {
+            return glbSvg2deviceTerminals[device][label]
         }
     }
     return null
 }
 
-function getFriendlyName(device, tadoSticker) {
-    let index = deviceTerminals[device].indexOf(tadoSticker)
-    if (-1 !== index) {
-        let friendlyName = friendlyNames[device][index]
-        return friendlyName ? friendlyName : tadoSticker
+function convertDevice2SvgTerminal(device, terminal) {
+    let deviceTerminals = Object.values(glbSvg2deviceTerminals[device])
+    if (-1 !== deviceTerminals.indexOf(terminal)) {
+        return glbSvg2deviceTerminals[device][deviceTerminals.indexOf(terminal)]
     }
-    return tadoSticker
 }
 
-function getFriendlyWriting(device, tadoSticker) {
-    let index = deviceTerminals[device].indexOf(tadoSticker)
-    if (-1 !== index) {
-        let friendlyName = friendlyWritings[device][index]
-        return friendlyName ? friendlyName : tadoSticker
+function addOrSetProperty(obj, nameStr, value) {
+    //console.log("adding or setting property of", obj, nameStr, value)
+    let names = nameStr.split(".")
+    if (1 < names.length) {
+        if (!obj.hasOwnProperty(names[0])) { obj[names[0]] = {} }
+        addOrSetProperty(obj[names[0]], names.slice(1, names.length).join("."), value)
+    } else {
+        if (value.match(/\[.*\]/) || value.match(/\{.*\}/)) {
+            obj[names[0]] = JSON.parse(value)
+        } else {
+            obj[names[0]] = value
+        }
     }
-    return tadoSticker
+}
+
+function getFriendlyName(device, terminal) {
+    let index = glbDeviceTerminals[device].indexOf(terminal)
+    if (-1 !== index) {
+        let friendlyName = glbFriendlyNames[device][index]
+        return friendlyName ? friendlyName : terminal
+    }
+    return terminal
+}
+
+function getFriendlyWriting(device, terminal) {
+    let index = glbDeviceTerminals[device].indexOf(terminal)
+    if (-1 !== index) {
+        let friendlyName = glbFriendlyWritings[device][index]
+        return friendlyName ? friendlyName : terminal
+    }
+    return terminal
 }
 
 function isWireOptional(device, terminal) {
@@ -170,69 +220,47 @@ function payload2obj(payload) {
     return params
 } */
 
-function applyDashed(isChecked, device, deviceTerminal) {
-    if (isChecked) {
-        if (menus[device][deviceTerminal].circle) {
-            menus[device][deviceTerminal].circle.setAttribute("stroke-dasharray", 5)
+function applyDashed(device, terminal) {
+    let isDashed = menus[device][terminal].dashed
+    if (menus[device][terminal].circle) {
+        menus[device][terminal].circle.setAttribute("stroke-dasharray", isDashed ? 5 : "")
+    }
+    if (menus[device][terminal].arrowLine) {
+        menus[device][terminal].arrowLine.setAttribute("stroke-dasharray", isDashed ? 5 : "")
+    }
+    if (menus[device][terminal].connectWirePath) {
+        menus[device][terminal].connectWirePath.style.strokeDasharray = isDashed ? 5 : ""
+        if ("BU" === device) {
+            menus[device][terminal].connectWirePath.style.stroke = isDashed ? "#363636cc" : "#363636"
+            menus[device][terminal].connectWirePath.style.strokeWidth = isDashed ? 0.5 : 1
+            menus[device][terminal].connectWirePath.style.fill = isDashed ? "#ffffff" : "#363636"
         }
-        if (menus[device][deviceTerminal].arrowLine) {
-            menus[device][deviceTerminal].arrowLine.setAttribute("stroke-dasharray", 5)
+    }
+    if (menus[device][terminal].miniConnectWirePath) {
+        menus[device][terminal].miniConnectWirePath.style.stroke = isDashed ? "#363636" : ""
+        menus[device][terminal].miniConnectWirePath.style.strokeWidth = isDashed ? 0.3 : ""
+        menus[device][terminal].miniConnectWirePath.style.fill = isDashed ? "#ffffff" : "#363636"
+        menus[device][terminal].miniConnectWirePath.style.strokeDasharray = isDashed ? 3 : ""
+        if ("BU" === device) {
+            menus[device][terminal].miniConnectWirePath.style.stroke = "#ffffff"
         }
-        if (menus[device][deviceTerminal].connectWirePath) {
-            menus[device][deviceTerminal].connectWirePath.style.strokeDasharray = 5
-            if ("BU" === device) {
-                menus[device][deviceTerminal].connectWirePath.style.stroke = "#363636cc"
-                menus[device][deviceTerminal].connectWirePath.style.strokeWidth = 0.5
-                menus[device][deviceTerminal].connectWirePath.style.fill = "#ffffff"
-            }
-        }
-        if (menus[device][deviceTerminal].miniConnectWirePath) {
-            menus[device][deviceTerminal].miniConnectWirePath.style.stroke = "#363636"
-            menus[device][deviceTerminal].miniConnectWirePath.style.strokeWidth = 0.3
-            menus[device][deviceTerminal].miniConnectWirePath.style.fill = "#ffffff"
-            menus[device][deviceTerminal].miniConnectWirePath.style.strokeDasharray = 3
-        }
-        /* if (menus[device][deviceTerminal].connectStickerRect){
-            menus[device][deviceTerminal].connectStickerRect.style.strokeDasharray = 4
-        } */
-    } else {
-        if (menus[device][deviceTerminal].circle) {
-            menus[device][deviceTerminal].circle.removeAttribute("stroke-dasharray")
-        }
-        if (menus[device][deviceTerminal].arrowLine) {
-            menus[device][deviceTerminal].arrowLine.removeAttribute("stroke-dasharray")
-        }
-        if (menus[device][deviceTerminal].connectWirePath) {
-            menus[device][deviceTerminal].connectWirePath.style.strokeDasharray = ""
-            if ("BU" === device) {
-                menus[device][deviceTerminal].connectWirePath.style.fill = "#363636"
-                menus[device][deviceTerminal].miniConnectWirePath.style.stroke = "#ffffff"
-            }
-        }
-        if (menus[device][deviceTerminal].miniConnectWirePath) {
-            menus[device][deviceTerminal].miniConnectWirePath.style.strokeDasharray = ""
-            menus[device][deviceTerminal].miniConnectWirePath.style.fill = "#363636"
-            menus[device][deviceTerminal].miniConnectWirePath.style.stroke = ""
-        }
-        /* if (menus[device][deviceTerminal].connectStickerRect){
-            menus[device][deviceTerminal].connectStickerRect.style.strokeDasharray = ""
-        } */
     }
 }
 
-function applyNewWriting(newWriting, device, deviceTerminal) {
-    if (menus[device][deviceTerminal].writtenText) {
-        console.log((menus[device][deviceTerminal].writtenText.textContent !== newWriting)
+function applyWriting(device, terminal) {
+    let newWriting = menus[device][terminal].label
+    if (menus[device][terminal].writtenText) {
+        /* console.log((menus[device][deviceTerminal].writtenText.textContent !== newWriting)
             ? (menus[device][deviceTerminal].writtenText.textContent || newWriting)
                 ? [device, "Old writing:", menus[device][deviceTerminal].writtenText.textContent, "new writing:", newWriting]
                 : ""
-            : "")
-        if ((menus[device][deviceTerminal].writtenText.textContent || newWriting)
-            && (newWriting !== menus[device][deviceTerminal].writtenText.textContent)) {
-            menus[device][deviceTerminal].writtenText.textContent = newWriting
+            : "") */
+        if ((menus[device][terminal].writtenText.textContent || newWriting)
+            && (newWriting !== menus[device][terminal].writtenText.textContent)) {
+            menus[device][terminal].writtenText.textContent = newWriting
 
             if (newWriting && (3 < newWriting.toString().length)) {
-                let oldTransform = menus[device][deviceTerminal].writtenText.getAttribute("transform")
+                let oldTransform = menus[device][terminal].writtenText.getAttribute("transform")
                 if (oldTransform) {
                     let rotatePos = oldTransform.indexOf("rotate")
                     if (-1 !== rotatePos) {
@@ -240,10 +268,10 @@ function applyNewWriting(newWriting, device, deviceTerminal) {
                     }
                 }
                 let newTransform = [oldTransform, "rotate(-30)"].join(" ")
-                menus[device][deviceTerminal].writtenText.setAttribute("transform", newTransform)
-                menus[device][deviceTerminal].circle.style.visibility = "hidden"
+                menus[device][terminal].writtenText.setAttribute("transform", newTransform)
+                menus[device][terminal].circle.style.visibility = "hidden"
             } else {
-                let oldTransform = menus[device][deviceTerminal].writtenText.getAttribute("transform")
+                let oldTransform = menus[device][terminal].writtenText.getAttribute("transform")
                 if (oldTransform) {
                     let rotatePos = oldTransform.indexOf("rotate")
                     if (-1 !== rotatePos) {
@@ -251,19 +279,11 @@ function applyNewWriting(newWriting, device, deviceTerminal) {
                     }
                 }
                 let newTransform = oldTransform
-                menus[device][deviceTerminal].writtenText.setAttribute("transform", newTransform)
-                menus[device][deviceTerminal].circle.style.visibility = "visible"
+                menus[device][terminal].writtenText.setAttribute("transform", newTransform)
+                menus[device][terminal].circle.style.visibility = menus[device][terminal].present
+                    && (!menus[device][terminal].hide)
+                    ? "visible" : "hidden"
             }
-        }
-        if (menus[device][deviceTerminal].present && (!menus[device][deviceTerminal].hide)) {
-            menus[device][deviceTerminal].arrowGroup.style.visibility = "visible"
-            menus[device][deviceTerminal].systemTerminalLabelGroup.style.visibility = "visible"
-            //TODO: unhide wires in the connect.svg
-        } else {
-            menus[device][deviceTerminal].arrowGroup.style.visibility = "hidden"
-            menus[device][deviceTerminal].systemTerminalLabelGroup.style.visibility = "hidden"
-            menus[device][deviceTerminal].circle.style.visibility = "hidden"
-            //TODO: hide wires in the connect.svg
         }
     }
 }
@@ -272,53 +292,98 @@ function onHideSticker(e) {
     let element = e.target
     if (element) {
         let device = element.id.split("-")[1]
-        let deviceTerminal = element.id.split("-")[2]
-        applyHide(element.checked, device, deviceTerminal)
+        let terminal = element.id.split("-")[2]
+        menus[device][terminal].hide = element.checked
+        applyMenu(device, terminal)
     }
 }
+
+function calculatePictureType(device) {
+    if (-1 !== Object.keys(glbPictureTypes).indexOf(device)) {
+        let matchedPictureTypes = Object.keys(glbPictureTypes[device]).filter(pictureType => {
+            return glbPictureTypes[device][pictureType].filter(terminal => {
+                return menus[device][terminal].present
+            }).length
+        })
+        if (0 < matchedPictureTypes.length) {
+            console.log(device, "matchedPictureTypes:", matchedPictureTypes)
+            return matchedPictureTypes[0]
+        }
+    }
+    return null
+}
+
+function getInfoFromFileName(filePath) {
+    if (filePath) {
+        if (filePath.match(/svg\/(.+)\.svg/)) {
+            let fileNameParts = filePath.match(/svg\/(.+)\.svg/)[1].split("-")
+            if (3 === fileNameParts.length) {
+                return {
+                    device: fileNameParts[1]
+                    , pictureName: fileNameParts[0]
+                    , pictureType: fileNameParts[2]
+                }
+            } else {
+                return {
+                    device: fileNameParts[1]
+                    , pictureName: fileNameParts[0]
+                }
+            }
+        }
+    }
+    return null
+}
+
+function applyPictureType(device) {
+    let neededPictureType = calculatePictureType(device)
+    if (neededPictureType) {
+        let svgObject = document.getElementById(["svgObject", "connect", device].join("-"))
+        if (svgObject) {
+            switch (glbPictureTypeSources[device]) {
+                case "file":
+                    let fileNameInfo = getInfoFromFileName(svgObject.data)
+                    let curPictureType = fileNameInfo ? fileNameInfo.pictureType : null
+                    if (curPictureType && (curPictureType !== neededPictureType)) {
+                        svgObject.data = `svg/connect-${device}-${neededPictureType}`
+                    }
+                    break
+                case "group":
+                    let pictureTypeGroup = svgObject.contentDocument.querySelector(`.${neededPictureType}`)
+                    if (pictureTypeGroup) {
+                        if ("visible" === pictureTypeGroup.style.visibility) {
+
+                        } else {
+                            pictureTypeGroup.style.visibility = "visible"
+                            let otherGroups = Object.keys(glbPictureTypes[device])
+                                .filter(key => {
+                                    return "type" !== key
+                                })
+                                .filter(pictureType => {
+                                    return neededPictureType !== pictureType
+                                })
+                            otherGroups.forEach(pictureGroupClass => {
+                                let hiddenGroup = svgObject.contentDocument.querySelector(`.${pictureGroupClass}`)
+                                if (hiddenGroup) {
+                                    hiddenGroup.style.visibility = "hidden"
+                                }
+                            })
+                        }
+                    }
+                    break
+                default:
+            }
+        }
+    }
+}
+
 function onWritingChanged(e) {
     let element = e.target
     if (element) {
         let device = element.id.split("-")[1]
         let deviceTerminal = element.id.split("-")[2]
-        menus[device][deviceTerminal].label = element.value.toString()
-        menus[device][deviceTerminal].present = 0 < menus[device][deviceTerminal].label.length ? true : false
-        if ("BR" === device) {
-            let svgObject = document.getElementById(["svgObject", "connect", "BR"].join("-"))
-            if (svgObject) {
-                //console.log("svgObject.data", svgObject.data)
-                if (menus.BR.N.present || menus.BR.L.present) {
-                    if (!svgObject.data.match(/mains/)) {
-                        svgObject.data = "svg/Connect-BR-mains.svg"
-                    }
-                } else if (menus.BR.COM.present || menus.BR.NO.present || menus.BR.NC.present
-                    || menus.BR.P1.present || menus.BR.P2.present || menus.BR.P3.present) {
-                    if (!svgObject.data.match(/potfree/)) {
-                        svgObject.data = "svg/Connect-BR-potfree.svg"
-                    }
-                } else if (menus.BR.VCC_C.present) {
-                    if (!svgObject.data.match(/analog/)) {
-                        svgObject.data = "svg/Connect-BR-analog.svg"
-                    }
-                }
-            }
-        } else if ("RU" === device) {
-            let svgObject = document.getElementById(["svgObject", "connect", "RU"].join("-"))
-            if (svgObject) {
-                //console.log("svgObject.data", svgObject.data)
-                if (menus.RU.COM.present || menus.RU.NO.present || menus.RU.NC.present
-                    || menus.RU.P1.present || menus.RU.P2.present || menus.RU.P3.present) {
-                    if (!svgObject.data.match(/relay/)) {
-                        svgObject.data = "svg/connect-RU-relay.svg"
-                    }
-                    //"AnalogOut_A", "GND_B", "VCC_C"
-                } else if (menus.RU.AnalogOut_A.present || menus.RU.GND_B.present || menus.RU.VCC_C.present) {
-                    if (!svgObject.data.match(/digital/)) {
-                        svgObject.data = "svg/connect-RU-digital.svg"
-                    }
-                }
-            }
-        }
+        menus[device][deviceTerminal].label = element.value
+        menus[device][deviceTerminal].present = menus[device][deviceTerminal].label ? true : false
+
         applyMenu(device, deviceTerminal)
     }
 }
@@ -326,8 +391,9 @@ function onDashed(e) {
     let element = e.target
     if (element) {
         let device = element.id.split("-")[1]
-        let deviceTerminal = element.id.split("-")[2]
-        applyDashed(element.checked, device, deviceTerminal)
+        let terminal = element.id.split("-")[2]
+        menus[device][terminal].dashed = element.checked
+        applyDashed(device, terminal)
     }
 }
 
@@ -335,17 +401,15 @@ function onDashed(e) {
 //       Matching function
 // ------------------------------------------------------------------------------------------------------
 function matchDeviceAndSystem(device, systemTerminalsAndLabels) {
-    // returns { matched, optional, writing } , where "matched" is the matched-with system's terminal name
+    // returns { writing, dashed, matchedTo } , where "matchedTo" is the system terminal name
     //console.log("Matching", device, tadoStickers[device], "with", terminalsAndLabels)
     let deviceStickerWithLabels = {}
     for (let systemTerminal in systemTerminalsAndLabels) {
         let matchedDeviceTerminal = null
         let mandatory = false
         //console.log("device:", device, ", system terminal:", systemTerminal)
-        if (-1 !== deviceTerminals[device].indexOf(systemTerminal)) {
-            //exact match
-            matchedDeviceTerminal = systemTerminal
-
+        if (-1 !== glbDeviceTerminals[device].indexOf(systemTerminal)) {
+            matchedDeviceTerminal = systemTerminal//exact match
         } else {
             //console.log("No exact match:", device, systemTerminal, tadoStickers[device])
             switch (device) {
@@ -513,94 +577,97 @@ function matchDeviceAndSystem(device, systemTerminalsAndLabels) {
     return null
 }
 
-
-function applyHide(checked, device, deviceTerminal) {
-    menus[device][deviceTerminal].hide = checked
-    applyMenu(device, deviceTerminal)
+function applyHide(device, terminal) {
+    if (menus[device][terminal].connectRule) {
+        menus[device][terminal].connectRule.style.visibility = menus[device][terminal].present && (!menus[device][terminal].hide)
+            ? "visible" : "hidden"
+    } else if (menus[device][terminal].connectWirePath) {
+        menus[device][terminal].connectWirePath.style.visibility = terminal.match(/^Bridge/)
+            ? menus[device][terminal].present && (!menus[device][terminal].hide)
+                ? "visible" : "hidden"
+            : menus[device][terminal].connectWirePath.style.visibility
+    }
+    if (menus[device][terminal].printedStickerGroup) {
+        menus[device][terminal].printedStickerGroup.style.display = menus[device][terminal].hide ? "none" : ""
+        //menus[device][deviceTerminal].printedStickerGroup.style.visibility = "hidden"
+    }
+    if (menus[device][terminal].connectGroup) {
+        menus[device][terminal].connectGroup.style.visibility = menus[device][terminal].present && (!menus[device][terminal].hide)
+            ? "visible" : "hidden"
+    }
+    if (menus[device][terminal].arrowGroup) {
+        menus[device][terminal].arrowGroup.style.visibility = menus[device][terminal].present && (!menus[device][terminal].hide)
+            ? "visible" : "hidden"
+    }
+    if (menus[device][terminal].systemTerminalLabelGroup) {
+        menus[device][terminal].systemTerminalLabelGroup.style.visibility = menus[device][terminal].present && (!menus[device][terminal].hide)
+            ? "visible" : "hidden"
+    }
+    if (menus[device][terminal].circle) {
+        menus[device][terminal].circle.visibility = menus[device][terminal].present && (!menus[device][terminal].hide)
+            ? 3 < menus[device][terminal].label.toString().length
+                ? "hidden"
+                : "visible"
+            : ""
+    }
 }
 
-function applyMenu(device, terminalName) {
-    menus[device][terminalName].present = terminalName.match(/^Bridge/)
-        ? menus[device][terminalName].present
-        : menus[device][terminalName].label ? true : false
-    //TODO: labeling.svg
-    applyNewWriting(menus[device][terminalName].label, device, terminalName)
+function applyMenu(device, terminal) {
+    menus[device][terminal].present = terminal.match(/^Bridge/)
+        ? menus[device][terminal].present
+        : menus[device][terminal].label ? true : false
 
-    //connect.svg
-    if (("BP" === device) && (-1 !== ["L", "CH_COM", "CH_NO", "CH_NC", "HW_COM", "HW_NO", "HW_NC"].indexOf(terminalName))) {
+    applyPictureType(device)
+
+    applyWriting(device, terminal)
+
+    //applyBridges
+    if (("BP" === device) && (-1 !== ["L", "CH_COM", "CH_NO", "CH_NC", "HW_COM", "HW_NO", "HW_NC"].indexOf(terminal))) {
         calculateBridges()
         applyMenu("BP", "Bridge_L_COM")
         applyMenu("BP", "Bridge_COM_COM")
         applyMenu("BP", "Bridge_L_HWCOM")
     }
 
+    applyDashed(device, terminal)
 
-    applyDashed(menus[device][terminalName].dashed, device, terminalName)
-    if (menus[device][terminalName].labelRule) {
-        menus[device][terminalName].labelRule.style.visibility = menus[device][terminalName].present && (!menus[device][terminalName].hide)
-            ? "visible" : "hidden"
-    } else if (menus[device][terminalName].connectWirePath) {
-        menus[device][terminalName].connectWirePath.style.visibility = terminalName.match(/^Bridge/)
-            ? menus[device][terminalName].present && (!menus[device][terminalName].hide) ? "visible" : "hidden"
-            : menus[device][terminalName].connectWirePath.style.visibility
-    }
-    if (menus[device][terminalName].printedStickerGroup) {
-        menus[device][terminalName].printedStickerGroup.style.display = menus[device][terminalName].hide ? "none" : ""
-        //menus[device][deviceTerminal].printedStickerGroup.style.visibility = "hidden"
-    }
-    if (menus[device][terminalName].connectGroup) {
-        menus[device][terminalName].connectGroup.style.visibility = menus[device][terminalName].present && (!menus[device][terminalName].hide)
-            ? "visible" : "hidden"
-    }
-
+    applyHide(device, terminal)
 }
 
 function calculateBridges(doCreateNewBridges) {
     if (menus && menus.BP) {
         if (doCreateNewBridges) {
-            if (menus.BP.L.label && (!menus.BP["CH_COM"].label) && (!menus.BP["HW_COM"].label)) {
-                menus.BP["Bridge_COM_COM"] = { present: true }
-                menus.BP["Bridge_L_COM"] = { present: true }
-                menus.BP["Bridge_L_HWCOM"] = { present: false }
-            } else if (menus.BP.L.label && (!menus.BP["CH_COM"].label) && (menus.BP["CH_NO"].label || menus.BP["CH_NC"].label)) {
-                menus.BP["Bridge_COM_COM"] = { present: false }
-                menus.BP["Bridge_L_COM"] = { present: true }
-                menus.BP["Bridge_L_HWCOM"] = { present: false }
-            } else if (menus.BP.L.label && (!menus.BP["HW_COM"].label) && (menus.BP["HW_NO"].label || menus.BP["HW_NC"].label)) {
-                menus.BP["Bridge_COM_COM"] = { present: false }
-                menus.BP["Bridge_L_COM"] = { present: false }
-                menus.BP["Bridge_L_HWCOM"] = { present: true }
-            } else {
-                menus.BP["Bridge_COM_COM"] = { present: false }
-                menus.BP["Bridge_L_COM"] = { present: false }
-                menus.BP["Bridge_L_HWCOM"] = { present: false }
-            }
-        } else {
-            if (menus.BP.L.label && (!menus.BP["CH_COM"].label) && (!menus.BP["HW_COM"].label)
-                && (menus.BP["HW_NO"].label || menus.BP["HW_NC"].label)) {
-                menus.BP["Bridge_COM_COM"].present = true
-                menus.BP["Bridge_L_COM"].present = true
-                menus.BP["Bridge_L_HWCOM"].present = false
-            } else if (menus.BP.L.label && (!menus.BP["CH_COM"].label) && (menus.BP["CH_NO"].label || menus.BP["CH_NC"].label)) {
-                menus.BP["Bridge_COM_COM"].present = false
-                menus.BP["Bridge_L_COM"].present = true
-                menus.BP["Bridge_L_HWCOM"].present = false
-            } else if (menus.BP.L.label && (!menus.BP["HW_COM"].label) && (menus.BP["HW_NO"].label || menus.BP["HW_NC"].label)) {
-                menus.BP["Bridge_COM_COM"].present = false
-                menus.BP["Bridge_L_COM"].present = false
-                menus.BP["Bridge_L_HWCOM"].present = true
-            } else {
-                menus.BP["Bridge_COM_COM"].present = false
-                menus.BP["Bridge_L_COM"].present = false
-                menus.BP["Bridge_L_HWCOM"].present = false
-            }
+            menus.BP["Bridge_COM_COM"] = {}
+            menus.BP["Bridge_L_COM"] = {}
+            menus.BP["Bridge_L_HWCOM"] = {}
         }
-        //console.log("Recalculate bridges", doCreateNewBridges ? "create new" : ["Bridge_L_COM", "Bridge_COM_COM", "Bridge_L_HWCOM"].map(name => { name: return menus.BP[name].present }))
+        if (menus.BP.L.label && (!menus.BP["CH_COM"].label) && (!menus.BP["HW_COM"].label)
+            && (menus.BP["HW_NO"].label || menus.BP["HW_NC"].label)) {
+            menus.BP["Bridge_COM_COM"].present = true
+            menus.BP["Bridge_L_COM"].present = true
+            menus.BP["Bridge_L_HWCOM"].present = false
+        } else if (menus.BP.L.label && (!menus.BP["CH_COM"].label) && (menus.BP["CH_NO"].label || menus.BP["CH_NC"].label)) {
+            menus.BP["Bridge_COM_COM"].present = false
+            menus.BP["Bridge_L_COM"].present = true
+            menus.BP["Bridge_L_HWCOM"].present = false
+        } else if (menus.BP.L.label && (!menus.BP["HW_COM"].label) && (menus.BP["HW_NO"].label || menus.BP["HW_NC"].label)) {
+            menus.BP["Bridge_COM_COM"].present = false
+            menus.BP["Bridge_L_COM"].present = false
+            menus.BP["Bridge_L_HWCOM"].present = true
+        } else {
+            menus.BP["Bridge_COM_COM"].present = false
+            menus.BP["Bridge_L_COM"].present = false
+            menus.BP["Bridge_L_HWCOM"].present = false
+        }
     }
 }
 
+function downloadPNG(event) {
+    console.log("I's the PNG download event. My target:", event ? event.target : event)
+}
+
 function downloadSVG(event) {
-    console.log("downloadSVG:", event.target)
+    console.log("I's the SVG download event. My target:", event ? event.target : event)
     let curDevice = event.target.id.split("-")[2]
     let curPictureName = event.target.id.split("-")[1]
     let curSvgObjId = ["svgObject", curPictureName, curDevice].join("-")
@@ -634,53 +701,26 @@ function downloadSVG(event) {
 }
 
 console.log(`
- __| |____________________________________________| |__
-(__   ____________________________________________   __)
-   | |                                            | |
-   | |            Index script svg                | |
-   | |                                            | |
-   | |     will generate a page with stickers     | |
-   | |                                            | |
-  _| |ds__________________________________________| |__
-(__   ____________________________________________   __)
-   | |                                            | |`
-)
-console.log(">>>>>>>> window.location <<<<<<<<<", JSON.stringify({
+----------------------------------
+|                                |
+|          Index script          |
+|                                |
+|  generates page with stickers  |
+|                                |
+|                                |
+`)
+console.log("Window.location:", {
     origin: window.location.origin
     , protocol: window.location.protocol
-    , hostname: window.location.hostname
+    , host: window.location.host
     , pathname: window.location.pathname
     , payload: decodeURI(window.location.search.substring(1))
-}, null, " "))
+})
 
-//
-// Global variables
-//
-const pictureNames = ["labeling", "connect"]
-const doUpdateOriginalDimensions = true
-const pictureScales = {
-    labeling: {
-        width: 1
-        , height: 1.5
-    }
-    , connect: {
-        width: 1
-        , height: 1
-    }
-}
-const pictureDimensions = {
-    labeling: {
-        width: 846
-        , height: 398
-    }
-    , connect: {
-        width: 340
-        , height: 420
-    }
-}
+
 //first, generate an empty menu structure (one menu per device)
-const menus = devices.reduce((accDevice, curDevice) => {
-    accDevice[curDevice] = deviceTerminals[curDevice].reduce((accTerminal, curTerminal) => {
+const menus = glbDevices.reduce((accDevice, curDevice) => {
+    accDevice[curDevice] = glbDeviceTerminals[curDevice].reduce((accTerminal, curTerminal) => {
         accTerminal[curTerminal] = {
             label: null
             , present: false
@@ -693,36 +733,37 @@ const menus = devices.reduce((accDevice, curDevice) => {
 console.log("MENUS:", menus)
 const root = document.getElementById("root")
 const urlParams = decodeURI(window.location.search.substring(1)) ? payload2obj(decodeURI(window.location.search.substring(1))) : null
-var useDefault = true
-let header = document.createElement("h1")
-header.textContent = "No system - default stickers"
 console.log("URL parameters:", urlParams)
-if (urlParams && (0 < Object.keys(urlParams).length) && (urlParams.interface) && (urlParams.interface.terminalsAndLabels)) {
-    useDefault = false
-    let notEmptyUrlTerminals = Object.keys(urlParams.interface.terminalsAndLabels)
-        .filter(key => {
-            return urlParams.interface.terminalsAndLabels[key]
+const useDefault = !(urlParams && (0 < Object.keys(urlParams).length) && (urlParams.interface) && (urlParams.interface.terminalsAndLabels))
+let header = document.createElement("h1")
+header.style.visibility = "hidden"
+header.textContent = "No system - default stickers"
+if (!useDefault) {
+    let notEmptyUrlTerminalMap = Object.keys(urlParams.interface.terminalsAndLabels)
+        .filter(terminal => {
+            return urlParams.interface.terminalsAndLabels[terminal]
         })
-        .reduce((accObj, curKey) => {
-            accObj[curKey] = urlParams.interface.terminalsAndLabels[curKey]
-            return accObj
+        .reduce((accMap, terminal) => {
+            accMap[terminal] = urlParams.interface.terminalsAndLabels[terminal]
+            return accMap
         }, {})
-    console.log("Not empty URL terminals:", notEmptyUrlTerminals)
-    for (let device of devices) {
-        let matchedDeviceTerminals = matchDeviceAndSystem(device, notEmptyUrlTerminals)
+    console.log("Not empty URL terminals:", notEmptyUrlTerminalMap)
+    for (let device of glbDevices) {
+        let matchedTerminalMap = matchDeviceAndSystem(device, notEmptyUrlTerminalMap)
+        console.log(device, "Matched terminals:", matchedTerminalMap)
         //copy matched Stickers to the empty global sticker
-        for (let matchedTadoTerminal in matchedDeviceTerminals) {
-            menus[device][matchedTadoTerminal].label = matchedDeviceTerminals[matchedTadoTerminal].writing
-            menus[device][matchedTadoTerminal].present = true
-            menus[device][matchedTadoTerminal].dashed = matchedDeviceTerminals[matchedTadoTerminal].dashed
-            menus[device][matchedTadoTerminal].matchedTo = matchedDeviceTerminals[matchedTadoTerminal].matchedTo
+        for (let terminal in matchedTerminalMap) {
+            menus[device][terminal].label = matchedTerminalMap[terminal].writing
+            menus[device][terminal].present = true
+            menus[device][terminal].dashed = matchedTerminalMap[terminal].dashed
+            menus[device][terminal].matchedTo = matchedTerminalMap[terminal].matchedTo
         }
-        if (("BP" === device) && (matchedDeviceTerminals && (0 < matchedDeviceTerminals.length))) {
+        if (("BP" === device) && (matchedTerminalMap && (0 < matchedTerminalMap.length))) {
             calculateBridges(true)
             menus.BP.EARTH = {
-                present: true
+                present: menus.BP.L.present
                 , dashed: true
-                , label: `\u23DA`
+                , label: menus.BP.L.present ? `\u23DA` : null
             }
         }
     }
@@ -731,66 +772,70 @@ if (urlParams && (0 < Object.keys(urlParams).length) && (urlParams.interface) &&
         + ` (${urlParams.placement ? [urlParams.placement, urlParams.type].join(" ") : urlParams.type})`
         + ` - ${urlParams.interface.name}`
 } else {
-    console.log("Empty URL parameters. Displaying 'default' stickers.")
+    console.log("Empty URL parameters. Generating 'DEFAULT' stickers.")
     //fill menu from defaultLabels
-    for (let device in defaultLabels) {
-        for (let terminal in defaultLabels[device]) {
-            menus[device][terminal].label = defaultLabels[device][terminal]
+    for (let device in glbDefaultLabels) {
+        for (let terminal in glbDefaultLabels[device]) {
+            menus[device][terminal].label = glbDefaultLabels[device][terminal]
             menus[device][terminal].present = menus[device][terminal].label ? true : false
             menus[device][terminal].dashed = isWireOptional(device, terminal)
             menus[device][terminal].matchedTo = terminal
         }
+        if ("BP" === device) {
+            calculateBridges(true)
+        }
     }
 }
 root.appendChild(header)
+header.style.visibility = "visible"
 //
 // appends menus and svgs
 //
-for (let device of Object.keys(menus)) {
+for (let menuDevice in menus) {
     let deviceContainer = document.createElement("div")
-    deviceContainer.className = "device-container"
-    deviceContainer.id = [deviceContainer.className, device].join("-")
+    deviceContainer.className = "deviceContainer"
+    deviceContainer.id = [deviceContainer.className, menuDevice].join("-")
     root.appendChild(deviceContainer)
 
     let deviceHeading = document.createElement("h2")
-    deviceHeading.className = "device-heading"
-    deviceHeading.textContent = device
+    deviceHeading.className = "deviceHeading"
+    deviceHeading.textContent = menuDevice
     deviceContainer.appendChild(deviceHeading)
 
     let menuContainer = document.createElement("div")
-    menuContainer.className = "menu-container"
-    menuContainer.id = [menuContainer.className, device].join("-")
+    menuContainer.className = "menuContainer"
+    menuContainer.id = [menuContainer.className, menuDevice].join("-")
     deviceContainer.appendChild(menuContainer)
     //Render physical menu elements and fill with actual info from 'menus' map
-    if (0 < Object.keys(menus[device]).length) {
-        for (let deviceTerminal in menus[device]) {
-            let menuItemId = ["menuItem", device, deviceTerminal].join("-")
-            let menuItem = menus[device][deviceTerminal]
+    if (0 < Object.keys(menus[menuDevice]).length) {
+        for (let terminal in menus[menuDevice]) {
+            let menuItemId = ["menuItem", menuDevice, terminal].join("-")
+            let menuItem = menus[menuDevice][terminal]
             let cell = document.createElement("div")
             cell.id = menuItemId
             menuContainer.appendChild(cell)
 
             let writingLabel = document.createElement("label")
             writingLabel.className = "tadoLabel tado-terminal-label"
-            writingLabel.textContent = getFriendlyName(device, deviceTerminal)
+            writingLabel.textContent = getFriendlyName(menuDevice, terminal)
             cell.appendChild(writingLabel)
-            if (!deviceTerminal.match(/^Bridge/i)) {
+            if (!terminal.match(/^Bridge/i)) {
                 let inputWriting = document.createElement("input")
                 inputWriting.type = "text"
-                inputWriting.value = menuItem.label
+                inputWriting.value = menus[menuDevice][terminal].label
                 inputWriting.id = [menuItemId, "writing"].join("-")
                 inputWriting.className = "input-writing"
                 inputWriting.oninput = onWritingChanged
                 cell.appendChild(inputWriting)
                 writingLabel.for = inputWriting.id
-                menus[device][deviceTerminal].inputWriting = inputWriting
+                menus[menuDevice][terminal].inputWriting = inputWriting
             }
 
             let dashedGroup = document.createElement("div")
 
             let checkboxDashed = document.createElement("input");
             checkboxDashed.type = "checkbox";
-            checkboxDashed.checked = menuItem.dashed
+            checkboxDashed.checked = menus[menuDevice][terminal].dashed
             checkboxDashed.id = [menuItemId, "dashed"].join("-")
             checkboxDashed.oninput = onDashed
 
@@ -801,14 +846,14 @@ for (let device of Object.keys(menus)) {
             dashedGroup.appendChild(dashedLabel)
             dashedGroup.appendChild(checkboxDashed)
             cell.appendChild(dashedGroup)
-            menus[device][deviceTerminal].inputDashed = checkboxDashed
+            menus[menuDevice][terminal].inputDashed = checkboxDashed
 
             let hideStickerGroup = document.createElement("div")
 
             let checkboxHide = document.createElement("input");
             checkboxHide.type = "checkbox";
             checkboxHide.id = [menuItemId, "hideSticker"].join("-")
-            checkboxHide.checked = menuItem.hideSticker
+            checkboxHide.checked = menus[menuDevice][terminal].hide
             checkboxHide.oninput = onHideSticker
 
             let hideStickerLabel = document.createElement("label")
@@ -818,26 +863,25 @@ for (let device of Object.keys(menus)) {
             hideStickerGroup.appendChild(hideStickerLabel)
             hideStickerGroup.appendChild(checkboxHide)
             cell.appendChild(hideStickerGroup)
-            menus[device][deviceTerminal].inputHide = checkboxHide
+            menus[menuDevice][terminal].inputHide = checkboxHide
         }
-    } else { console.log(device, "has no menu???") }
+    } else { console.log(menuDevice, "has no menu???") }
 
     let picturesContainer = document.createElement("div") // deviceRoot > h2, 
-    picturesContainer.className = "pictures-container"
-    picturesContainer.id = [picturesContainer.className, device].join("-")
+    picturesContainer.className = "picturesContainer"
+    picturesContainer.id = [picturesContainer.className, menuDevice].join("-")
     deviceContainer.appendChild(picturesContainer)
 
-    for (let pictureName of pictureNames) {
-
+    for (let pictureName of glbPictureNames) {
         let svgContainer = document.createElement("div") //svg-container contains download link and svg picture
-        svgContainer.className = "svg-container"
-        svgContainer.id = [svgContainer.className, pictureName, device].join("-")
+        svgContainer.className = "svgContainer"
+        svgContainer.id = [svgContainer.className, pictureName, menuDevice].join("-")
         picturesContainer.appendChild(svgContainer)
         //SVG download link
         let downloadLink = document.createElement("a")
         downloadLink.className = "downloadLink"
-        downloadLink.id = [downloadLink.className, pictureName, device].join("-")
-        downloadLink.textContent = `${pictureName}-${device}.svg`
+        downloadLink.id = [downloadLink.className, pictureName, menuDevice].join("-")
+        downloadLink.textContent = `${pictureName}-${menuDevice}.svg`
         downloadLink.href = downloadLink.textContent
         downloadLink.onclick = downloadSVG
         //downloadLink.download = svgFileUrl.split("/")[svgFileUrl.split("/").length - 1]
@@ -846,202 +890,116 @@ for (let device of Object.keys(menus)) {
         //SVG itself
         let svgObject = document.createElement("object")
         svgObject.className = "svgObject"
-        svgObject.id = [svgObject.className, pictureName, device].join("-")
+        svgObject.id = [svgObject.className, pictureName, menuDevice].join("-")
         //type="image/svg+xml" width="680" height="840"
         svgObject.type = "image/svg+xml"
-        if (doUpdateOriginalDimensions) {
-            svgObject.width = pictureScales[pictureName].width * pictureDimensions[pictureName].width
-            svgObject.height = pictureScales[pictureName].height * pictureDimensions[pictureName].height
+        if (glbUpdateSvgDimensions) {
+            svgObject.width = glbPictureScales[pictureName].width * glbPictureDimensions[pictureName].width
+            svgObject.height = glbPictureScales[pictureName].height * glbPictureDimensions[pictureName].height
         }
-        let svgFileUrl = `svg/${pictureName}-${device.toUpperCase()}.svg`
-        if (("connect" === pictureName) && ("BR" === device)) {
-            if (menus[device]["VCC_C"].present) {
-                svgFileUrl = "svg/Connect-BR-analog.svg"
-            } else if (menus[device]["N"].present) {
-                svgFileUrl = "svg/Connect-BR-mains.svg"
-            } else {
-                svgFileUrl = "svg/Connect-BR-potfree.svg"
-            }
-        } else if (("connect" === pictureName) && ("RU" === device)) {
-            if (menus[device]["VCC_C"].present) {
-                svgFileUrl = "svg/connect-RU-digital.svg"
-            } else {
-                svgFileUrl = "svg/connect-RU-relay.svg"
-            }
-        } else if (("connect" === pictureName) && ("BU" === device)) {
-            if (menus[device]["VCC_C"].present) {
-                svgFileUrl = "svg/connect-BU-digital.svg"
-            } else {
-                svgFileUrl = "svg/connect-BU-relay.svg"
-            }
-        }
-        svgObject.data = svgFileUrl
-        //console.log("Inserting SVG from:", svg.data)
+        let neededPictureType = "connect" === pictureName ? calculatePictureType(menuDevice) : null
+        svgObject.data = neededPictureType && ("file" === glbPictureTypes[menuDevice][neededPictureType].type)
+            ? `svg/${pictureName}-${menuDevice}-${neededPictureType}.svg`
+            : `svg/${pictureName}-${menuDevice}.svg`
+        console.log(menuDevice, pictureName, "url:", svgObject.data)
         svgContainer.appendChild(svgObject)
 
         ///////////////////////////////////////////////////////////svg.onload()//////////////////////////////////////////////////////////////
         svgObject.onload = function (e) {
-            console.log(device, "onload()")
-            let curPictureName = e.target.id.split("-")[1]
-            let curDevice = e.target.id.split("-")[2]
-            let curPictureType = e.target.data && (3 === e.target.data.split("/")[e.target.data.split("/").length - 1].split("-").length)
-                ? e.target.data.split("/")[e.target.data.split("/").length - 1].split("-")
-                [e.target.data.split("/")[e.target.data.split("/").length - 1].split("-").length - 1]
-                    .replace(/\.svg$/i, "")
-                : null
-            console.log(device, "picture:", curPictureName, "type:", curPictureType)
-            if ("labeling" === curPictureName) {
-                //svg elements to the menu
-                //console.log(curDevice, "LABELING", curPictureName)
+            console.log("onload()", this.data.match(/svg\/(.+\.svg)$/)[1])
+            let svgNameParts = getInfoFromFileName(this.data)
+            let svgPictureName = svgNameParts.pictureName
+            let svgDevice = svgNameParts.device
+            if ("labeling" === svgPictureName) {
                 let labelingStickerList = this.contentDocument.querySelectorAll("g[transform*=translate] g[title*='terminal sticker']")
-                let maxTsi = Math.min(labelingStickerList.length, Object.keys(deviceTerminals[curDevice]).length)
-                //read SVG elements of the corresponding SYSTEM label (circle, text, arrow)
+                let maxTsi = Math.min(labelingStickerList.length, Object.keys(glbDeviceTerminals[svgDevice]).length)
                 for (let tsi = 0; tsi < maxTsi; tsi++) {
-                    let terminalName = deviceTerminals[curDevice][Object.keys(deviceTerminals[curDevice])[tsi]]
-                    //console.log(curDevice, "sticker", terminalName, "menu", menus[curDevice][terminalName])
+                    let terminal = glbDeviceTerminals[svgDevice][Object.keys(glbDeviceTerminals[svgDevice])[tsi]]
                     let x = labelingStickerList[tsi].parentNode.getAttribute("transform").match(/translate\(\s*(\d+)\s*\,\s*(\d+)\s*\)/)[1]
-                    //circle, label, arrow
-                    menus[curDevice][terminalName].circle = labelingStickerList[tsi].parentNode.querySelector("circle")
-                    menus[curDevice][terminalName].writtenText = labelingStickerList[tsi].parentNode.querySelector("text")
-                    menus[curDevice][terminalName].arrowLine = labelingStickerList[tsi].parentNode.querySelector("g[title='system terminal label arrow'] line")
-                    menus[curDevice][terminalName].arrowTip = labelingStickerList[tsi].parentNode.querySelector("g[title='system terminal label arrow'] polygon")
-                    menus[curDevice][terminalName].systemTerminalLabelGroup = labelingStickerList[tsi].parentNode.querySelector("g[title='system terminal label'")
-                    menus[curDevice][terminalName].arrowGroup = labelingStickerList[tsi].parentNode.querySelector("g[title='system terminal label arrow']")
-                    menus[curDevice][terminalName].printedStickerGroup = labelingStickerList[tsi].parentNode
-                    applyMenu(curDevice, terminalName)
-                }
-                // end reading elements from labeling.svg
-            } else if ("connect" === curPictureName) {
-                //get wires from svg
-                let innerSvg = this.contentDocument.styleSheets
-                console.log("parsing", curDevice, curPictureName)
+                    menus[svgDevice][terminal].circle = labelingStickerList[tsi].parentNode.querySelector("circle")
+                    menus[svgDevice][terminal].writtenText = labelingStickerList[tsi].parentNode.querySelector("text")
+                    menus[svgDevice][terminal].arrowLine = labelingStickerList[tsi].parentNode.querySelector("g[title='system terminal label arrow'] line")
+                    menus[svgDevice][terminal].arrowTip = labelingStickerList[tsi].parentNode.querySelector("g[title='system terminal label arrow'] polygon")
+                    menus[svgDevice][terminal].systemTerminalLabelGroup = labelingStickerList[tsi].parentNode.querySelector("g[title='system terminal label'")
+                    menus[svgDevice][terminal].arrowGroup = labelingStickerList[tsi].parentNode.querySelector("g[title='system terminal label arrow']")
+                    menus[svgDevice][terminal].printedStickerGroup = labelingStickerList[tsi].parentNode
+                    applyMenu(svgDevice, terminal)
+                }// end reading elements from labeling.svg
+            } else if ("connect" === svgPictureName) {
+                //let svgPictureType = 3===svgNameParts.length ? svgNameParts[2] : null
+                console.log(menuDevice, "this.contentDocument.styleSheets:", this.contentDocument.styleSheets.length, this.contentDocument.styleSheets[0].cssRules)
 
-                if ("BP" === curDevice) {
-                    //console.log("Yes, I am a ", curDevice)
-                    let labelRules = Array.from(this.contentDocument.styleSheets[0].cssRules)
-                        .filter(rule => { return rule.selectorText.match(/\.Label(.+)/) })
-                    //console.log("CSS rules wires:", labelRules)
-                    labelRules.forEach(rule => {
-                        //let className = rule.selectorText.match(/\.(Label.+)/)[1]
-                        let printedLabelName = rule.selectorText.match(/\.Label(.+)/)[1]
-                        let terminalName = convertPrintedLabel2Terminal(curDevice, printedLabelName)
-                        if (terminalName) {
-                            menus[curDevice][terminalName].labelRule = rule
-                            let wireGroup = this.contentDocument.querySelector(`g${rule.selectorText}`)
-                            menus[curDevice][terminalName].connectGroup = wireGroup
-                            menus[curDevice][terminalName].connectWirePath = wireGroup.querySelector("g > path")
-                            applyMenu(curDevice, terminalName)
-                        }
-                    })
-                    let bridgeRules = Array.from(this.contentDocument.styleSheets[0].cssRules)
-                        .filter(rule => { return rule.selectorText.match(/\.Bridge(.+)/) })
-                    bridgeRules.forEach(rule => {
-                        let bridgeGroup = this.contentDocument.querySelector(`g${rule.selectorText}`)
-                        let bridgeName = bridgeGroup.id.replace(/\-/g, "_").replace(/\_{2,}/g, "_")
-                        if (menus.BP[bridgeName]) {
-                            menus.BP[bridgeName].labelRule = rule
-                            menus.BP[bridgeName].connectGroup = bridgeGroup
-                            menus.BP[bridgeName].connectWirePath = bridgeGroup.querySelector("path")
-                            //console.log(device, "Going to apply bridge", bridgeName)
-                            applyMenu(curDevice, bridgeName)
-                        } else {
-                            console.log(curDevice, bridgeName, "!!!menu item not found")
-                        }
-                    })
-                } else if ("BR" === curDevice) {
-                    let brNames = null
-                    if (this.data.match(/analog/)) {
-                        brNames = ["A", "Negative", "Positive"]
-                    } else if (this.data.match(/mains/)) {
-                        brNames = ["N", "L_1", "L_2", "COM", "NC", "NO", "P1"]
-                    } else if (this.data.match(/potfree/)) {
-                        brNames = ["COM", "NC", "NO", "P1", "P2", "P3"]
-                    }
-                    brNames.forEach(brTerminal => {
-                        //console.log("BR looking for wire", brTerminal)
-                        let connectGroup = this.contentDocument.querySelector(`g#${brTerminal}`)
-                        if (connectGroup) {
-                            let curTerminal = convertPrintedLabel2Terminal("BR", brTerminal)
-                            //console.log(brTerminal, "=====convert=====>", curTerminal)
-                            if (curTerminal) {
-                                menus.BR[curTerminal].connectGroup = connectGroup
-                                menus.BR[curTerminal].connectWirePath = connectGroup.querySelector(`g > path`)
-                                menus.BR[curTerminal].connectStickerRect = connectGroup.querySelector(`g > rect`)
-                                applyMenu(curDevice, curTerminal)
-                            } else {
-                                connectGroup.style.visibility = "hidden"
-                            }
-                        } else {
-                            //console.log("BR wire not found", brTerminal)
-                        }
-                    })
-                } else if ("RU" === curDevice) {
-                    let connectTerminals = "digital" === curPictureType
-                        ? ["other", "minus", "plus"]
-                        : ["COM", "NC", "NO", "P1", "P2", "P3"]
-                    let connectRules = Array.from(this.contentDocument.styleSheets[0].cssRules)
-                        .filter(rule => { return rule.selectorText.match(/\.Label(.+)/) })
-                    //console.log(curDevice, `Gotten CSS rules:`, connectRules)
-                    connectTerminals.forEach(connectTerminal => {
-                        //console.log(curDevice, "Collecting data for the wire:", curTerminal)
-                        let connectGroup = this.contentDocument.querySelector(`g#${connectTerminal}`)
-                        if (connectGroup) {
-                            let curTerminal = convertPrintedLabel2Terminal("RU", connectTerminal)
-                            //console.log(ruTerminal, "=====convert=====>", curTerminal)
-                            if (curTerminal) {
-                                menus.RU[curTerminal].connectGroup = connectGroup
-                                menus.RU[curTerminal].connectWirePath = connectGroup.querySelector(`g > path`)
-                                menus.RU[curTerminal].connectStickerRect = connectGroup.querySelector(`g > rect`)
-                                applyMenu(curDevice, curTerminal)
-                            } else {
-                                connectGroup.style.visibility = "hidden"
-                            }
-                        } else {
-                            console.log(curDevice, connectTerminal, "!!! 'connect' wire not found")
-                        }
-                    })
-                } else if ("BU" === curDevice) {
-                    let buNames = null
-                    let buInterface = null
-                    if (this.data.match(/digital/)) {
-                        buNames = ["A", "Minus", "Plus"]
-                        buInterface = "digital"
-                    } else if (this.data.match(/relay/)) {
-                        buNames = ["N", "L", "1", "2", "3", "3"]
-                        buInterface = "relay"
-                    }
-                    console.log(curDevice, "Getting CSS rules")
-                    let labelRules = Array.from(this.contentDocument.styleSheets[0].cssRules)
-                        .filter(rule => { return rule.selectorText.match(/\.Label(.+)/) })
-                    console.log(curDevice, "CSS rules:", labelRules)
-                    labelRules.forEach(rule => {
-                        let printedLabelName = rule.selectorText.match(/\.Label(.+)/)[1]
-                        let terminalName = convertPrintedLabel2Terminal(curDevice, printedLabelName)
-                        if (terminalName) {
-                            menus[curDevice][terminalName].labelRule = rule
-                            let wireGroupList = this.contentDocument.querySelectorAll(`g${rule.selectorText}`)
-                            let wireGroups = Array.from(wireGroupList)
-                            wireGroups.forEach(wireGroup => {
-                                if (wireGroup.id && wireGroup.id.match(/^mini/)) {
-                                    menus[curDevice][terminalName].miniConnectGroup = wireGroup
-                                    menus[curDevice][terminalName].miniConnectWirePath = wireGroup.querySelector("path.st5")
+                let rules = 0 < this.contentDocument.styleSheets.length
+                    ? Array.from(this.contentDocument.styleSheets[0].cssRules)
+                        .filter(rule => {
+                            if (rule.selectorText) {
+                                if (rule.selectorText.match(/Label(.+)/)) {
+                                    return true
+                                } else if (rule.selectorText.match(/(Bridge.+)/)){
+                                    return true 
                                 } else {
-                                    menus[curDevice][terminalName].connectGroup = wireGroup
-                                    menus[curDevice][terminalName].connectWirePath = wireGroup.querySelector("path.st5")
-
+                                    return false
                                 }
-                            })
+                            }
+                            return false
+                        })
+                    : null
+                if (0 < rules.length) {
+                    rules.forEach(rule => {
+                        let svgTerminalName = rule.selectorText.match(/\.Label(.+)/)
+                            ? rule.selectorText.match(/\.Label(.+)/)[1]
+                            : rule.selectorText.match(/(Bridge.+)/)[1]
+                        let terminal = convertSvg2DeviceTerminal(svgDevice, svgTerminalName)
+                        if (terminal) {
+                            menus[svgDevice][terminal].connectRule = rule
+                            if (this.contentDocument.querySelector(`g${rule.selectorText}[id*=mini]`)) {
+                                menus[svgDevice][terminal].connectGroup = this.contentDocument.querySelector(`g${rule.selectorText}`)
+                                menus[svgDevice][terminal].connectWirePath = menus[svgDevice][terminal].connectGroup
+                                    .querySelector("path.st5")
+                                menus[svgDevice][terminal].miniConnectGroup = this.contentDocument.querySelector(`g${rule.selectorText}[id*=mini]`)
+                                menus[svgDevice][terminal].miniConnectWirePath = menus[svgDevice][terminal].miniConnectGroup
+                                    .querySelector("path.st5")
 
-
-                            applyMenu(curDevice, terminalName)
+                            } else if (this.contentDocument.querySelector(`g${rule.selectorText}`)) {
+                                menus[svgDevice][terminal].connectGroup = this.contentDocument.querySelector(`g${rule.selectorText}`)
+                                if (rule.selectorText.match(/Label(.+)/)) {
+                                    menus[svgDevice][terminal].connectWirePath = menus[svgDevice][terminal].connectGroup
+                                        .querySelector("g > path")
+                                } else if (rule.selectorText.match(/Bridge(.+)/)) {
+                                    menus[svgDevice][terminal].connectWirePath = menus[svgDevice][terminal].connectGroup
+                                        .querySelector("path")
+                                }
+                            }
+                            applyMenu(svgDevice, terminal)
                         }
                     })
-
+                } else {
+                    console.log(menuDevice, "No '.Label*' rules found.")
+                    let svgTerminals = Object.keys(glbSvg2deviceTerminals[menuDevice])
+                    console.log(menuDevice, "Looking in group ids:", svgTerminals)
+                    svgTerminals.forEach(svgTerminal => {
+                        //console.log("BR looking for wire", brTerminal)
+                        let terminal = convertDevice2SvgTerminal(menuDevice, svgTerminal)
+                        try {
+                            let connectGroup = this.contentDocument.querySelector(`g#${svgTerminal}`)
+                            if (connectGroup) {
+                                if (terminal) {
+                                    menus[svgDevice][terminal].connectGroup = connectGroup
+                                    menus[svgDevice][terminal].connectWirePath = connectGroup.querySelector(`g > path`)
+                                    menus[svgDevice][terminal].connectStickerRect = connectGroup.querySelector(`g > rect`)
+                                    applyMenu(svgDevice, terminal)
+                                } else {
+                                    connectGroup.style.visibility = "hidden"
+                                }
+                            } else {
+                                //console.log("BR wire not found", brTerminal)
+                            }
+                        } catch (err) {
+                            console.log(menuDevice, err.message, svgTerminal, terminal, `g#${svgTerminal}`)
+                        }
+                    })
                 }
-
-
-                //end of parsing the 'connect'.svg
-            }
+            }//end of onLoad() the 'connect'.svg
             downloadLink.style.display = ""
         }
     }
@@ -1054,13 +1012,8 @@ footer.innerHTML = `By <a href="https://github.com/dariatado">@DariaTado</a> 202
 root.appendChild(footer)
 
 console.log(`
- __| |____________________________________________| |__
-(__   ____________________________________________   __)
-   | |                                            | |
-   | |            Index script svg                | |
-   | |                                            | |
-   | |                The End.                    | |
-  _| |____________________________________________| |__
-(__   ____________________________________________   __)
-   | |                                            | |`
-)
+|                                |
+|          Index script          |
+|            The End.            |
+|ds______________________________|
+`)

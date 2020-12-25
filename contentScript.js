@@ -156,7 +156,7 @@
                 }
 
                 interface.terminalsAndLabels = terminalsAndLabels
-                console.log(interface.name, interface.terminalsAndLabels, cssSelectorTerminalsAndLabels)
+                console.log("Found interface:", interface.name, interface.terminalsAndLabels)
 
                 interfaces.push(interface)
                 interfaceIndex++
@@ -166,15 +166,21 @@
         return system
     }
 
-    function injectActionElement(parentElement, legend, urlExpression, tagName, classValue) {
-        let actionElement = document.createElement(tagName)
-        actionElement.setAttribute("class", classValue)
+    function injectActionElement(parentElement, legend, urlExpression, tagName, classValue, id) {
+        let actionElement = null
+        if (id) {
+            actionElement = document.getElementById(id)
+        }
+        if (!actionElement) {
+            actionElement = document.createElement(tagName)
+            actionElement.id = id
+            parentElement.appendChild(actionElement)
+            console.log("Added new button:", actionElement)
+        }
+        actionElement.className = classValue
         actionElement.textContent = legend
         actionElement.setAttribute("onclick", `window.open(${urlExpression})`)
-        console.log("button added, onclick:", actionElement.getAttribute("onclick"), "url expression:", urlExpression)
         actionElement.style.fontSize = global_fontSize
-
-        parentElement.appendChild(actionElement)
         return actionElement
     }
 
@@ -184,15 +190,17 @@
             manufacturer: system.manufacturer
             , name: system.name
             , type: system.type
-            , ...system.placement ? {placement: system.placement} : null
+            , ...system.placement ? { placement: system.placement } : null
             , interface: {
                 id: interface.id
+                , cid: interface.compatibilityId
                 , name: interface.name
                 , connector: interface.connector
                 , terminalsAndLabels: interface.terminalsAndLabels
             }
         }
-        injectActionElement(parentElement, "labels...", `'${[endpoint, obj2payload(params)].join("?")}'`, "button", "text-button")
+        injectActionElement(parentElement, "labels...", `'${[endpoint, obj2payload(params)].join("?")}'`, "button", "text-button"
+            , ["button", interface.compatibilityId].join("-"))
     }
 
     function obj2payload(obj) {
@@ -216,7 +224,7 @@
                 if (!interface.name.match(/WIRELESS/)) {
                     let cssInterface = `div[class*=interface][data-id='${interface.compatibilityId}'] div.interface-name`
                     let interfaceNode = document.querySelector(cssInterface)
-                    console.log("Adding button to the interface", interface.name, interface.id, interface.compatibilityId, interfaceNode, cssInterface)
+                    console.log("Adding button to the interface:", interface.name, interface.id, interface.compatibilityId,)
                     if (!interfaceNode) {
                         console.log("Cannot find CSS selector:", cssInterface)
                     } else {
@@ -228,17 +236,13 @@
     }
 
     console.log(`
- __| |____________________________________________| |__
-(__   ____________________________________________   __)
-   | |                                            | |
-   | |                                            | |
-   | |              Content Script                | |
-   | |                                            | |
-   | |        will add 'labels...' buttons        | |
-   | |                                            | |
- __(c)ds 2020_____________________________________| |__
-(__   ____________________________________________   __)
-   | |                                            | |`)
+     ________________________________
+    |                                |
+    |         content script         |
+    |                                |
+    |   will add 'labels..' buttons  |
+    |        to hvactool system      |
+    |                                |`)
     if (document.querySelector("#id")) {
         //document.title = parseInt(document.querySelector("#id").value)
         let system = parseDocument()
@@ -248,13 +252,8 @@
         console.log("Cannot find #id on the page. Wrong page?")
     }
     console.log(`
-    __| |____________________________________________| |__
-   (__   ____________________________________________   __)
-      | |                                            | |
-      | |              Content Script                | |
-      | |                                            | |
-      | |                 The End.                   | |
-    __| |____________________________________________| |__
-   (__   ____________________________________________   __)
-      | |                                            | |`)
+    |                                |
+    |         content script         |
+    |            The End.            |
+    |ds______________________________|`)
 }
