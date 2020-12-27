@@ -1,186 +1,153 @@
 //
 // Global variables
 //
+const glbDeviceDict = {
+    BP: {
+        terminals: ["N", "L", "CH_COM", "CH_NC", "CH_NO", "HW_COM", "HW_NC", "HW_NO", "EARTH", "P1", "P2"
+            , "Bridge_L_COM", "Bridge_COM_COM", "Bridge_L_HWCOM"]
+        , defaultLabels: { "N": "N", "L": "L", "CH_NC": "2", "CH_NO": "4", "HW_NC": "1", "HW_NO": "3", "EARTH": "\u23DA" }
+        , friendlyNames: ["N", "L", "CH_COM", "CH_NC", "CH_NO", "HW_COM", "HW_NC", "HW_NO", "EARTH", "P1", "P2"
+            , "L_COM", "COM_COM", "L_HW"]
+        , friendlyWritings: ["N", "L", "COM", "NC", "NO", "HW COM", "HW Off", "HW On", "EARTH", "P1", "P2"]
+        , cssRules: {
+            N: "N"
+            , L: "L"
+            , CHCOM: "CH_COM"
+            , CHNC: "CH_NC"
+            , CHNO: "CH_NO"
+            , HWCOM: "HW_COM"
+            , HWNC: "HW_NC"
+            , HWNO: "HW_NO"
+            , Ground: "EARTH"
+            , BridgePositionCHCOMHWCOM: "Bridge_COM_COM"
+            , BridgePositionLCHCOM: "Bridge_L_COM"
+            , BridgePositionLHWCOM: "Bridge_L_HWCOM"
+        }
+    }
+    , BR: {
+        interfaceTypes: {
+            mains: ["N", "L"]
+            , potfree: ["COM", "NO", "NC", "P1", "P2"]
+            , digital: ["VCC_C", "GND_B", "AnalogOut_A"]
+        }
+        , interfacePictureMedia: "file"
+        , terminals: ["N", "L", "COM", "NC", "NO", "P1", "P2", "P3", "AnalogOut_A", "GND_B", "VCC_C"]
+        , defaultLabels: { "COM": "COM", "NO": "NO" }
+        , friendlyNames: ["N", "L", "COM", "NC", "NO", "P1", "P2", "P3", "A", "minus", "plus"]
+        , cssRules: {
+            N: "N"
+            , L_1: null
+            , L_2: "L"
+            , COM: "COM"
+            , NO: "NO"
+            , NC: "NC"
+            , P1: "P1"
+            , P2: "P2"
+            , P3: "P3"
+            , A: "AnalogOut_A"
+            , Negative: "GND_B"
+            , Positive: "VCC_C"
+        }
+    }
+    , BU: {
+        interfaceTypes: {
+            AnalogConnector: ["N", "L", "NC1", "NC2", "NO1", "NO2"]
+            , DigitalConnector: ["VCC_C", "GND_B", "AnalogOut_A"]
+        }
+        , interfacePictureMedia: "group"
+        , terminals: ["N", "L", "NC2", "NC1", "NO2", "NO1", "AnalogOut_A", "GND_B", "VCC_C"]
+        , defaultLabels: { "N": "N", "L": "L", "NC2": "1", "NC1": "2", "NO2": "3", "NO1": "4" }
+        , friendlyNames: ["N", "L", "1", "4", "3", "4", "A", "minus", "plus"]
+        , friendlyWritings: ["N", "L", "1", "4", "3", "4", "A", "\u2212", "+"]
+        , cssRules: {
+            N: "N"
+            , L: "L"
+            , 1: "NC2"
+            , 2: "NC1"
+            , 3: "NO2"
+            , 4: "NO1"
+            , A: "AnalogOut_A"
+            , Minus: "GND_B"
+            , Plus: "VCC_C"
+        }
+    }
+    , LT: {
+        terminals: ["NO", "NC", "COM", "P1", "P2", "P3"]
+        , defaultLabels: { "NO": "NO", "COM": "COM", "P1": "L", "P2": "N" }
+        , friendlyNames: ["NO", "NC", "COM", "P1", "P2", "P3"]
+        , fiendlyWritings: ["NO", "NC", "COM", "P1", "P2", "P3"]
+    }
+    , RU: {
+        interfaceTypes: {
+            relay: ["COM", "NO", "NC", "P1", "P2"]
+            , digital: ["VCC_C", "GND_B", "AnalogOut_A"]
+        }
+        , interfacePictureMedia: "file"
+        , terminals: ["NO", "NC", "COM", "P1", "P2", "P3", "AnalogOut_A", "GND_B", "VCC_C"]
+        , defaultLabels: { "NO": "NO", "NC": "NC", "COM": "L", "P1": "N" }
+        , friendlyNames: ["NO", "NC", "COM", "P1", "P2", "P3", "A", "minus", "plus"]
+        , friendlyWritings: ["NO", "NC", "COM", "P1", "P2", "P3", "A", "\u2212", "+"]
+        , cssRules: {
+            COM: "COM"
+            , NO: "NO"
+            , NC: "NC"
+            , P1: "P1"
+            , P2: "P2"
+            , P3: "P3"
+            , other: "AnalogOut_A"
+            , minus: "GND_B"
+            , plus: "VCC_C"
+        }
+    }
+    , TC: {
+        terminals: ["COM", "NO", "P1", "P2", "P3"]
+        , defaultLabels: { "COM": "COM", "NO": "NO", "P1": "L", "P2": "N" }
+        , friendlyNames: ["COM", "NO", "P1", "P2", "P3"]
+        , friendlyWritings: ["COM", "NO", "P1", "P2", "P3"]
+    }
+}
 
-
-const glbDevices = ["BP", "BR", "BU", "RU", "LT", "TC"]
-const glbDeviceTerminals = {
-    "BP": ["N", "L", "CH_COM", "CH_NC", "CH_NO", "HW_COM", "HW_NC", "HW_NO", "EARTH", "P1", "P2"
-        , "Bridge_L_COM", "Bridge_COM_COM", "Bridge_L_HWCOM"],
-    "BR": ["N", "L", "COM", "NC", "NO", "P1", "P2", "P3", "AnalogOut_A", "GND_B", "VCC_C"],
-    "BU": ["N", "L", "NC2", "NC1", "NO2", "NO1", "AnalogOut_A", "GND_B", "VCC_C"],
-    "RU": ["NO", "NC", "COM", "P1", "P2", "P3", "AnalogOut_A", "GND_B", "VCC_C"],
-    "TC": ["COM", "NO", "P1", "P2", "P3"],
-    "LT": ["NO", "NC", "COM", "P1", "P2", "P3"]
-}
-const glbDefaultLabels = {
-    "BP": { "N": "N", "L": "L", "CH_NC": "2", "CH_NO": "4", "HW_NC": "1", "HW_NO": "3", "EARTH": "\u23DA" },
-    "BR": { "COM": "COM", "NO": "NO" },
-    "BU": { "N": "N", "L": "L", "NC2": "1", "NC1": "2", "NO2": "3", "NO1": "4" },
-    "RU": { "NO": "NO", "NC": "NC", "COM": "L", "P1": "N" },
-    "TC": { "COM": "COM", "NO": "NO", "P1": "L", "P2": "N" },
-    "LT": { "NO": "NO", "COM": "COM", "P1": "L", "P2": "N" }
-}
-const glbFriendlyNames = {
-    "BP": ["N", "L", "CH_COM", "CH_NC", "CH_NO", "HW_COM", "HW_NC", "HW_NO", "EARTH", "P1", "P2"
-        , "L_COM", "COM_COM", "L_HW"],
-    "BR": ["N", "L", "COM", "NC", "NO", "P1", "P2", "P3", "A", "minus", "plus"],
-    "BU": ["N", "L", "1", "4", "3", "4", "A", "minus", "plus"],
-    "RU": ["NO", "NC", "COM", "P1", "P2", "P3", "A", "minus", "plus"],
-    "TC": ["COM", "NO", "P1", "P2", "P3"],
-    "LT": ["NO", "NC", "COM", "P1", "P2", "P3"]
-}
-const glbFriendlyWritings = {
-    "BP": ["N", "L", "COM", "NC", "NO", "HW COM", "HW Off", "HW On", "EARTH", "P1", "P2"],
-    "BR": ["N", "L", "COM", "NC", "NO", "P1", "P2", "P3", "A", "\u2212", "+"],
-    "BU": ["N", "L", "1", "4", "3", "4", "A", "\u2212", "+"],
-    "RU": ["NO", "NC", "COM", "P1", "P2", "P3", "A", "\u2212", "+"],
-    "TC": ["COM", "NO", "P1", "P2", "P3"],
-    "LT": ["NO", "NC", "COM", "P1", "P2", "P3"]
-}
 const glbPictureNames = ["labeling", "connect"]
 const glbUpdateSvgDimensions = true
 const glbPictureScales = {
-    labeling: {
-        width: 1
-        , height: 1.5
-    }
-    , connect: {
-        width: 1
-        , height: 1
-    }
+    labeling: { width: 1, height: 1.5 }
+    , connect: { width: 1, height: 1 }
 }
 const glbPictureDimensions = {
-    labeling: {
-        width: 846
-        , height: 398
-    }
-    , connect: {
-        width: 340
-        , height: 420
-    }
-}
-const glbPictureTypeSources = {
-    BR: "file"
-    , RU: "file"
-    , BU: "group"
-}
-const glbPictureTypes = {
-    BR: {
-        mains: ["N", "L"]
-        , potfree: ["COM", "NO", "NC", "P1", "P2"]
-        , digital: ["VCC_C", "GND_B", "AnalogOut_A"]
-    }
-    , RU: {
-        relay: ["COM", "NO", "NC", "P1", "P2"]
-        , digital: ["VCC_C", "GND_B", "AnalogOut_A"]
-    }
-    , BU: {
-        AnalogConnector: ["N", "L", "NC1", "NC2", "NO1", "NO2"]
-        , DigitalConnector: ["VCC_C", "GND_B", "AnalogOut_A"]
-    }
+    labeling: { width: 846, height: 398 }
+    , connect: { width: 340, height: 420 }
 }
 
-const glbSvg2deviceTerminals = {
-    BP: {
-        N: "N"
-        , L: "L"
-        , CHCOM: "CH_COM"
-        , CHNC: "CH_NC"
-        , CHNO: "CH_NO"
-        , HWCOM: "HW_COM"
-        , HWNC: "HW_NC"
-        , HWNO: "HW_NO"
-        , Ground: "EARTH"
-        , "Bridge_COM-COM": "Bridge_COM-COM".replace(/\-/g, "_")
-        , "Bridge_L-COM": "Bridge_L-COM".replace(/\-/g, "_")
-        , "Bridge_L_-_HWCOM": "Bridge_L_-_HWCOM".replace(/\-/g, "_")
-    }
-    , BR: {
-        N: "N"
-        , L_1: null
-        , L_2: "L"
-        , COM: "COM"
-        , NO: "NO"
-        , NC: "NC"
-        , P1: "P1"
-        , P2: "P2"
-        , P3: "P3"
-        , A: "AnalogOut_A"
-        , Negative: "GND_B"
-        , Positive: "VCC_C"
-    }
-    , RU: {
-        COM: "COM"
-        , NO: "NO"
-        , NC: "NC"
-        , P1: "P1"
-        , P2: "P2"
-        , P3: "P3"
-        , other: "AnalogOut_A"
-        , minus: "GND_B"
-        , plus: "VCC_C"
-    }
-    , BU: {
-        N: "N"
-        , L: "L"
-        , 1: "NC2"
-        , 2: "NC1"
-        , 3: "NO2"
-        , 4: "NO1"
-        , A: "AnalogOut_A"
-        , Minus: "GND_B"
-        , Plus: "VCC_C"
-    }
-}
-
-function convertSvg2DeviceTerminal(device, label) {
-    if (glbSvg2deviceTerminals.hasOwnProperty(device)) {
-        if (glbSvg2deviceTerminals[device].hasOwnProperty(label)) {
-            return glbSvg2deviceTerminals[device][label]
-        }
-    }
-    return null
+function convertSvg2DeviceTerminal(device, svgTerminal) {
+    return glbDeviceDict[device] && glbDeviceDict[device].cssRules && glbDeviceDict[device].cssRules[svgTerminal]
+        ? glbDeviceDict[device].cssRules[svgTerminal]
+        : null
 }
 
 function convertDevice2SvgTerminal(device, terminal) {
-    let deviceTerminals = Object.values(glbSvg2deviceTerminals[device])
-    if (-1 !== deviceTerminals.indexOf(terminal)) {
-        return glbSvg2deviceTerminals[device][deviceTerminals.indexOf(terminal)]
+    if (glbDeviceDict[device] && glbDeviceDict[device].cssRules) {
+        let terminalIndex = Object.values(glbDeviceDict[device].cssRules).indexOf(terminal)
+        return (-1 !== terminalIndex) ? Object.keys(glbDeviceDict[device].cssRules)[terminalIndex] : null
     }
+    //return null
 }
 
-function addOrSetProperty(obj, nameStr, value) {
-    //console.log("adding or setting property of", obj, nameStr, value)
-    let names = nameStr.split(".")
-    if (1 < names.length) {
-        if (!obj.hasOwnProperty(names[0])) { obj[names[0]] = {} }
-        addOrSetProperty(obj[names[0]], names.slice(1, names.length).join("."), value)
-    } else {
-        if (value.match(/\[.*\]/) || value.match(/\{.*\}/)) {
-            obj[names[0]] = JSON.parse(value)
-        } else {
-            obj[names[0]] = value
-        }
-    }
-}
+
 
 function getFriendlyName(device, terminal) {
-    let index = glbDeviceTerminals[device].indexOf(terminal)
-    if (-1 !== index) {
-        let friendlyName = glbFriendlyNames[device][index]
-        return friendlyName ? friendlyName : terminal
-    }
-    return terminal
+    return glbDeviceDict[device]
+        && glbDeviceDict[device].friendlyNames
+        && glbDeviceDict[device].friendlyNames[terminal]
+        ? glbDeviceDict[device].friendlyNames[terminal]
+        : terminal
 }
 
 function getFriendlyWriting(device, terminal) {
-    let index = glbDeviceTerminals[device].indexOf(terminal)
-    if (-1 !== index) {
-        let friendlyName = glbFriendlyWritings[device][index]
-        return friendlyName ? friendlyName : terminal
-    }
-    return terminal
+    return glbDeviceDict[device]
+        && glbDeviceDict[device].friendlyWritings
+        && glbDeviceDict[device].friendlyWritings[terminal]
+        ? glbDeviceDict[device].friendlyWritings[terminal]
+        : terminal
 }
 
 function isWireOptional(device, terminal) {
@@ -192,6 +159,21 @@ function isWireOptional(device, terminal) {
 }
 
 function payload2obj(payload) {
+    function addOrSetProperty(obj, nameStr, value) {
+        //console.log("adding or setting property of", obj, nameStr, value)
+        let names = nameStr.split(".")
+        if (1 < names.length) {
+            if (!obj.hasOwnProperty(names[0])) { obj[names[0]] = {} }
+            addOrSetProperty(obj[names[0]], names.slice(1, names.length).join("."), value)
+        } else {
+            if (value.match(/\[.*\]/) || value.match(/\{.*\}/)) {
+                obj[names[0]] = JSON.parse(value)
+            } else {
+                obj[names[0]] = value
+            }
+        }
+    }
+
     if (payload) {
         let splitPayload = payload.split("&").filter(elem => { return elem })
         //console.log("Payload tokens:", splitPayload)
@@ -250,11 +232,6 @@ function applyDashed(device, terminal) {
 function applyWriting(device, terminal) {
     let newWriting = menus[device][terminal].label
     if (menus[device][terminal].writtenText) {
-        /* console.log((menus[device][deviceTerminal].writtenText.textContent !== newWriting)
-            ? (menus[device][deviceTerminal].writtenText.textContent || newWriting)
-                ? [device, "Old writing:", menus[device][deviceTerminal].writtenText.textContent, "new writing:", newWriting]
-                : ""
-            : "") */
         if ((menus[device][terminal].writtenText.textContent || newWriting)
             && (newWriting !== menus[device][terminal].writtenText.textContent)) {
             menus[device][terminal].writtenText.textContent = newWriting
@@ -299,47 +276,39 @@ function onHideSticker(e) {
 }
 
 function calculatePictureType(device) {
-    if (-1 !== Object.keys(glbPictureTypes).indexOf(device)) {
-        let matchedPictureTypes = Object.keys(glbPictureTypes[device]).filter(pictureType => {
-            return glbPictureTypes[device][pictureType].filter(terminal => {
-                return menus[device][terminal].present
-            }).length
-        })
+    if (glbDeviceDict[device] && glbDeviceDict[device].interfacePictureMedia) {
+        let matchedPictureTypes = Object.keys(glbDeviceDict[device].interfaceTypes)
+            .filter(interfaceType => {
+                return glbDeviceDict[device].interfaceTypes[interfaceType].filter(terminal => {
+                    return menus[device][terminal].present
+                }).length
+            })
         if (0 < matchedPictureTypes.length) {
             console.log(device, "matchedPictureTypes:", matchedPictureTypes)
             return matchedPictureTypes[0]
         }
     }
-    return null
 }
 
 function getInfoFromFileName(filePath) {
     if (filePath) {
-        if (filePath.match(/svg\/(.+)\.svg/)) {
-            let fileNameParts = filePath.match(/svg\/(.+)\.svg/)[1].split("-")
-            if (3 === fileNameParts.length) {
-                return {
-                    device: fileNameParts[1]
-                    , pictureName: fileNameParts[0]
-                    , pictureType: fileNameParts[2]
-                }
-            } else {
-                return {
-                    device: fileNameParts[1]
-                    , pictureName: fileNameParts[0]
-                }
+        if (filePath.match(/svg\/([\-\w]+)\.svg/i)) {
+            let fileNameParts = filePath.match(/svg\/([\-\w]+)\.svg/i)[1].split("-")
+            return {
+                ...2 <= fileNameParts.length && { device: fileNameParts[1] }
+                , ...1 <= fileNameParts.length && { pictureName: fileNameParts[0] }
+                , ...3 <= fileNameParts.length && { pictureType: fileNameParts[2] }
             }
         }
     }
-    return null
 }
 
 function applyPictureType(device) {
-    let neededPictureType = calculatePictureType(device)
+    let neededPictureType = calculatePictureType(device) //calculated from menus[device]
     if (neededPictureType) {
         let svgObject = document.getElementById(["svgObject", "connect", device].join("-"))
-        if (svgObject) {
-            switch (glbPictureTypeSources[device]) {
+        if (svgObject && (glbDeviceDict[device].interfacePictureMedia)) {
+            switch (glbDeviceDict[device].interfacePictureMedia) {
                 case "file":
                     let fileNameInfo = getInfoFromFileName(svgObject.data)
                     let curPictureType = fileNameInfo ? fileNameInfo.pictureType : null
@@ -354,7 +323,7 @@ function applyPictureType(device) {
 
                         } else {
                             pictureTypeGroup.style.visibility = "visible"
-                            let otherGroups = Object.keys(glbPictureTypes[device])
+                            let otherGroups = Object.keys(glbDeviceDict[device].interfaceTypes)
                                 .filter(key => {
                                     return "type" !== key
                                 })
@@ -408,7 +377,7 @@ function matchDeviceAndSystem(device, systemTerminalsAndLabels) {
         let matchedDeviceTerminal = null
         let mandatory = false
         //console.log("device:", device, ", system terminal:", systemTerminal)
-        if (-1 !== glbDeviceTerminals[device].indexOf(systemTerminal)) {
+        if (-1 !== glbDeviceDict[device].terminals.indexOf(systemTerminal)) {
             matchedDeviceTerminal = systemTerminal//exact match
         } else {
             //console.log("No exact match:", device, systemTerminal, tadoStickers[device])
@@ -719,8 +688,8 @@ console.log("Window.location:", {
 
 
 //first, generate an empty menu structure (one menu per device)
-const menus = glbDevices.reduce((accDevice, curDevice) => {
-    accDevice[curDevice] = glbDeviceTerminals[curDevice].reduce((accTerminal, curTerminal) => {
+const menus = Object.keys(glbDeviceDict).reduce((accDevice, curDevice) => {
+    accDevice[curDevice] = glbDeviceDict[curDevice].terminals.reduce((accTerminal, curTerminal) => {
         accTerminal[curTerminal] = {
             label: null
             , present: false
@@ -748,7 +717,7 @@ if (!useDefault) {
             return accMap
         }, {})
     console.log("Not empty URL terminals:", notEmptyUrlTerminalMap)
-    for (let device of glbDevices) {
+    for (let device in glbDeviceDict) {
         let matchedTerminalMap = matchDeviceAndSystem(device, notEmptyUrlTerminalMap)
         console.log(device, "Matched terminals:", matchedTerminalMap)
         //copy matched Stickers to the empty global sticker
@@ -774,9 +743,9 @@ if (!useDefault) {
 } else {
     console.log("Empty URL parameters. Generating 'DEFAULT' stickers.")
     //fill menu from defaultLabels
-    for (let device in glbDefaultLabels) {
-        for (let terminal in glbDefaultLabels[device]) {
-            menus[device][terminal].label = glbDefaultLabels[device][terminal]
+    for (let device in glbDeviceDict) {
+        for (let terminal in glbDeviceDict[device].defaultLabels) {
+            menus[device][terminal].label = glbDeviceDict[device].defaultLabels[terminal]
             menus[device][terminal].present = menus[device][terminal].label ? true : false
             menus[device][terminal].dashed = isWireOptional(device, terminal)
             menus[device][terminal].matchedTo = terminal
@@ -898,7 +867,7 @@ for (let menuDevice in menus) {
             svgObject.height = glbPictureScales[pictureName].height * glbPictureDimensions[pictureName].height
         }
         let neededPictureType = "connect" === pictureName ? calculatePictureType(menuDevice) : null
-        svgObject.data = neededPictureType && ("file" === glbPictureTypes[menuDevice][neededPictureType].type)
+        svgObject.data = neededPictureType && ("file" === glbDeviceDict[menuDevice].interfacePictureMedia)
             ? `svg/${pictureName}-${menuDevice}-${neededPictureType}.svg`
             : `svg/${pictureName}-${menuDevice}.svg`
         console.log(menuDevice, pictureName, "url:", svgObject.data)
@@ -912,9 +881,9 @@ for (let menuDevice in menus) {
             let svgDevice = svgNameParts.device
             if ("labeling" === svgPictureName) {
                 let labelingStickerList = this.contentDocument.querySelectorAll("g[transform*=translate] g[title*='terminal sticker']")
-                let maxTsi = Math.min(labelingStickerList.length, Object.keys(glbDeviceTerminals[svgDevice]).length)
+                let maxTsi = Math.min(labelingStickerList.length, Object.keys(glbDeviceDict[svgDevice].terminals).length)
                 for (let tsi = 0; tsi < maxTsi; tsi++) {
-                    let terminal = glbDeviceTerminals[svgDevice][Object.keys(glbDeviceTerminals[svgDevice])[tsi]]
+                    let terminal = glbDeviceDict[svgDevice].terminals[tsi]
                     let x = labelingStickerList[tsi].parentNode.getAttribute("transform").match(/translate\(\s*(\d+)\s*\,\s*(\d+)\s*\)/)[1]
                     menus[svgDevice][terminal].circle = labelingStickerList[tsi].parentNode.querySelector("circle")
                     menus[svgDevice][terminal].writtenText = labelingStickerList[tsi].parentNode.querySelector("text")
@@ -927,59 +896,50 @@ for (let menuDevice in menus) {
                 }// end reading elements from labeling.svg
             } else if ("connect" === svgPictureName) {
                 //let svgPictureType = 3===svgNameParts.length ? svgNameParts[2] : null
-                console.log(menuDevice, "this.contentDocument.styleSheets:", this.contentDocument.styleSheets.length, this.contentDocument.styleSheets[0].cssRules)
-
-                let rules = 0 < this.contentDocument.styleSheets.length
+                let rules = this.contentDocument.styleSheets && (0 < this.contentDocument.styleSheets.length)
                     ? Array.from(this.contentDocument.styleSheets[0].cssRules)
                         .filter(rule => {
-                            if (rule.selectorText) {
-                                if (rule.selectorText.match(/Label(.+)/)) {
-                                    return true
-                                } else if (rule.selectorText.match(/(Bridge.+)/)){
-                                    return true 
-                                } else {
-                                    return false
-                                }
-                            }
-                            return false
+                            return rule.selectorText
+                                && ((rule.selectorText.match(/Label(.+)/))
+                                    || (rule.selectorText.match(/(Bridge.+)/)))
                         })
                     : null
-                if (0 < rules.length) {
+                if (rules && (0 < rules.length)) {
+                    console.log(svgDevice, "Found '.Label*' and/or '.Bridge*' css selector(s):", rules.length)
                     rules.forEach(rule => {
                         let svgTerminalName = rule.selectorText.match(/\.Label(.+)/)
                             ? rule.selectorText.match(/\.Label(.+)/)[1]
-                            : rule.selectorText.match(/(Bridge.+)/)[1]
+                            : rule.selectorText.match(/(Bridge.+)/)
+                                ? rule.selectorText.match(/(Bridge.+)/)[1]
+                                : null
                         let terminal = convertSvg2DeviceTerminal(svgDevice, svgTerminalName)
                         if (terminal) {
                             menus[svgDevice][terminal].connectRule = rule
-                            if (this.contentDocument.querySelector(`g${rule.selectorText}[id*=mini]`)) {
-                                menus[svgDevice][terminal].connectGroup = this.contentDocument.querySelector(`g${rule.selectorText}`)
-                                menus[svgDevice][terminal].connectWirePath = menus[svgDevice][terminal].connectGroup
-                                    .querySelector("path.st5")
-                                menus[svgDevice][terminal].miniConnectGroup = this.contentDocument.querySelector(`g${rule.selectorText}[id*=mini]`)
-                                menus[svgDevice][terminal].miniConnectWirePath = menus[svgDevice][terminal].miniConnectGroup
-                                    .querySelector("path.st5")
+                            let connectGroup = this.contentDocument.querySelector(`g${rule.selectorText}`)
+                            let miniConnectGroup = this.contentDocument.querySelector(`g${rule.selectorText}[id*=mini]`)
+                            if (miniConnectGroup) {
+                                menus[svgDevice][terminal].connectGroup = connectGroup
+                                menus[svgDevice][terminal].connectWirePath = connectGroup.querySelector("path.st5")
+                                menus[svgDevice][terminal].miniConnectGroup = miniConnectGroup
+                                menus[svgDevice][terminal].miniConnectWirePath = miniConnectGroup.querySelector("path.st5")
 
-                            } else if (this.contentDocument.querySelector(`g${rule.selectorText}`)) {
-                                menus[svgDevice][terminal].connectGroup = this.contentDocument.querySelector(`g${rule.selectorText}`)
+                            } else if (connectGroup) {
+                                menus[svgDevice][terminal].connectGroup = connectGroup
                                 if (rule.selectorText.match(/Label(.+)/)) {
-                                    menus[svgDevice][terminal].connectWirePath = menus[svgDevice][terminal].connectGroup
-                                        .querySelector("g > path")
+                                    menus[svgDevice][terminal].connectWirePath = connectGroup.querySelector("g > path")
                                 } else if (rule.selectorText.match(/Bridge(.+)/)) {
-                                    menus[svgDevice][terminal].connectWirePath = menus[svgDevice][terminal].connectGroup
-                                        .querySelector("path")
+                                    menus[svgDevice][terminal].connectWirePath = connectGroup.querySelector("path")
                                 }
                             }
                             applyMenu(svgDevice, terminal)
+                        } else {
+                            console.log(svgDevice, "svg --> terminal not found", svgTerminalName)
                         }
                     })
                 } else {
-                    console.log(menuDevice, "No '.Label*' rules found.")
-                    let svgTerminals = Object.keys(glbSvg2deviceTerminals[menuDevice])
-                    console.log(menuDevice, "Looking in group ids:", svgTerminals)
-                    svgTerminals.forEach(svgTerminal => {
-                        //console.log("BR looking for wire", brTerminal)
-                        let terminal = convertDevice2SvgTerminal(menuDevice, svgTerminal)
+                    console.log(svgDevice, "Not found '.Label*' or '.Bridge*' css selector.")
+                    for (let svgTerminal in glbDeviceDict[svgDevice].cssRules) {
+                        let terminal = glbDeviceDict[svgDevice].cssRules[svgTerminal]
                         try {
                             let connectGroup = this.contentDocument.querySelector(`g#${svgTerminal}`)
                             if (connectGroup) {
@@ -992,13 +952,14 @@ for (let menuDevice in menus) {
                                     connectGroup.style.visibility = "hidden"
                                 }
                             } else {
-                                //console.log("BR wire not found", brTerminal)
+                                console.log(svgDevice, `g#${svgTerminal}`, "not found in the svg")
                             }
                         } catch (err) {
-                            console.log(menuDevice, err.message, svgTerminal, terminal, `g#${svgTerminal}`)
+                            console.log(svgDevice, err.message, svgTerminal, terminal, `g#${svgTerminal}`)
                         }
-                    })
+                    }
                 }
+                //TODO: a good place for applyMenu(svgDevice, ) call
             }//end of onLoad() the 'connect'.svg
             downloadLink.style.display = ""
         }
@@ -1015,5 +976,4 @@ console.log(`
 |                                |
 |          Index script          |
 |            The End.            |
-|ds______________________________|
-`)
+|ds______________________________|`);
