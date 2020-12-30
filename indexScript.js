@@ -71,12 +71,7 @@ const glbDeviceDict = {
             , Plus: "VCC_C"
         }
     }
-    , LT: {
-        terminals: ["NO", "NC", "COM", "P1", "P2", "P3"]
-        , defaultLabels: { "NO": "NO", "COM": "COM", "P1": "L", "P2": "N" }
-        , friendlyNames: ["NO", "NC", "COM", "P1", "P2", "P3"]
-        , fiendlyWritings: ["NO", "NC", "COM", "P1", "P2", "P3"]
-    }
+
     , RU: {
         interfaceTypes: {
             relay: ["COM", "NO", "NC", "P1", "P2"]
@@ -98,6 +93,12 @@ const glbDeviceDict = {
             , minus: "GND_B"
             , plus: "VCC_C"
         }
+    }
+    , LT: {
+        terminals: ["NO", "NC", "COM", "P1", "P2", "P3"]
+        , defaultLabels: { "NO": "NO", "COM": "COM", "P1": "L", "P2": "N" }
+        , friendlyNames: ["NO", "NC", "COM", "P1", "P2", "P3"]
+        , fiendlyWritings: ["NO", "NC", "COM", "P1", "P2", "P3"]
     }
     , TC: {
         terminals: ["COM", "NO", "P1", "P2", "P3"]
@@ -211,21 +212,18 @@ function applyDashed(device, terminal) {
         menus[device][terminal].arrowLine.setAttribute("stroke-dasharray", isDashed ? 5 : "")
     }
     if (menus[device][terminal].connectWirePath) {
-        menus[device][terminal].connectWirePath.style.strokeDasharray = isDashed ? 5 : ""
+        menus[device][terminal].connectWirePath.style.strokeDasharray = isDashed ? [6] : ""
         if ("BU" === device) {
-            menus[device][terminal].connectWirePath.style.stroke = isDashed ? "#363636cc" : "#363636"
-            menus[device][terminal].connectWirePath.style.strokeWidth = isDashed ? 0.5 : 1
-            menus[device][terminal].connectWirePath.style.fill = isDashed ? "#ffffff" : "#363636"
+            menus[device][terminal].connectWirePath.style.stroke = isDashed ? "#363636" : null
+            menus[device][terminal].connectWirePath.style.strokeWidth = isDashed ? 0.6 : null
+            menus[device][terminal].connectWirePath.style.fill = isDashed ? "transparent" : "#363636"
         }
     }
     if (menus[device][terminal].miniConnectWirePath) {
         menus[device][terminal].miniConnectWirePath.style.stroke = isDashed ? "#363636" : ""
         menus[device][terminal].miniConnectWirePath.style.strokeWidth = isDashed ? 0.3 : ""
-        menus[device][terminal].miniConnectWirePath.style.fill = isDashed ? "#ffffff" : "#363636"
-        menus[device][terminal].miniConnectWirePath.style.strokeDasharray = isDashed ? 3 : ""
-        if ("BU" === device) {
-            menus[device][terminal].miniConnectWirePath.style.stroke = "#ffffff"
-        }
+        menus[device][terminal].miniConnectWirePath.style.fill = isDashed ? "transparent" : "#363636"
+        menus[device][terminal].miniConnectWirePath.style.strokeDasharray = isDashed ? [2, 1] : ""
     }
 }
 
@@ -915,16 +913,15 @@ for (let menuDevice in menus) {
                         let terminal = convertSvg2DeviceTerminal(svgDevice, svgTerminalName)
                         if (terminal) {
                             menus[svgDevice][terminal].connectRule = rule
-                            let connectGroup = this.contentDocument.querySelector(`g${rule.selectorText}`)
+                            let connectGroup = this.contentDocument.querySelector(`g${rule.selectorText}:not([id*=mini])`)
+                            menus[svgDevice][terminal].connectGroup = connectGroup
                             let miniConnectGroup = this.contentDocument.querySelector(`g${rule.selectorText}[id*=mini]`)
+                            menus[svgDevice][terminal].miniConnectGroup = miniConnectGroup
                             if (miniConnectGroup) {
-                                menus[svgDevice][terminal].connectGroup = connectGroup
-                                menus[svgDevice][terminal].connectWirePath = connectGroup.querySelector("path.st5")
-                                menus[svgDevice][terminal].miniConnectGroup = miniConnectGroup
+                                menus[svgDevice][terminal].connectWirePath = connectGroup.querySelector("path.st5") //outer
                                 menus[svgDevice][terminal].miniConnectWirePath = miniConnectGroup.querySelector("path.st5")
 
                             } else if (connectGroup) {
-                                menus[svgDevice][terminal].connectGroup = connectGroup
                                 if (rule.selectorText.match(/Label(.+)/)) {
                                     menus[svgDevice][terminal].connectWirePath = connectGroup.querySelector("g > path")
                                 } else if (rule.selectorText.match(/Bridge(.+)/)) {
