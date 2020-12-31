@@ -1,6 +1,6 @@
 .menuContainer {
     display: grid;
-    grid-template-columns: repeat(auto-fill, 47px);
+    grid-template-columns: repeat(auto-fill, 48px);
     gap: 10px;
     grid-auto-rows: minmax(100px, auto);    
 }
@@ -34,5 +34,5 @@ h2 {
     color: #999999;
     font-weight: bold;
     display: table;
-  margin: 0 auto;
+    margin: 0 auto;
 }

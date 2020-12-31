@@ -19,7 +19,7 @@
         .st9{fill:#2B2B2D;}
         .st10{fill:none;stroke:#5782A9;stroke-width:11.3668;stroke-miterlimit:10;}
 
-        .DigitalConnector{ display : none }
+        .DigitalConnector{ visibility : hidden }
         .LabelA{ null }
         .LabelMinus{ null }
         .LabelPlus{ null }
