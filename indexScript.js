@@ -548,6 +548,14 @@ function matchDeviceAndSystem(device, systemTerminalsAndLabels) {
     return null
 }
 
+function fixHWBridge(terminals) {
+    //(this is needed for the BP) if there is CH_COM, no HW_COM, an HW_NO or HW_NC, then remove the CH_COM
+    // NC2 or NO2 present, COM2 not present, COM1 pesent --> remove COM1
+    if ((terminals.HW_NC || terminals.HW_NO) && (!terminals.HW_COM) && terminals.CH_COM && terminals.L) {
+        delete terminals.CH_COM
+    }
+}
+
 function applyHide(device, terminal) {
     if (menus[device][terminal].connectRule) {
         menus[device][terminal].connectRule.style.visibility = menus[device][terminal].present && (!menus[device][terminal].hide)
@@ -785,6 +793,10 @@ if (!useDefault) {
     for (let device in glbDeviceDict) {
         let matchedTerminalMap = matchDeviceAndSystem(device, notEmptyUrlTerminalMap)
         console.log(device, "Matched terminals:", matchedTerminalMap)
+        if ("BP" === device) {
+            fixHWBridge(matchedTerminalMap)
+            console.log(device, "Matched terminals AFTER fix:", matchedTerminalMap)
+        }
         //copy matched Stickers to the empty global sticker
         for (let terminal in matchedTerminalMap) {
             menus[device][terminal].label = matchedTerminalMap[terminal].writing
