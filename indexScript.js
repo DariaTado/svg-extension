@@ -6,8 +6,8 @@ const glbDeviceDict = {
         terminals: ["N", "L", "CH_COM", "CH_NC", "CH_NO", "HW_COM", "HW_NC", "HW_NO", "EARTH", "P1", "P2"
             , "Bridge_L_COM", "Bridge_COM_COM", "Bridge_L_HWCOM"]
         , defaultLabels: { "N": "N", "L": "L", "CH_NC": "2", "CH_NO": "4", "HW_NC": "1", "HW_NO": "3", "EARTH": "\u23DA" }
-        , friendlyNames: ["N", "L", "CH_COM", "CH_NC", "CH_NO", "HW_COM", "HW_NC", "HW_NO", "EARTH", "P1", "P2"
-            , "L_CH", "CH_HW", "L_HW"]
+        , friendlyNames: ["N", "L", "CH COM", "CH NC", "CH NO", "HW COM", "HW NC", "HW NO", "EARTH", "P1", "P2"
+            , "L+CH", "CH+HW", "L+HW"]
         , friendlyWritings: ["N", "L", "COM", "NC", "NO", "HW COM", "HW Off", "HW On", "EARTH", "P1", "P2"]
         , cssRules: {
             N: "N"
@@ -109,7 +109,7 @@ const glbDeviceDict = {
 }
 
 const glbPictureNames = ["labeling", "connect"]
-const glbUpdateSvgDimensions = true
+const glbUpdateSvgDimensions = false
 const glbPictureScales = {
     labeling: { width: 1, height: 1.5 }
     , connect: { width: 1, height: 1 }
@@ -635,9 +635,6 @@ function calculateBridges(doCreateNewBridges) {
 
 function downloadPNG(event) {
     console.log("I's the PNG download event. My target:", event ? event.target : event)
-    var canvas = document.createElement('canvas');
-    var ctx = canvas.getContext('2d');
-
     let curDevice = event.target.id.split("-")[2]
     let curPictureName = event.target.id.split("-")[1]
     let curSvgObjId = ["svgObject", curPictureName, curDevice].join("-")
@@ -646,6 +643,7 @@ function downloadPNG(event) {
     let curDownloadLink = document.getElementById(curDownloadLinkId)
     if (curSvgObj && curDownloadLink) {
         let curSvgElem = curSvgObj.contentDocument.getElementsByTagName("svg")[0]
+        console.log("SVG object width x height", curSvgObj.width, curSvgObj.height)
         if (curSvgElem) {
             //console.log("Inner svg", device, pictureName, svg)
             let serializer = new XMLSerializer()
@@ -658,28 +656,40 @@ function downloadPNG(event) {
             }
             //add xml declaration
             source = '<?xml version="1.0" standalone="no"?>\r\n' + source; */
-            var DOMURL = window.URL || window.webkitURL || window;
 
-            var img = new Image();
-            var svgBlob = new Blob([source], { type: 'image/svg+xml;charset=utf-8' });
-            var url = DOMURL.createObjectURL(svgBlob);
+            let canvas = document.createElement('canvas');
+            canvas.style.display = "none"
+            canvas.width = curSvgObj.width
+            canvas.height = curSvgObj.height
+            root.appendChild(canvas)
 
-            img.onload = function () {
-                ctx.drawImage(img, 0, 0);
-                DOMURL.revokeObjectURL(url);
+            let svgBlob = new Blob([source], { type: 'image/svg+xml;charset=utf-8' });
+            let DOMURL = self.URL || self.webkitURL || self
+            let url = DOMURL.createObjectURL(svgBlob);
 
-                var imgURI = canvas
+            let ctx = canvas.getContext('2d');
+
+            let img = new Image();
+            img.onload = function (e) {
+                ctx.drawImage(img, 0, 0, curSvgObj.width, curSvgObj.height, 0, 0, curSvgObj.width, curSvgObj.height);
+
+                let imgURI = canvas
                     .toDataURL('image/png')
-                    .replace('image/png', 'image/octet-stream');
+                /* .replace('image/png', 'image/octet-stream') */
+                //console.log("Download link2 href old:", curDownloadLink.href)
+                //console.log("Download link2 href new:", imgURI)
+                curDownloadLink.href = imgURI
+                curDownloadLink.download = curDownloadLink.textContent
+                curDownloadLink.target = "_blank"
+                /* curDownloadLink.dispatchEvent(new MouseEvent("click", {
+                    view: "window",
+                    bubbles: false,
+                    cancelable: true
+                })) */
 
-                //triggerDownload(imgURI);
-            };
+                DOMURL.revokeObjectURL(url);
+            }
             img.src = url
-            curDownloadLink.setAttribute('target', '_blank');
-            curDownloadLink.href = url
-            curDownloadLink.style.display = ""
-            curDownloadLink.download = curDownloadLink.textContent
-
             //end of creating svg download link */
         } else {
             console.log(curDevice, "!!!No SVG tag found in document:", curSvgObj.contentDocument)
@@ -710,7 +720,7 @@ function downloadSVG(event) {
             //add xml declaration
             source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
             //convert svg source to URI data scheme.
-            var url = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(source);
+            let url = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(source);
             curDownloadLink.href = url
             curDownloadLink.style.display = ""
             curDownloadLink.download = curDownloadLink.textContent
@@ -753,6 +763,9 @@ const menus = Object.keys(glbDeviceDict).reduce((accDevice, curDevice) => {
 }, {})
 console.log("MENUS:", menus)
 const root = document.getElementById("root")
+
+
+
 const urlParams = decodeURI(window.location.search.substring(1)) ? payload2obj(decodeURI(window.location.search.substring(1))) : null
 console.log("URL parameters:", urlParams)
 const useDefault = !(urlParams && (0 < Object.keys(urlParams).length) && (urlParams.interface) && (urlParams.interface.terminalsAndLabels))
@@ -844,13 +857,16 @@ for (let menuDevice in menus) {
             let inputWriting = document.createElement("input")
             inputWriting.type = "text"
             inputWriting.value = menus[menuDevice][terminal].label
+            inputWriting.size = 3
             inputWriting.id = [menuItemId, "writing"].join("-")
             inputWriting.className = "input-writing"
             inputWriting.oninput = onWritingChanged
             cell.appendChild(inputWriting)
             writingLabel.for = inputWriting.id
             menus[menuDevice][terminal].inputWriting = inputWriting
-
+            console.log(menuDevice, terminal, "inputWriting.size:", inputWriting.size)
+            let inputWidth = window.getComputedStyle(inputWriting).width
+            console.log(menuDevice, terminal, "inputWriting.width:", inputWidth)
             if (terminal.match(/^Bridge/i)) {
                 inputWriting.style.visibility = "hidden"
             }
@@ -895,32 +911,40 @@ for (let menuDevice in menus) {
     picturesContainer.className = "picturesContainer"
     picturesContainer.id = [picturesContainer.className, menuDevice].join("-")
     deviceContainer.appendChild(picturesContainer)
-
+    deviceContainer.appendChild(document.createElement("hr"))
     for (let pictureName of glbPictureNames) {
         let svgContainer = document.createElement("div") //svg-container contains download link and svg picture
         svgContainer.className = "svgContainer"
         svgContainer.id = [svgContainer.className, pictureName, menuDevice].join("-")
         picturesContainer.appendChild(svgContainer)
+        let linksContainer = document.createElement("div") //linksContainer -- for the download links
+        linksContainer.className = "linksContainer"
+        linksContainer.id = [linksContainer.className, pictureName, menuDevice].join("-")
+
         //SVG download link
         let downloadLink = document.createElement("a")
+        //downloadLink.style.display = "none"
+        downloadLink.style.visibility = "hidden"
         downloadLink.className = "downloadLink"
         downloadLink.id = [downloadLink.className, pictureName, menuDevice].join("-")
         downloadLink.textContent = `${pictureName}-${menuDevice}.svg`
+        downloadLink.download = downloadLink.textContent
+        downloadLink.target = "_blank"
         downloadLink.href = downloadLink.textContent
         downloadLink.onclick = downloadSVG
-        //downloadLink.download = svgFileUrl.split("/")[svgFileUrl.split("/").length - 1]
-        downloadLink.style.display = "none"
-        svgContainer.appendChild(downloadLink)
-        //SVG download link
+        linksContainer.appendChild(downloadLink)
+        //PNG download link
         let downloadLink2 = document.createElement("a")
+        //downloadLink2.style.display = "none"
+        downloadLink2.style.visibility = "hidden"
         downloadLink2.className = "downloadLink2"
         downloadLink2.id = [downloadLink2.className, pictureName, menuDevice].join("-")
         downloadLink2.textContent = `${pictureName}-${menuDevice}.png`
         downloadLink2.href = downloadLink2.textContent
+        downloadLink2.target = "_blank"
+        downloadLink2.download = downloadLink2.textContent
         downloadLink2.onclick = downloadPNG
-        //downloadLink.download = svgFileUrl.split("/")[svgFileUrl.split("/").length - 1]
-        downloadLink2.style.display = "none"
-        svgContainer.appendChild(downloadLink2)
+        linksContainer.appendChild(downloadLink2)
         //SVG itself
         let svgObject = document.createElement("object")
         svgObject.className = "svgObject"
@@ -937,15 +961,19 @@ for (let menuDevice in menus) {
             : `svg/${pictureName}-${menuDevice}.svg`
         console.log(menuDevice, pictureName, "url:", svgObject.data)
         svgContainer.appendChild(svgObject)
+        svgContainer.appendChild(linksContainer)
 
         ///////////////////////////////////////////////////////////svg.onload()//////////////////////////////////////////////////////////////
         svgObject.onload = function (e) {
-
+            //decode the svg file name into device and picture name
             let svgNameParts = getInfoFromFileName(this.data)
             let svgPictureName = svgNameParts.pictureName
             let svgDevice = svgNameParts.device
             console.log("onload()", this.data.match(/svg\/(.+\.svg)$/)[1], "--->", svgDevice, svgPictureName)
             if ("labeling" === svgPictureName) {
+                //resize the labeling svg (make space on the left and top)
+                let outerSvgTag = this.contentDocument.querySelector("svg")
+                outerSvgTag.setAttribute("style", "transform: scale(0.9) translate(-2.5%, 5%);")
                 let labelingStickerList = this.contentDocument.querySelectorAll("g[transform*=translate] g[title*='terminal sticker']")
                 let maxTsi = Math.min(labelingStickerList.length, Object.keys(glbDeviceDict[svgDevice].terminals).length)
                 for (let tsi = 0; tsi < maxTsi; tsi++) {
@@ -960,6 +988,7 @@ for (let menuDevice in menus) {
                     menus[svgDevice][terminal].labelingGroup = labelingStickerList[tsi].parentNode
                     applyMenu(svgDevice, terminal, false)
                 }// end reading elements from labeling.svg
+
             } else if ("connect" === svgPictureName) {
                 if ("group" === glbDeviceDict[svgDevice].interfacePictureMedia) {
                     console.log(svgDevice, "applying GROUP picture type")
@@ -1031,8 +1060,10 @@ for (let menuDevice in menus) {
                 }
                 //TODO: a good place for applyMenu(svgDevice, ) call
             }//end of onLoad() the 'connect'.svg
-            downloadLink.style.display = ""
-            downloadLink2.style.display = ""
+            //downloadLink.style.display = ""
+            //downloadLink2.style.display = ""
+            downloadLink.style.visibility = "visible"
+            downloadLink2.style.visibility = "visible"
         }
     }
 }
