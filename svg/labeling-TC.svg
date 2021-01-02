@@ -93,7 +93,7 @@
    <rect x="0" y="174.5" fill="#999999" width="47" height="63.5" />
 
    
-   <text text-anchor="middle" x="30" y="215" transform="scale(0.75 1)" fill="#FFFFFF" font-family="'HelveticaNeue-Bold'" font-size="15">P1</text>
+   <text text-anchor="middle" x="30" y="215" transform="scale(0.75 1)" fill="#FFFFFF" font-family="'HelveticaNeue-Bold'" font-size="15"></text>
    
    <rect x="4" y="115" rx="3" ry="3" width="39" height="119" fill="none" stroke="#333333" stroke-width="0.5" stroke-miterlimit="10"></rect>
 </g>
@@ -121,7 +121,7 @@
    <rect x="0" y="174.5" fill="#999999" width="47" height="63.5" />
 
    
-   <text text-anchor="middle" x="30" y="215" transform="scale(0.75 1)" fill="#FFFFFF" font-family="'HelveticaNeue-Bold'" font-size="15">P2</text>
+   <text text-anchor="middle" x="30" y="215" transform="scale(0.75 1)" fill="#FFFFFF" font-family="'HelveticaNeue-Bold'" font-size="15"></text>
    
    <rect x="4" y="115" rx="3" ry="3" width="39" height="119" fill="none" stroke="#333333" stroke-width="0.5" stroke-miterlimit="10"></rect>
 </g>
@@ -149,7 +149,7 @@
    <rect x="0" y="174.5" fill="#999999" width="47" height="63.5" />
 
    
-   <text text-anchor="middle" x="30" y="215" transform="scale(0.75 1)" fill="#FFFFFF" font-family="'HelveticaNeue-Bold'" font-size="15">P3</text>
+   <text text-anchor="middle" x="30" y="215" transform="scale(0.75 1)" fill="#FFFFFF" font-family="'HelveticaNeue-Bold'" font-size="15"></text>
    
    <rect x="4" y="115" rx="3" ry="3" width="39" height="119" fill="none" stroke="#333333" stroke-width="0.5" stroke-miterlimit="10"></rect>
 </g>

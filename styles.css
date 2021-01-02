@@ -1,8 +1,20 @@
-.menu-container {
+.menuContainer {
     display: grid;
-    grid-template-columns: repeat(auto-fill, 47px);
+    grid-template-columns: repeat(auto-fill, 60px);
     gap: 10px;
     grid-auto-rows: minmax(100px, auto);    
+}
+
+.linksContainer {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, 120px);
+    gap: 10px;
+}
+
+.picturesContainer {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
 }
 
 h1 {
@@ -21,11 +33,16 @@ h2 {
 .input-writing{
     color: #3d7eb0;
     font-weight: bold;
+    font-size: 175%;
 }
 
 .footer{
     color: #999999;
     font-weight: bold;
     display: table;
-  margin: 0 auto;
+    margin: 0 auto;
 }
+
+/* object {
+    border: thin dotted darkgrey;
+} */

@@ -1,80 +1,64 @@
+# Label generator (svg-extension)
+This is a Google Chrome extension that helps creating sticker(labels) images for using in the installation instructions documents.
+If the extension starts correctly, you will see:
 
-# Label generator
+  - `'Labels...'` button will appear next to the interface on the *hvac-tool* pages (in the System View)
+  - Clicking the `'Labels...'` button will open a new window (new tab) with the labeling pictures (stickers) and connect-box (connect wires to the box) pictures. 
+	- Clicking the extension icon (in the Chrome top bar) will open a new window with some default Labels...
+	- in the Extensions list you will see the 'cat' icon of the 'svg-extension'
 
-Label generator is a Chrome browser extension written in vanilla Javascript. It helps creating SVG images for tado° stickers.
+# Installation
+Note 1: It should not be necessary to remove previous version of the extension.
+Note 2: Since this extension is not published in the Chrome WebStore, there is only one way to download and install it: from a ZIP archive.
 
 ## Download
+Goto the GitHub page of this project (if you are reading this, you are already at this page). Make sure that you are in the correct branch of the GitHub. At the moment it is: https://github.com/tadodotcom/InstallationsAndHVACDatabase/tree/label-generator-v1.4
 
-Download the [svg-extension.zi](https://drive.google.com/file/d/1dKnmNFjlKMcEBNSx96hYLxnZN_L35KRF/view?usp=sharing)p. Unzip the svg-extension.zip (right-click the file and "Extract here" in Ubuntu). It must result in a new folder called "svg-extension".
+From the GitHub, click the tab **'< > Code'**. When the 'Code' page is loaded, at the top-right you will notice a large green button **'Code'**. 
 
-## Installation
+1. Click the big green **'Code'** button and in the drop-down list click the **'Download ZIP'** item. 
+1. Save the ZIP file to your local folder. 
+1. Open your file manager and navigate to the downloads folder. 
+1. Find your downloaded ZIP archive file. 
+1. Unpack the archive into a folder (right-click the file and select 'Extract here')
+1. Goto the Chrome browser. Click the *puzzle piece-shaped Extensions icon* located to the right of Chrome's Omnibox and in the drop-down list click **'Manage Extensions'**. 
+1. From the Extensions page enable the *developer mode* by clicking the **'Developer mode'** slider. 
+1. When the *developer mode* is *on* you will see two new buttons: 'Pack extension' and 'Load unpacked'. 
+1. Click the **'Load unpacked'** button and navigate to the folder where the ZIP archive is extracted to (and click the 'Open' button in the dialog window to confirm). 
 
-If you already have svg-extension installed, skip to the “Installation of the new version”
+Correctly installed 'svg-extension' should show up in the list with the 'cat'<i class="fas fa-cat"></i> icon.
 
--   In the Chrome browser click the puzzle piece![](https://lh5.googleusercontent.com/8U92Py7fGQc30UuzAZvaF246oUm3CBZC-QWBvYy3-CL_taSGBXaDi_71YNrcHfgGoZkIp6uVxbY6MNWQw_xJyJ13qY-fqWNzG1ReLyG6JaYMoftvSQI9W1rvlwd4ZjPqDazpBpFU) on the top right and in the opened menu click “Manage extensions” ![](https://lh5.googleusercontent.com/lpYKi_w2ArNE8dMQZ77YEWhM1iAZFYijGHiR6mH5kCplE78w8qCoDbfIDediJDFy8XV8j26ezSYpQuTMUGPOOxh_VDUQW-nNs6fCZwm-oG3c7vLAPXgfcgKTU6UjayoE_vVrIIf3)
+**Refresh(F5) the *hvac-tool* page** to let the svg-extension start working on it. If the extension starts correctly, you will see:
+
+  - `'Labels...'` button will appear next to the interface on the *hvac-tool* pages (in the System View)
+  - Clicking the `'Labels...'` button will open a new window (new tab) with the labeling pictures (stickers) and connect-box (connect wires to the box) pictures. 
+	- Clicking the extension icon (in the Chrome top bar) will open a new window with some default Labels...
+
+# How to start the script
+There are two ways to start the extension, once it is installed in your Chrome browser: 
+
+ 1. From the hvac-tool page: by clicking the `'Labels...'` button on the *hvac-tool* *system* page
+ 2. From outside the hvac-or dicrectly, by clicking the extension icon (in the Chrome top bar).
+
+# What can it do
+You can edit the labels with the Label generator, make screenshot with means of your OS / browser and paste the screenshot in the instructions document. 
+OR
+You can save the picture as a file (.svg or .png*). *\*Bug: to save a .png you need to click the link *****
+
+Outside the *hvac-tool*, the Label-generator page opens with some default stickers. 
+From the *hvac-tool* (when you click on the `'Labels...'` button), the page opens with calculated stickers. The header will contain the systems name and manufacturer.
+
+The page contains stickers for all devices and connect-box pictures for some devices.* *\*Starting from v1.4*
+
+You can change how the stickers look and labelled:
+
+- hide sticker
+- dash (make the arrowline and eclosing circle dashed)
+- edit the writing text and:
+  - if the length of the writing is longer than 3, the enclosing circle will be removed
+  - if the writing is empty, the connect-box picture wire will be removed 
+  - if the wiring requires a *bridge*, the connect-box picture will be updated with the *bridge*
+    - if the *bridge* is not supported, it will be yellow
     
+Under each picture on the page there will be two links: labeling.svg and labeling.png. Hint: first time you need to click the link ***twice*** to download the image file.
 
--   On the Extensions page enable "Developer mode" with a switch in the top right corner. ![](https://lh4.googleusercontent.com/Yt9b5qjI1-BwvtxQ7yTOs2gj-NsusijSRVhIJVs4Mma6yX1pVQ5leNPQKNNDIExBxME3rYZMmrJfnZDDNUNoPlEnPki8eotsrvaL623oHUWXrFOYX8LqLC6J_n1PrciTGsFWsw-X)
-    
-
--   In "Developer mode" on the top left you will see three new buttons: "Load unpacked", "Pack extension" and "Update". Click "Load unpacked" ![](https://lh5.googleusercontent.com/f_jRcazKct_mwJHuwV5MA1OhCtmBSxLB09z-0YaWDqq7KH5ch8VtArOmPLobz7uUSjjLP7pxueYpomHKgmFSvYnsMzv0cVHHrFa7J9_D4Ct_gcTjss7GFV85jeFD2JunPpGRZAiL)and select the folder to load the extension from: "svg-extenison".
-    
-
--   Once the extension loads, you will notice the "Cat" icon among your extensions
-    
-
-## ![](https://lh3.googleusercontent.com/PqLNzWGQ6LDA9SKmXdGSmijWaF0TDspo1wNCkl1ixJk45MkWlkqAtouqwzclyU6R0h2QtpfB2nXKeLgXrpjioMjWfhnOr0WKuo2di_595XXb7WwLC_EbuWFncr9Stq18Gq_tM8Hj)
-
--   Again click the puzzle piece and scroll down to the “svg-extension”. Click pin and pin the extension ![](https://lh6.googleusercontent.com/u8qVnPR1-DUShxGGS4bnFzaLsLVak_E2i1NQQ2RD29NzsBghsqPkNQmPKpRb-wFIToxLUDw80L0x5Z93P5AjdKDIlbkI_tewU5Xy099WHEewMq8KOn1NJDbTwCCDQe6YixRX_9Gw). It means that the “cat” will be always present in the Chrome toolbar.
-    
-
--   Right-click the cat icon in the toolbar and in the dropdown menu click “This can read and change site data --> When you click the extension”.
-    
-
-## Installation of the new version
-
--   Dowload the svg-extension.zip and unpack it into the same folder as the previous version.
-    
--   Click the puzzle-piece --> Manage extensions , find the “Cat” svg-extension and click the “reload” symbol ![](https://lh6.googleusercontent.com/f9BoJvaHTfbfnPUAVmtyXn9i53Vym3LzRzPOhYqVrX3JCzroxjPKeFBY0MiRHwBAzCkD81MDdrtTb_h5SW5pq-__HwRvzZVK9MTU6aEDr-HGSxEBP9JR7gN_fsU0CbNOi3wOKknQ). This will reload the extension.
-    
--   *Clicking the “Update” button has the same effect as reload (it will update all extensions).
-    
-
-## How to use
-
-### From the hvac-tool
-
-When on the hvac-tool system page (for example, [https://hvactool.tado.com/roomThermostatReceiver/show/3380](https://hvactool.tado.com/roomThermostatReceiver/show/3380)), click the “cat” icon to enable the extension on the page
-
-![](https://lh3.googleusercontent.com/OF7hl1N4UKOP2ZvaZctvUPsaxJatvzqXxK38X-b9kEYq9rxKHwZiVKsqvVX4-4LSDVV2JAI1rG25PU19fwhzAGWGq6qMAvLdzkHp4eE9ix_Dn1hCa0XLd5-p6E-An-XUQaUeF_0a)
-
-When the extension is enabled, you must notice the “labels…” button next to the interface name. Each interface will have its own button.
-
-![](https://lh6.googleusercontent.com/qODv1KHX2ut9W6I93lqyFAYVmK5DTL6AKuOEZ8jQihVbAVaiN6tz_sCqjudcfnCU3KgA1Kio4mXVOBoLgpgNh56y-iS255ih9XrIjztU5H_JBNCyGfcgXLQf8vnrARz_AlaQKCLN)
-
-Click the “labels…” to open the sticker page.
-
-As the sticker page loads, you will see BP, BR, BU, RU, TC, and LT stickers with pre-filled written labels matching the system and the interface you clicked.
-
-You can edit:
-
--   The written label:
-    
-
--   If the text of the written label exceeds 3 characters, the circle will hide and the text will rotate -45°
-    
--   If the text is 3 characters or shorter, it will be enclosed in circle
-    
-
--   Dash: makes dashed the circle around the written label and the arrow.
-    
--   Hide: hides a single sticker
-    
-
-“Download…” link downloads the SVG file.
-
-Hint: Right click “download…” link to open the SVG image in the new tab.
-
-### Stand-alone
-
-From any Chrome page, click the “cat” extension icon to run it as a stand-alone. It will open in the new tab with random labelled stickers. You can edit the stickers from scratch then.
