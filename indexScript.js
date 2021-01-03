@@ -34,6 +34,7 @@ const glbDeviceDict = {
         , terminals: ["N", "L", "COM", "NC", "NO", "P1", "P2", "P3", "AnalogOut_A", "GND_B", "VCC_C"]
         , defaultLabels: { "COM": "COM", "NO": "NO" }
         , friendlyNames: ["N", "L", "COM", "NC", "NO", "P1", "P2", "P3", "A", "minus", "plus"]
+        , friendlyWritings: ["N", "L", "COM", "NC", "NO", "P1", "P2", "P3", "A", "-", "+"]
         , cssRules: {
             N: "N"
             , L_1: null
@@ -98,7 +99,7 @@ const glbDeviceDict = {
         terminals: ["NO", "NC", "COM", "P1", "P2", "P3"]
         , defaultLabels: { "NO": "NO", "COM": "COM", "P1": "L", "P2": "N" }
         , friendlyNames: ["NO", "NC", "COM", "P1", "P2", "P3"]
-        , fiendlyWritings: ["NO", "NC", "COM", "P1", "P2", "P3"]
+        , friendlyWritings: ["NO", "NC", "COM", "P1", "P2", "P3"]
     }
     , TC: {
         terminals: ["COM", "NO", "P1", "P2", "P3"]
@@ -146,11 +147,17 @@ function getFriendlyName(device, terminal) {
 }
 
 function getFriendlyWriting(device, terminal) {
-    return glbDeviceDict[device]
-        && glbDeviceDict[device].friendlyWritings
-        && glbDeviceDict[device].friendlyWritings[terminal]
-        ? glbDeviceDict[device].friendlyWritings[terminal]
-        : terminal
+    if (device && terminal){
+        if(glbDeviceDict[device] && glbDeviceDict[device].terminals ){
+            let terminalIndex = glbDeviceDict[device].terminals.indexOf(terminal)
+            if (-1 !== terminalIndex){
+                if(glbDeviceDict[device].friendlyWritings){
+                    let friendlyWriting = glbDeviceDict[device].friendlyWritings[terminalIndex]
+                    return friendlyWriting ? friendlyWriting : null
+                }
+            }
+        }
+    }
 }
 
 function isWireOptional(device, terminal) {
@@ -549,10 +556,12 @@ function matchDeviceAndSystem(device, systemTerminalsAndLabels) {
 }
 
 function fixHWBridge(terminals) {
-    //(this is needed for the BP) if there is CH_COM, no HW_COM, an HW_NO or HW_NC, then remove the CH_COM
-    // NC2 or NO2 present, COM2 not present, COM1 pesent --> remove COM1
-    if ((terminals.HW_NC || terminals.HW_NO) && (!terminals.HW_COM) && terminals.CH_COM && terminals.L) {
-        delete terminals.CH_COM
+    if (terminals) {
+        //(this is needed for the BP) if there is CH_COM, no HW_COM, an HW_NO or HW_NC, then remove the CH_COM
+        // NC2 or NO2 present, COM2 not present, COM1 pesent --> remove COM1
+        if ((terminals.HW_NC || terminals.HW_NO) && (!terminals.HW_COM) && terminals.CH_COM && terminals.L) {
+            delete terminals.CH_COM
+        }
     }
 }
 
@@ -837,7 +846,10 @@ header.style.visibility = "visible"
 //
 // appends menus and svgs
 //
+const tabsPerDevice = 5 // for the tab focus
+let menuDeviceIndex = 0 // for the tab focus
 for (let menuDevice in menus) {
+    let isFocusSet = false
     let deviceContainer = document.createElement("div")
     deviceContainer.className = "deviceContainer"
     deviceContainer.id = [deviceContainer.className, menuDevice].join("-")
@@ -854,6 +866,7 @@ for (let menuDevice in menus) {
     deviceContainer.appendChild(menuContainer)
     //Render physical menu elements and fill with actual info from 'menus' map
     if (0 < Object.keys(menus[menuDevice]).length) {
+
         for (let terminal in menus[menuDevice]) {
             let menuItemId = ["menuItem", menuDevice, terminal].join("-")
             let menuItem = menus[menuDevice][terminal]
@@ -867,6 +880,7 @@ for (let menuDevice in menus) {
             cell.appendChild(writingLabel)
 
             let inputWriting = document.createElement("input")
+            inputWriting.tabIndex = tabsPerDevice * menuDeviceIndex + 1
             inputWriting.type = "text"
             inputWriting.value = menus[menuDevice][terminal].label
             inputWriting.size = 3
@@ -876,16 +890,21 @@ for (let menuDevice in menus) {
             cell.appendChild(inputWriting)
             writingLabel.for = inputWriting.id
             menus[menuDevice][terminal].inputWriting = inputWriting
-            console.log(menuDevice, terminal, "inputWriting.size:", inputWriting.size)
+            //console.log(menuDevice, terminal, "inputWriting.size:", inputWriting.size)
             let inputWidth = window.getComputedStyle(inputWriting).width
-            console.log(menuDevice, terminal, "inputWriting.width:", inputWidth)
+            //console.log(menuDevice, terminal, "inputWriting.width:", inputWidth)
             if (terminal.match(/^Bridge/i)) {
                 inputWriting.style.visibility = "hidden"
+            }
+            if (!isFocusSet && inputWriting.value) {
+                inputWriting.focus()
+                isFocusSet = true
             }
 
             let dashedGroup = document.createElement("div")
 
             let checkboxDashed = document.createElement("input");
+            checkboxDashed.tabIndex = tabsPerDevice * menuDeviceIndex + 1 + 1
             checkboxDashed.type = "checkbox";
             checkboxDashed.checked = menus[menuDevice][terminal].dashed
             checkboxDashed.id = [menuItemId, "dashed"].join("-")
@@ -903,6 +922,7 @@ for (let menuDevice in menus) {
             let hideStickerGroup = document.createElement("div")
 
             let checkboxHide = document.createElement("input");
+            checkboxHide.tabIndex = tabsPerDevice * menuDeviceIndex + 1 + 2
             checkboxHide.type = "checkbox";
             checkboxHide.id = [menuItemId, "hideSticker"].join("-")
             checkboxHide.checked = menus[menuDevice][terminal].hide
@@ -935,6 +955,7 @@ for (let menuDevice in menus) {
 
         //SVG download link
         let downloadLink = document.createElement("a")
+        downloadLink.tabIndex = tabsPerDevice * menuDeviceIndex + 1 + 4
         //downloadLink.style.display = "none"
         downloadLink.style.visibility = "hidden"
         downloadLink.className = "downloadLink"
@@ -947,6 +968,7 @@ for (let menuDevice in menus) {
         linksContainer.appendChild(downloadLink)
         //PNG download link
         let downloadLink2 = document.createElement("a")
+        downloadLink2.tabIndex = tabsPerDevice * menuDeviceIndex + 1 + 4
         //downloadLink2.style.display = "none"
         downloadLink2.style.visibility = "hidden"
         downloadLink2.className = "downloadLink2"
@@ -1024,7 +1046,7 @@ for (let menuDevice in menus) {
                                 ? rule.selectorText.match(/(Bridge.+)/)[1]
                                 : null
                         let terminal = convertSvg2DeviceTerminal(svgDevice, svgTerminalName)
-                        console.log(svgDevice, "svg --> hw", svgTerminalName, terminal)
+                        console.log(svgDevice, "svg-terminal:",  svgTerminalName, "terminal:", terminal)
                         if (terminal) {
                             menus[svgDevice][terminal].connectRule = rule
                             let connectGroup = this.contentDocument.querySelector(`g${rule.selectorText}:not([id*=mini])`)
@@ -1044,7 +1066,7 @@ for (let menuDevice in menus) {
                             }
                             applyMenu(svgDevice, terminal, false)
                         } else {
-                            console.log(svgDevice, "svg --> terminal not found", svgTerminalName)
+                            console.log(svgDevice, "svg+terminal not matched", svgTerminalName)
                         }
                     })
                 } else {
@@ -1077,13 +1099,30 @@ for (let menuDevice in menus) {
             downloadLink.style.visibility = "visible"
             downloadLink2.style.visibility = "visible"
         }
+        menuDeviceIndex++
+    }
+}
+
+isFocusSet = false
+for (let device in menus) {
+    if (menus[device]) {
+        for (let terminal in menus[device]) {
+            if (menus[device][terminal]) {
+                if (!isFocusSet && menus[device][terminal].label) {
+                    if (menus[device][terminal].inputWriting) {
+                        menus[device][terminal].inputWriting.focus()
+                        isFocusSet = true
+                    }
+                }
+            }
+        }
     }
 }
 
 //append footer here
 let footer = document.createElement("div")
 footer.className = "footer"
-footer.innerHTML = `By <a href="https://github.com/dariatado">@DariaTado</a> 2020`
+footer.innerHTML = `By <a href="https://github.com/dariatado" tabIndex=99>@DariaTado</a> 2020`
 root.appendChild(footer)
 
 console.log(`
