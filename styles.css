@@ -22,18 +22,43 @@ h1 {
 }
 
 h2 {
-    color: #999999;
+    color: #666666;
+    background-color: #eeeeee;
 }
 
-.tadoLabel {
-    color: #999999;
+h2.hideDeviceContainer {
+    background-color: #999999;
+}
+
+hr {
+    display: none;
+}
+
+.input-label {
+    /* color: #999999; */
+    color: #666666;
+    
     font-weight: bold;
+    font-size: 110%;
 }
 
 .input-writing{
-    color: #3d7eb0;
-    font-weight: bold;
+    color: #3a86ad;
+    font-weight: normal;
     font-size: 175%;
+}
+
+a:focus {
+    background: palegoldenrod;
+}
+
+.input-writing:focus {
+    background: palegoldenrod;
+    font-weight: bold;
+}
+
+.input-checkbox:focus {
+    box-shadow: 0 0 0 2px palegoldenrod;
 }
 
 .footer{
