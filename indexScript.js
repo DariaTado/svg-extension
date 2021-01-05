@@ -34,6 +34,7 @@ const glbDeviceDict = {
         , terminals: ["N", "L", "COM", "NC", "NO", "P1", "P2", "P3", "AnalogOut_A", "GND_B", "VCC_C"]
         , defaultLabels: { "COM": "COM", "NO": "NO" }
         , friendlyNames: ["N", "L", "COM", "NC", "NO", "P1", "P2", "P3", "A", "minus", "plus"]
+        , friendlyWritings: ["N", "L", "COM", "NC", "NO", "P1", "P2", "P3", "A", "-", "+"]
         , cssRules: {
             N: "N"
             , L_1: null
@@ -98,7 +99,8 @@ const glbDeviceDict = {
         terminals: ["NO", "NC", "COM", "P1", "P2", "P3"]
         , defaultLabels: { "NO": "NO", "COM": "COM", "P1": "L", "P2": "N" }
         , friendlyNames: ["NO", "NC", "COM", "P1", "P2", "P3"]
-        , fiendlyWritings: ["NO", "NC", "COM", "P1", "P2", "P3"]
+        , friendlyWritings: ["NO", "NC", "COM", "P1", "P2", "P3"]
+
     }
     , TC: {
         terminals: ["COM", "NO", "P1", "P2", "P3"]
@@ -146,11 +148,17 @@ function getFriendlyName(device, terminal) {
 }
 
 function getFriendlyWriting(device, terminal) {
-    return glbDeviceDict[device]
-        && glbDeviceDict[device].friendlyWritings
-        && glbDeviceDict[device].friendlyWritings[terminal]
-        ? glbDeviceDict[device].friendlyWritings[terminal]
-        : terminal
+    if (device && terminal) {
+        if (glbDeviceDict[device] && glbDeviceDict[device].terminals) {
+            let terminalIndex = glbDeviceDict[device].terminals.indexOf(terminal)
+            if (-1 !== terminalIndex) {
+                if (glbDeviceDict[device].friendlyWritings) {
+                    let friendlyWriting = glbDeviceDict[device].friendlyWritings[terminalIndex]
+                    return friendlyWriting ? friendlyWriting : null
+                }
+            }
+        }
+    }
 }
 
 function isWireOptional(device, terminal) {
@@ -284,7 +292,7 @@ function calculatePictureType(device) {
                 }).length
             })
         if (0 < matchedPictureTypes.length) {
-            console.log(device, "matched PictureTypes:", matchedPictureTypes, "needed picture type:", matchedPictureTypes[0])
+
             return matchedPictureTypes[0]
         }
     }
@@ -308,12 +316,12 @@ function applyPictureType(device) {
     if (neededPictureType) {
         let svgObject = document.getElementById(["svgObject", "connect", device].join("-"))
         if (svgObject && (glbDeviceDict[device].interfacePictureMedia)) {
-            console.log(device, "media type:", glbDeviceDict[device].interfacePictureMedia)
+
             switch (glbDeviceDict[device].interfacePictureMedia) {
                 case "file":
                     let fileNameInfo = getInfoFromFileName(svgObject.data)
                     let curPictureType = fileNameInfo ? fileNameInfo.pictureType : null
-                    console.log(device, "current picture type:", fileNameInfo)
+
                     if (curPictureType && (curPictureType !== neededPictureType)) {
 
                         svgObject.data = `svg/connect-${device}-${neededPictureType}.svg` //
@@ -330,7 +338,7 @@ function applyPictureType(device) {
                                     .length
                             })
                         : null
-                    console.log(device, "GROUP picture type", neededPictureType, rules)
+
                     rules.forEach(rule => {
                         if (rule.selectorText.match(neededPictureType)) {
                             rule.style.visibility = "visible"
@@ -549,10 +557,12 @@ function matchDeviceAndSystem(device, systemTerminalsAndLabels) {
 }
 
 function fixHWBridge(terminals) {
-    //(this is needed for the BP) if there is CH_COM, no HW_COM, an HW_NO or HW_NC, then remove the CH_COM
-    // NC2 or NO2 present, COM2 not present, COM1 pesent --> remove COM1
-    if ((terminals.HW_NC || terminals.HW_NO) && (!terminals.HW_COM) && terminals.CH_COM && terminals.L) {
-        delete terminals.CH_COM
+    if (terminals) {
+        //(this is needed for the BP) if there is CH_COM, no HW_COM, an HW_NO or HW_NC, then remove the CH_COM
+        // NC2 or NO2 present, COM2 not present, COM1 pesent --> remove COM1
+        if ((terminals.HW_NC || terminals.HW_NO) && (!terminals.HW_COM) && terminals.CH_COM && terminals.L) {
+            delete terminals.CH_COM
+        }
     }
 }
 
@@ -641,100 +651,84 @@ function calculateBridges(doCreateNewBridges) {
     }
 }
 
-function downloadPNG(event) {
-    console.log("I's the PNG download event. My target:", event ? event.target : event)
-    let curDevice = event.target.id.split("-")[2]
-    let curPictureName = event.target.id.split("-")[1]
-    let curSvgObjId = ["svgObject", curPictureName, curDevice].join("-")
-    let curSvgObj = document.getElementById(curSvgObjId)
-    let curDownloadLinkId = ["downloadLink2", curPictureName, curDevice].join("-")
-    let curDownloadLink = document.getElementById(curDownloadLinkId)
-    if (curSvgObj && curDownloadLink) {
-        let curSvgElem = curSvgObj.contentDocument.getElementsByTagName("svg")[0]
-        console.log("SVG object width x height", curSvgObj.width, curSvgObj.height)
-        if (curSvgElem) {
-            //console.log("Inner svg", device, pictureName, svg)
+function downloadImageFile(event) {
+    //console.log("downloadImage():", event, type)
+    let device = event.target.id.split("-")[3]
+    let pictureName = event.target.id.split("-")[2]
+    let type = event.target.id.split("-")[1]
+    let downloadLink = event.target
+    let svgObject = document.getElementById(["svgObject", pictureName, device].join("-"))
+    console.log("downloadImage()", device, pictureName, type, downloadLink, svgObject)
+    //console.log("svgObject, width, height:", curSvgObj, curSvgObj.width, curSvgObj.height)
+    if (svgObject && downloadLink) {
+        let svgElement = svgObject.contentDocument.getElementsByTagName("svg")[0]
+        //console.log("svg element, width, height:", curSvgElem, curSvgElem.width, curSvgElem.height)
+        if (svgElement) {
             let serializer = new XMLSerializer()
-            let source = serializer.serializeToString(curSvgElem)
-            /* if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
-                source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+            let source = serializer.serializeToString(svgElement)
+            //console.log("svg-source original:", source.substr(0,1024) + "\n...")
+            let a = document.createElement("a")
+            a.download = event.target.textContent
+            switch (type) {
+                case "svg":
+                    if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
+                        source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+                    }
+                    if (!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
+                        source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
+                    }
+                    //add xml declaration
+                    source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
+                    //convert svg source to URI data scheme.
+                    let svgUri = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(source);
+                    //console.log("svg-source AFTER processing:", source.substr(0,1024) + "\n...")
+                    //console.log("svg-url AFTER processing:", svgUri)
+
+                    a.href = svgUri
+                    a.dispatchEvent(new MouseEvent("click", {
+                        //view: "window",
+                        bubbles: false,
+                        cancelable: true
+                    }))
+                    a.remove()
+                    break
+                case "png":
+                    let canvas = document.createElement('canvas');
+                    //canvas.style.display = "none"
+                    canvas.width = svgElement.width.baseVal.value
+                    canvas.height = svgElement.height.baseVal.value
+                    //root.appendChild(canvas)
+
+                    let svgBlob = new Blob([source], { type: 'image/svg+xml;charset=utf-8' });
+                    let DOMURL = self.URL || self.webkitURL || self
+                    let svgBlobUri = DOMURL.createObjectURL(svgBlob);
+                    //("svg-blob:", svgBlob)
+                    //console.log("svg-url:", svgBlobUri.substr(0,1024) + "\n...")
+
+                    let ctx = canvas.getContext('2d');
+                    let img = new Image();
+
+                    img.onload = function (e) {
+                        ctx.drawImage(img, 0, 0);
+
+                        let imgURI = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream')
+                        let svgImgUri = canvas.toDataURL("image/svg-xml")
+
+                        a.href = imgURI
+                        a.dispatchEvent(new MouseEvent("click", {
+                            //view: "window",
+                            bubbles: false,
+                            cancelable: true
+                        }))
+
+                        DOMURL.revokeObjectURL(svgBlobUri);
+                        canvas.remove()
+                        a.remove()
+                    }
+                    img.src = svgBlobUri
+
+                    break
             }
-            if (!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
-                source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
-            }
-            //add xml declaration
-            source = '<?xml version="1.0" standalone="no"?>\r\n' + source; */
-
-            let canvas = document.createElement('canvas');
-            canvas.style.display = "none"
-            canvas.width = curSvgObj.width
-            canvas.height = curSvgObj.height
-            root.appendChild(canvas)
-
-            let svgBlob = new Blob([source], { type: 'image/svg+xml;charset=utf-8' });
-            let DOMURL = self.URL || self.webkitURL || self
-            let url = DOMURL.createObjectURL(svgBlob);
-
-            let ctx = canvas.getContext('2d');
-
-            let img = new Image();
-            img.onload = function (e) {
-                ctx.drawImage(img, 0, 0, curSvgObj.width, curSvgObj.height, 0, 0, curSvgObj.width, curSvgObj.height);
-
-                let imgURI = canvas
-                    .toDataURL('image/png')
-                /* .replace('image/png', 'image/octet-stream') */
-                //console.log("Download link2 href old:", curDownloadLink.href)
-                //console.log("Download link2 href new:", imgURI)
-                curDownloadLink.href = imgURI
-                curDownloadLink.download = curDownloadLink.textContent
-                curDownloadLink.target = "_blank"
-                /* curDownloadLink.dispatchEvent(new MouseEvent("click", {
-                    view: "window",
-                    bubbles: false,
-                    cancelable: true
-                })) */
-
-                DOMURL.revokeObjectURL(url);
-            }
-            img.src = url
-            //end of creating svg download link */
-        } else {
-            console.log(curDevice, "!!!No SVG tag found in document:", curSvgObj.contentDocument)
-        }
-    }
-}
-
-function downloadSVG(event) {
-    console.log("I's the SVG download event. My target:", event ? event.target : event)
-    let curDevice = event.target.id.split("-")[2]
-    let curPictureName = event.target.id.split("-")[1]
-    let curSvgObjId = ["svgObject", curPictureName, curDevice].join("-")
-    let curSvgObj = document.getElementById(curSvgObjId)
-    let curDownloadLinkId = ["downloadLink", curPictureName, curDevice].join("-")
-    let curDownloadLink = document.getElementById(curDownloadLinkId)
-    if (curSvgObj && curDownloadLink) {
-        let curSvgElem = curSvgObj.contentDocument.getElementsByTagName("svg")[0]
-        if (curSvgElem) {
-            //console.log("Inner svg", device, pictureName, svg)
-            let serializer = new XMLSerializer()
-            let source = serializer.serializeToString(curSvgElem)
-            if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
-                source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
-            }
-            if (!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
-                source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
-            }
-            //add xml declaration
-            source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
-            //convert svg source to URI data scheme.
-            let url = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(source);
-            curDownloadLink.href = url
-            curDownloadLink.style.display = ""
-            curDownloadLink.download = curDownloadLink.textContent
-            //end of creating svg download link */
-        } else {
-            console.log(curDevice, "!!!No SVG tag found in document:", curSvgObj.contentDocument)
         }
     }
 }
@@ -742,12 +736,10 @@ function downloadSVG(event) {
 console.log(`
 ----------------------------------
 |                                |
+|          svg-extension         |
 |          Index script          |
-|                                |
-|  generates page with stickers  |
-|                                |
-|                                |
-`)
+|  (makes a page with stickers)  |
+|               ...              |`)
 console.log("Window.location:", {
     origin: window.location.origin
     , protocol: window.location.protocol
@@ -775,8 +767,13 @@ const root = document.getElementById("root")
 
 
 const urlParams = decodeURI(window.location.search.substring(1)) ? payload2obj(decodeURI(window.location.search.substring(1))) : null
-console.log("URL parameters:", urlParams)
+
 const useDefault = !(urlParams && (0 < Object.keys(urlParams).length) && (urlParams.interface) && (urlParams.interface.terminalsAndLabels))
+
+console.log("URL parameters:", urlParams)
+//console.log("MENUS:", menus)
+//console.log("useDEFAULT:", useDefault)
+
 let header = document.createElement("h1")
 header.style.visibility = "hidden"
 header.textContent = "No system - default stickers"
@@ -792,10 +789,9 @@ if (!useDefault) {
     console.log("Not empty URL terminals:", notEmptyUrlTerminalMap)
     for (let device in glbDeviceDict) {
         let matchedTerminalMap = matchDeviceAndSystem(device, notEmptyUrlTerminalMap)
-        console.log(device, "Matched terminals:", matchedTerminalMap)
-        if ("BP" === device) {
+    if ("BP" === device) {
             fixHWBridge(matchedTerminalMap)
-            console.log(device, "Matched terminals AFTER fix:", matchedTerminalMap)
+            //console.log(device, "Matched terminals AFTER fix:", matchedTerminalMap)
         }
         //copy matched Stickers to the empty global sticker
         for (let terminal in matchedTerminalMap) {
@@ -837,16 +833,25 @@ header.style.visibility = "visible"
 //
 // appends menus and svgs
 //
+
+const tabsPerDevice = 5 // for the tab focus
+let menuDeviceIndex = 0 // for the tab focus
 for (let menuDevice in menus) {
-    let deviceContainer = document.createElement("div")
-    deviceContainer.className = "deviceContainer"
-    deviceContainer.id = [deviceContainer.className, menuDevice].join("-")
-    root.appendChild(deviceContainer)
+    let isFocusSet = false
+    let superContainer = document.createElement("div")
+    superContainer.className = "superContainer"
+    superContainer.id = [superContainer.className, menuDevice].join("-")
+    root.appendChild(superContainer)
 
     let deviceHeading = document.createElement("h2")
     deviceHeading.className = "deviceHeading"
-    deviceHeading.textContent = menuDevice
-    deviceContainer.appendChild(deviceHeading)
+    deviceHeading.textContent = " -\t" + menuDevice
+    superContainer.appendChild(deviceHeading)
+
+    let deviceContainer = document.createElement("div")
+    deviceContainer.className = "deviceContainer"
+    deviceContainer.id = [deviceContainer.className, menuDevice].join("-")
+    superContainer.appendChild(deviceContainer)
 
     let menuContainer = document.createElement("div")
     menuContainer.className = "menuContainer"
@@ -854,6 +859,7 @@ for (let menuDevice in menus) {
     deviceContainer.appendChild(menuContainer)
     //Render physical menu elements and fill with actual info from 'menus' map
     if (0 < Object.keys(menus[menuDevice]).length) {
+
         for (let terminal in menus[menuDevice]) {
             let menuItemId = ["menuItem", menuDevice, terminal].join("-")
             let menuItem = menus[menuDevice][terminal]
@@ -862,11 +868,16 @@ for (let menuDevice in menus) {
             menuContainer.appendChild(cell)
 
             let writingLabel = document.createElement("label")
-            writingLabel.className = "tadoLabel tado-terminal-label"
+
+            writingLabel.className = "input-label"
+
             writingLabel.textContent = getFriendlyName(menuDevice, terminal)
             cell.appendChild(writingLabel)
 
             let inputWriting = document.createElement("input")
+
+            inputWriting.tabIndex = tabsPerDevice * menuDeviceIndex + 1
+
             inputWriting.type = "text"
             inputWriting.value = menus[menuDevice][terminal].label
             inputWriting.size = 3
@@ -876,20 +887,26 @@ for (let menuDevice in menus) {
             cell.appendChild(inputWriting)
             writingLabel.for = inputWriting.id
             menus[menuDevice][terminal].inputWriting = inputWriting
-            console.log(menuDevice, terminal, "inputWriting.size:", inputWriting.size)
             let inputWidth = window.getComputedStyle(inputWriting).width
-            console.log(menuDevice, terminal, "inputWriting.width:", inputWidth)
+            //console.log(menuDevice, terminal, "inputWriting.width:", inputWidth)
             if (terminal.match(/^Bridge/i)) {
                 inputWriting.style.visibility = "hidden"
+            }
+            if (!isFocusSet && inputWriting.value) {
+                inputWriting.focus()
+                isFocusSet = true
             }
 
             let dashedGroup = document.createElement("div")
 
             let checkboxDashed = document.createElement("input");
-            checkboxDashed.type = "checkbox";
+
             checkboxDashed.checked = menus[menuDevice][terminal].dashed
+            checkboxDashed.className = "input-checkbox"
             checkboxDashed.id = [menuItemId, "dashed"].join("-")
             checkboxDashed.oninput = onDashed
+            checkboxDashed.tabIndex = tabsPerDevice * menuDeviceIndex + 1 + 1
+            checkboxDashed.type = "checkbox";
 
             let dashedLabel = document.createElement("label")
             dashedLabel.textContent = "dash:"
@@ -903,10 +920,13 @@ for (let menuDevice in menus) {
             let hideStickerGroup = document.createElement("div")
 
             let checkboxHide = document.createElement("input");
-            checkboxHide.type = "checkbox";
-            checkboxHide.id = [menuItemId, "hideSticker"].join("-")
+
             checkboxHide.checked = menus[menuDevice][terminal].hide
+            checkboxHide.className = "input-checkbox"
+            checkboxHide.id = [menuItemId, "hideSticker"].join("-")
             checkboxHide.oninput = onHideSticker
+            checkboxHide.tabIndex = tabsPerDevice * menuDeviceIndex + 1 + 2
+            checkboxHide.type = "checkbox";
 
             let hideStickerLabel = document.createElement("label")
             hideStickerLabel.textContent = "hide:"
@@ -924,6 +944,7 @@ for (let menuDevice in menus) {
     picturesContainer.id = [picturesContainer.className, menuDevice].join("-")
     deviceContainer.appendChild(picturesContainer)
     deviceContainer.appendChild(document.createElement("hr"))
+
     for (let pictureName of glbPictureNames) {
         let svgContainer = document.createElement("div") //svg-container contains download link and svg picture
         svgContainer.className = "svgContainer"
@@ -933,31 +954,24 @@ for (let menuDevice in menus) {
         linksContainer.className = "linksContainer"
         linksContainer.id = [linksContainer.className, pictureName, menuDevice].join("-")
 
-        //SVG download link
-        let downloadLink = document.createElement("a")
-        //downloadLink.style.display = "none"
-        downloadLink.style.visibility = "hidden"
-        downloadLink.className = "downloadLink"
-        downloadLink.id = [downloadLink.className, pictureName, menuDevice].join("-")
-        downloadLink.textContent = `${pictureName}-${menuDevice}.svg`
-        downloadLink.download = downloadLink.textContent
-        downloadLink.target = "_blank"
-        downloadLink.href = downloadLink.textContent
-        downloadLink.onclick = downloadSVG
-        linksContainer.appendChild(downloadLink)
-        //PNG download link
-        let downloadLink2 = document.createElement("a")
-        //downloadLink2.style.display = "none"
-        downloadLink2.style.visibility = "hidden"
-        downloadLink2.className = "downloadLink2"
-        downloadLink2.id = [downloadLink2.className, pictureName, menuDevice].join("-")
-        downloadLink2.textContent = `${pictureName}-${menuDevice}.png`
-        downloadLink2.href = downloadLink2.textContent
-        downloadLink2.target = "_blank"
-        downloadLink2.download = downloadLink2.textContent
-        downloadLink2.onclick = downloadPNG
-        linksContainer.appendChild(downloadLink2)
-        //SVG itself
+
+        const imageTypes = ["svg", "png"]
+        let downloadLinks = imageTypes.map(imageType => {
+            let downloadLink = document.createElement("button")
+            downloadLink.tabIndex = tabsPerDevice * menuDeviceIndex + 1 + 4
+            downloadLink.style.visibility = "hidden"
+            downloadLink.className = "downloadLink"
+            downloadLink.id = [downloadLink.className, imageType, pictureName, menuDevice].join("-")
+            downloadLink.textContent = `${pictureName}-${menuDevice}.${imageType}`
+            //downloadLink.download = downloadLink.textContent
+            //downloadLink.target = "_blank"
+            //downloadLink.href = downloadLink.textContent
+            downloadLink.onclick = downloadImageFile
+            linksContainer.appendChild(downloadLink)
+            return downloadLink
+        })
+
+        //SVG object with ORIGINAL svg file content inside:
         let svgObject = document.createElement("object")
         svgObject.className = "svgObject"
         svgObject.id = [svgObject.className, pictureName, menuDevice].join("-")
@@ -971,7 +985,7 @@ for (let menuDevice in menus) {
         svgObject.data = neededPictureType && ("file" === glbDeviceDict[menuDevice].interfacePictureMedia)
             ? `svg/${pictureName}-${menuDevice}-${neededPictureType}.svg`
             : `svg/${pictureName}-${menuDevice}.svg`
-        console.log(menuDevice, pictureName, "url:", svgObject.data)
+
         svgContainer.appendChild(svgObject)
         svgContainer.appendChild(linksContainer)
 
@@ -981,7 +995,7 @@ for (let menuDevice in menus) {
             let svgNameParts = getInfoFromFileName(this.data)
             let svgPictureName = svgNameParts.pictureName
             let svgDevice = svgNameParts.device
-            console.log("onload()", this.data.match(/svg\/(.+\.svg)$/)[1], "--->", svgDevice, svgPictureName)
+
             if ("labeling" === svgPictureName) {
                 //resize the labeling svg (make space on the left and top)
                 let outerSvgTag = this.contentDocument.querySelector("svg")
@@ -1003,7 +1017,7 @@ for (let menuDevice in menus) {
 
             } else if ("connect" === svgPictureName) {
                 if ("group" === glbDeviceDict[svgDevice].interfacePictureMedia) {
-                    console.log(svgDevice, "applying GROUP picture type")
+
                     applyPictureType(svgDevice)
                 }
                 //let svgPictureType = 3===svgNameParts.length ? svgNameParts[2] : null
@@ -1016,7 +1030,7 @@ for (let menuDevice in menus) {
                         })
                     : null
                 if (rules && (0 < rules.length)) {
-                    console.log(svgDevice, "found few '.Label*' and/or '.Bridge*' css selector(s):", rules.length, rules)
+
                     rules.forEach(rule => {
                         let svgTerminalName = rule.selectorText.match(/\.Label(.+)/)
                             ? rule.selectorText.match(/\.Label(.+)/)[1]
@@ -1024,7 +1038,7 @@ for (let menuDevice in menus) {
                                 ? rule.selectorText.match(/(Bridge.+)/)[1]
                                 : null
                         let terminal = convertSvg2DeviceTerminal(svgDevice, svgTerminalName)
-                        console.log(svgDevice, "svg --> hw", svgTerminalName, terminal)
+
                         if (terminal) {
                             menus[svgDevice][terminal].connectRule = rule
                             let connectGroup = this.contentDocument.querySelector(`g${rule.selectorText}:not([id*=mini])`)
@@ -1044,11 +1058,13 @@ for (let menuDevice in menus) {
                             }
                             applyMenu(svgDevice, terminal, false)
                         } else {
-                            console.log(svgDevice, "svg --> terminal not found", svgTerminalName)
+
+                            console.log(svgDevice, "svg+terminal not matched", svgTerminalName)
                         }
                     })
                 } else {
-                    console.log(svgDevice, "Not found '.Label*' or '.Bridge*' css selector.")
+                    //console.log(svgDevice, "Not found '.Label*' or '.Bridge*' css selector.")
+
                     for (let svgTerminal in glbDeviceDict[svgDevice].cssRules) {
                         let terminal = glbDeviceDict[svgDevice].cssRules[svgTerminal]
                         try {
@@ -1063,7 +1079,7 @@ for (let menuDevice in menus) {
                                     connectGroup.style.visibility = "hidden"
                                 }
                             } else {
-                                console.log(svgDevice, `g#${svgTerminal}`, "not found in the svg")
+
                             }
                         } catch (err) {
                             console.log(svgDevice, err.message, svgTerminal, terminal, `g#${svgTerminal}`)
@@ -1072,10 +1088,25 @@ for (let menuDevice in menus) {
                 }
                 //TODO: a good place for applyMenu(svgDevice, ) call
             }//end of onLoad() the 'connect'.svg
-            //downloadLink.style.display = ""
-            //downloadLink2.style.display = ""
-            downloadLink.style.visibility = "visible"
-            downloadLink2.style.visibility = "visible"
+
+            downloadLinks.forEach(item => { item.style.visibility = "visible" })
+        }
+        menuDeviceIndex++
+    }
+}
+
+isFocusSet = false
+for (let device in menus) {
+    if (menus[device]) {
+        for (let terminal in menus[device]) {
+            if (menus[device][terminal]) {
+                if (!isFocusSet && menus[device][terminal].label) {
+                    if (menus[device][terminal].inputWriting) {
+                        menus[device][terminal].inputWriting.focus()
+                        isFocusSet = true
+                    }
+                }
+            }
         }
     }
 }
@@ -1083,11 +1114,12 @@ for (let menuDevice in menus) {
 //append footer here
 let footer = document.createElement("div")
 footer.className = "footer"
-footer.innerHTML = `By <a href="https://github.com/dariatado">@DariaTado</a> 2020`
+
+footer.innerHTML = `By <a href="https://github.com/dariatado" tabIndex=99>@DariaTado</a> 2020`
 root.appendChild(footer)
 
 console.log(`
-|                                |
+|          svg-extension         |
 |          Index script          |
 |            The End.            |
 |ds______________________________|`);
