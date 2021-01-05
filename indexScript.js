@@ -650,23 +650,24 @@ function calculateBridges(doCreateNewBridges) {
     }
 }
 
-function downloadImage(event, type) {
+function downloadImageFile(event) {
     //console.log("downloadImage():", event, type)
-    let curDevice = event.target.id.split("-")[3]
-    let curPictureName = event.target.id.split("-")[2]
-    let curDownloadLinkId = event.target.id
-    let curDownloadLink = event.target
-    let curSvgObjId = ["svgObject", curPictureName, curDevice].join("-")
-    let curSvgObj = document.getElementById(curSvgObjId)
-    //console.log("dowloadLink:", curDownloadLink)
+    let device = event.target.id.split("-")[3]
+    let pictureName = event.target.id.split("-")[2]
+    let type = event.target.id.split("-")[1]
+    let downloadLink = event.target
+    let svgObject = document.getElementById(["svgObject", pictureName, device].join("-"))
+    console.log("downloadImage()", device, pictureName, type, downloadLink, svgObject)
     //console.log("svgObject, width, height:", curSvgObj, curSvgObj.width, curSvgObj.height)
-    if (curSvgObj && curDownloadLink) {
-        let curSvgElem = curSvgObj.contentDocument.getElementsByTagName("svg")[0]
+    if (svgObject && downloadLink) {
+        let svgElement = svgObject.contentDocument.getElementsByTagName("svg")[0]
         //console.log("svg element, width, height:", curSvgElem, curSvgElem.width, curSvgElem.height)
-        if (curSvgElem) {
+        if (svgElement) {
             let serializer = new XMLSerializer()
-            let source = serializer.serializeToString(curSvgElem)
-            //console.log("svg-source:", source.substr(0,1024) + "\n...")
+            let source = serializer.serializeToString(svgElement)
+            //console.log("svg-source original:", source.substr(0,1024) + "\n...")
+            let a = document.createElement("a")
+            a.download = event.target.textContent
             switch (type) {
                 case "svg":
                     if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
@@ -680,18 +681,22 @@ function downloadImage(event, type) {
                     //convert svg source to URI data scheme.
                     let svgUri = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(source);
                     //console.log("svg-source AFTER processing:", source.substr(0,1024) + "\n...")
-                    //console.log("svg-url:", svgUri)
-                    curDownloadLink.download = curDownloadLink.textContent
-                    curDownloadLink.href = svgUri
-                    curDownloadLink.style.display = ""
-                    curDownloadLink.target = "_blank"
+                    //console.log("svg-url AFTER processing:", svgUri)
+
+                    a.href = svgUri
+                    a.dispatchEvent(new MouseEvent("click", {
+                        //view: "window",
+                        bubbles: false,
+                        cancelable: true
+                    }))
+                    a.remove()
                     break
                 case "png":
                     let canvas = document.createElement('canvas');
                     //canvas.style.display = "none"
-                    canvas.width = curSvgElem.width.baseVal.value
-                    canvas.height = curSvgElem.height.baseVal.value
-                    root.appendChild(canvas)
+                    canvas.width = svgElement.width.baseVal.value
+                    canvas.height = svgElement.height.baseVal.value
+                    //root.appendChild(canvas)
 
                     let svgBlob = new Blob([source], { type: 'image/svg+xml;charset=utf-8' });
                     let DOMURL = self.URL || self.webkitURL || self
@@ -705,25 +710,19 @@ function downloadImage(event, type) {
                     img.onload = function (e) {
                         ctx.drawImage(img, 0, 0);
 
-                        let imgURI = canvas.toDataURL('image/png')
+                        let imgURI = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream')
                         let svgImgUri = canvas.toDataURL("image/svg-xml")
 
-                        console.log("image-uri:", imgURI)
-                        console.log("svg-blob-uri:", svgBlobUri)
-                        console.log("svg-img-uri:", svgImgUri)
-
-                        /* .replace('image/png', 'image/octet-stream') */
-                        curDownloadLink.download = curDownloadLink.textContent
-                        curDownloadLink.href = imgURI
-                        curDownloadLink.style.display = ""
-                        curDownloadLink.target = "_blank"
-                        /* curDownloadLink.dispatchEvent(new MouseEvent("click", {
-                            view: "window",
+                        a.href = imgURI
+                        a.dispatchEvent(new MouseEvent("click", {
+                            //view: "window",
                             bubbles: false,
                             cancelable: true
-                        })) */
+                        }))
 
-                        //DOMURL.revokeObjectURL(svgBlobUri);
+                        DOMURL.revokeObjectURL(svgBlobUri);
+                        canvas.remove()
+                        a.remove()
                     }
                     img.src = svgBlobUri
 
@@ -731,14 +730,6 @@ function downloadImage(event, type) {
             }
         }
     }
-}
-
-function downloadPNG(event) {
-    downloadImage(event, "png")
-}
-
-function downloadSVG(event) {
-    downloadImage(event, "svg")
 }
 
 console.log(`
@@ -848,7 +839,7 @@ for (let menuDevice in menus) {
 
     let deviceHeading = document.createElement("h2")
     deviceHeading.className = "deviceHeading"
-    deviceHeading.textContent = menuDevice
+    deviceHeading.textContent = " -\t" + menuDevice
     superContainer.appendChild(deviceHeading)
 
     let deviceContainer = document.createElement("div")
@@ -944,20 +935,23 @@ for (let menuDevice in menus) {
     deviceContainer.appendChild(document.createElement("hr"))
 
     deviceHeading.addEventListener("click", (e) => {
-        console.log("You clicked device heading!",e)
+        console.log("You clicked a device heading!", e)
+
         if (deviceContainer) {
             let elemDisplay = window.getComputedStyle(deviceContainer).display
-            switch(elemDisplay){
+            switch (elemDisplay) {
                 case "none":
                     e.target.classList.remove("hideDeviceContainer")
                     deviceContainer.style.display = "block"
+                    e.target.textContent = e.target.textContent.replace("+", "-")
                     break
                 case "block":
                     e.target.classList.add("hideDeviceContainer")
                     deviceContainer.style.display = "none"
+                    e.target.textContent = e.target.textContent.replace("-", "+")
                     break
             }
-            
+
         }
     })
 
@@ -972,16 +966,16 @@ for (let menuDevice in menus) {
 
         const imageTypes = ["svg", "png"]
         let downloadLinks = imageTypes.map(imageType => {
-            let downloadLink = document.createElement("a")
+            let downloadLink = document.createElement("button")
             downloadLink.tabIndex = tabsPerDevice * menuDeviceIndex + 1 + 4
             downloadLink.style.visibility = "hidden"
             downloadLink.className = "downloadLink"
             downloadLink.id = [downloadLink.className, imageType, pictureName, menuDevice].join("-")
             downloadLink.textContent = `${pictureName}-${menuDevice}.${imageType}`
-            downloadLink.download = downloadLink.textContent
-            downloadLink.target = "_blank"
-            downloadLink.href = downloadLink.textContent
-            downloadLink.onclick = downloadSVG
+            //downloadLink.download = downloadLink.textContent
+            //downloadLink.target = "_blank"
+            //downloadLink.href = downloadLink.textContent
+            downloadLink.onclick = downloadImageFile
             linksContainer.appendChild(downloadLink)
             return downloadLink
         })
