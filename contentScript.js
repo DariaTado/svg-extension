@@ -185,7 +185,8 @@
     }
 
     function injectInterfaceAction(parentElement, system, interface) {
-        let endpoint = chrome.runtime.getURL("index.html")
+        //let endpoint = chrome.runtime.getURL("index.html")
+        const endpoint = "https://dariatado.github.io/svg-extension/index.html"
         let params = {
             manufacturer: system.manufacturer
             , name: system.name
