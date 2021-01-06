@@ -17,38 +17,12 @@
     gap: 10px;
 }
 
-.downloadLink {
-    display:inline-block;
-    padding:0.35em 1.2em;
-    border:0.1em solid #FFFFFF;
-    margin:0 0.3em 0.3em 0;
-    border-radius:0.12em;
-    box-sizing: border-box;
-    text-decoration:none;
-    font-family:'Roboto',sans-serif;
-    font-weight:300;
-    color:#FFFFFF;
-    text-align:center;
-    transition: all 0.2s;
-}
-.downloadLink:hover{
-    color:#000000;
-    background-color:#FFFFFF;
-}
-
-@media all and (max-width:100em){
- .downloadLink {
-    display:block;
-    margin:0.4em auto;
-    }
-}
-
 h1 {
-    color: #999999;
+    color: #666666;
 }
 
 h2 {
-    color: #999999;
+    color: #666666;
     background-color: #eeeeee;
 }
 
@@ -74,14 +48,9 @@ hr {
     font-size: 175%;
 }
 
-a:focus {
-    background: palegoldenrod;
-}
-
 .input-writing:focus {
     background: palegoldenrod;
     font-weight: bold;
-    font-size: 175%;
 }
 
 .input-checkbox:focus {
@@ -95,6 +64,27 @@ a:focus {
     margin: 0 auto;
 }
 
-/* object {
-    border: thin dotted darkgrey;
-} */
+button{
+    display:inline-block;
+    padding:0.35em 1.2em;
+    border:0.1em solid #FFFFFF;
+    margin:0 0.3em 0.3em 0;
+    border-radius:0.12em;
+    box-sizing: border-box;
+    text-decoration:none;
+    font-family:'Roboto',sans-serif;
+    font-weight:300;
+    color:#FFFFFF;
+    text-align:center;
+    transition: all 0.2s;
+}
+button:hover{
+    color:#000000;
+    background-color:#FFFFFF;
+}
+@media all and (max-width:30em){
+ button{
+    display:block;
+    margin:0.4em auto;
+    }
+}

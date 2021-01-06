@@ -1,41 +1,43 @@
-{"content_scripts": [
-    {
-        "matches": [
-            "https://ci-hvactool.tado.com/auxiliaryControl/search/*",
-            "https://ci-hvactool.tado.com/auxiliaryControl/show/*",
-            "https://ci-hvactool.tado.com/boilerControl/search/*",
-            "https://ci-hvactool.tado.com/boilerControl/show/*",
-            "https://ci-hvactool.tado.com/boilerControlWithFitsIn/search/*",
-            "https://ci-hvactool.tado.com/boilerControlWithFitsIn/show/*",
-            "https://ci-hvactool.tado.com/boiler/search/*",
-            "https://ci-hvactool.tado.com/boiler/show/*",
-            "https://ci-hvactool.tado.com/genericSystem/search/*",
-            "https://ci-hvactool.tado.com/genericSystem/show/*",
-            "https://ci-hvactool.tado.com/remote/search/*",
-            "https://ci-hvactool.tado.com/remote/show/*",
-            "https://ci-hvactool.tado.com/roomThermostatReceiver/search/*",
-            "https://ci-hvactool.tado.com/roomThermostatReceiver/show/*",
-            "https://ci-hvactool.tado.com/roomThermostat/search/*",
-            "https://ci-hvactool.tado.com/roomThermostat/show/*",
-            "https://hvactool.tado.com/auxiliaryControl/search/*",
-            "https://hvactool.tado.com/auxiliaryControl/show/*",
-            "https://hvactool.tado.com/boilerControl/search/*",
-            "https://hvactool.tado.com/boilerControl/show/*",
-            "https://hvactool.tado.com/boilerControlWithFitsIn/search/*",
-            "https://hvactool.tado.com/boilerControlWithFitsIn/show/*",
-            "https://hvactool.tado.com/boiler/search/*",
-            "https://hvactool.tado.com/boiler/show/*",
-            "https://hvactool.tado.com/genericSystem/search/*",
-            "https://hvactool.tado.com/genericSystem/show/*",
-            "https://hvactool.tado.com/remote/search/*",
-            "https://hvactool.tado.com/remote/show/*",
-            "https://hvactool.tado.com/roomThermostatReceiver/search/*",
-            "https://hvactool.tado.com/roomThermostatReceiver/show/*",
-            "https://hvactool.tado.com/roomThermostat/search/*",
-            "https://hvactool.tado.com/roomThermostat/show/*"
-        ],
-        "js": [
-            "contentScript.js"
-        ]
-    }
-]}
+{
+    "content_scripts": [
+        {
+            "matches": [
+                "https://ci-hvactool.tado.com/auxiliaryControl/search/*",
+                "https://ci-hvactool.tado.com/auxiliaryControl/show/*",
+                "https://ci-hvactool.tado.com/boilerControl/search/*",
+                "https://ci-hvactool.tado.com/boilerControl/show/*",
+                "https://ci-hvactool.tado.com/boilerControlWithFitsIn/search/*",
+                "https://ci-hvactool.tado.com/boilerControlWithFitsIn/show/*",
+                "https://ci-hvactool.tado.com/boiler/search/*",
+                "https://ci-hvactool.tado.com/boiler/show/*",
+                "https://ci-hvactool.tado.com/genericSystem/search/*",
+                "https://ci-hvactool.tado.com/genericSystem/show/*",
+                "https://ci-hvactool.tado.com/remote/search/*",
+                "https://ci-hvactool.tado.com/remote/show/*",
+                "https://ci-hvactool.tado.com/roomThermostatReceiver/search/*",
+                "https://ci-hvactool.tado.com/roomThermostatReceiver/show/*",
+                "https://ci-hvactool.tado.com/roomThermostat/search/*",
+                "https://ci-hvactool.tado.com/roomThermostat/show/*",
+                "https://hvactool.tado.com/auxiliaryControl/search/*",
+                "https://hvactool.tado.com/auxiliaryControl/show/*",
+                "https://hvactool.tado.com/boilerControl/search/*",
+                "https://hvactool.tado.com/boilerControl/show/*",
+                "https://hvactool.tado.com/boilerControlWithFitsIn/search/*",
+                "https://hvactool.tado.com/boilerControlWithFitsIn/show/*",
+                "https://hvactool.tado.com/boiler/search/*",
+                "https://hvactool.tado.com/boiler/show/*",
+                "https://hvactool.tado.com/genericSystem/search/*",
+                "https://hvactool.tado.com/genericSystem/show/*",
+                "https://hvactool.tado.com/remote/search/*",
+                "https://hvactool.tado.com/remote/show/*",
+                "https://hvactool.tado.com/roomThermostatReceiver/search/*",
+                "https://hvactool.tado.com/roomThermostatReceiver/show/*",
+                "https://hvactool.tado.com/roomThermostat/search/*",
+                "https://hvactool.tado.com/roomThermostat/show/*"
+            ],
+            "js": [
+                "contentScript.js"
+            ]
+        }
+    ]
+}

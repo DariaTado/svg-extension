@@ -1,6 +1,6 @@
   {
     "name": "svg-extension",
-    "version": "1.4",
+    "version": "1.5",
     "description": "tado° Label Generator",
     "permissions": [
       "https://hvactool.tado.com/*/",
