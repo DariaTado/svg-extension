@@ -36,16 +36,16 @@ hr {
 
 .input-label {
     /* color: #999999; */
-    color: #666666;
+    color: #999999;
     
-    font-weight: bold;
-    font-size: 110%;
+    /* font-weight: bold;
+    font-size: 110%; */
 }
 
 .input-writing{
     color: #3a86ad;
     font-weight: normal;
-    font-size: 175%;
+    font-size: 155%;
 }
 
 .input-writing:focus {

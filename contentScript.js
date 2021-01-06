@@ -166,42 +166,36 @@
         return system
     }
 
-    function injectActionElement(parentElement, legend, urlExpression, tagName, classValue, id) {
-        let actionElement = null
-        if (id) {
-            actionElement = document.getElementById(id)
-        }
-        if (!actionElement) {
-            actionElement = document.createElement(tagName)
-            actionElement.id = id
-            parentElement.appendChild(actionElement)
-            console.log("Added new button:", actionElement)
-        }
-        actionElement.className = classValue
-        actionElement.textContent = legend
-        actionElement.setAttribute("onclick", `window.open(${urlExpression})`)
-        actionElement.style.fontSize = global_fontSize
-        return actionElement
-    }
+    function fireAction(event) {
+        console.log("event:", event)
+        let dataId = event.target.id.split("-")[1] ? Number(event.target.id.split("-")[1]) : null
+        if (dataId) {
+            let interface = system.interfaces.filter(interface => {
+                return dataId === interface.compatibilityId
+            })[0]
 
-    function injectInterfaceAction(parentElement, system, interface) {
-        //let endpoint = chrome.runtime.getURL("index.html")
-        const endpoint = "https://dariatado.github.io/svg-extension/index.html"
-        let params = {
-            manufacturer: system.manufacturer
-            , name: system.name
-            , type: system.type
-            , ...system.placement ? { placement: system.placement } : null
-            , interface: {
-                id: interface.id
-                , cid: interface.compatibilityId
-                , name: interface.name
-                , connector: interface.connector
-                , terminalsAndLabels: interface.terminalsAndLabels
+            let params = {
+                manufacturer: system.manufacturer
+                , name: system.name
+                , type: system.type
+                , ...system.placement ? { placement: system.placement } : null
+                , interface: {
+                    id: interface.id
+                    , cid: interface.compatibilityId
+                    , name: interface.name
+                    , connector: interface.connector
+                    , terminalsAndLabels: interface.terminalsAndLabels
+                }
             }
+
+            let fakeLink = document.createElement("a")
+            fakeLink.href = `${endpoint}?${obj2payload(params)}`
+            fakeLink.download = "index.html"
+            fakeLink.dispatchEvent(new MouseEvent("click", {
+                bubbles: false,
+                cancelable: true
+            }))
         }
-        injectActionElement(parentElement, "labels...", `'${[endpoint, obj2payload(params)].join("?")}'`, "button", "text-button"
-            , ["button", interface.compatibilityId].join("-"))
     }
 
     function obj2payload(obj) {
@@ -219,41 +213,109 @@
         }
     }
 
-    function injectButtons(system) {
-        if (system.hasOwnProperty("interfaces")) {
-            for (let interface of system.interfaces) {
-                if (!interface.name.match(/WIRELESS/)) {
-                    let cssInterface = `div[class*=interface][data-id='${interface.compatibilityId}'] div.interface-name`
-                    let interfaceNode = document.querySelector(cssInterface)
-                    console.log("Adding button to the interface:", interface.name, interface.id, interface.compatibilityId,)
-                    if (!interfaceNode) {
-                        console.log("Cannot find CSS selector:", cssInterface)
-                    } else {
-                        let lgButton = injectInterfaceAction(interfaceNode, system, interface)
+    function fireAction(event) {
+        console.log("event:", event.target.id)
+        let dataId = event.target.id.split("-")[1] ? Number(event.target.id.split("-")[1]) : null
+        console.log("data id:", dataId)
+        if (dataId) {
+            let interface = system.interfaces.filter(interface => {
+                return dataId === interface.compatibilityId
+            })[0]
+
+            if (interface) {
+                let params = {
+                    manufacturer: system.manufacturer
+                    , name: system.name
+                    , type: system.type
+                    , ...system.placement ? { placement: system.placement } : null
+                    , interface: {
+                        id: interface.id
+                        , cid: interface.compatibilityId
+                        , name: interface.name
+                        , connector: interface.connector
+                        , terminalsAndLabels: interface.terminalsAndLabels
                     }
                 }
+
+                let fakeLink = document.createElement("a")
+                fakeLink.href = `${endpoint}?${obj2payload(params)}`
+                fakeLink.download = "index.html"
+                fakeLink.target = "_blank"
+                console.log("clicking the fake link:", fakeLink)
+                fakeLink.dispatchEvent(new MouseEvent("click", {
+                    //view:"window",
+                    bubbles: false,
+                    cancelable: true
+                }))
             }
+
+
+        }
+    }
+
+    function injectButtons() {
+        if (system && system.interfaces && Array.isArray(system.interfaces) && (0 < system.interfaces.length)) {
+            system.interfaces.filter(interface => {
+                return interface.name ? !interface.name.match("WIRELESS") : null
+            }).forEach(interface => {
+                let interfaceNode = document.querySelector(`div[class*=interface][data-id='${interface.compatibilityId}'] div.interface-name`)
+                if (interfaceNode) {
+                    console.log("Adding button to the interface:", interfaceNode)
+
+                    //injectInterfaceAction(interfaceNode, interface)
+                    let actionId = ["button", interface.compatibilityId].join("-")
+                    let actionElement = document.getElementById(actionId)
+                    if (!actionElement) {
+                        actionElement = document.createElement("button")
+                        actionElement.id = actionId
+                        actionElement.className = "text-button"
+                        actionElement.onclick = fireAction
+                        actionElement.textContent = "labels..."
+                        interfaceNode.appendChild(actionElement)
+                    }
+                }
+            })
         }
     }
 
     console.log(`
      ________________________________
-    |                                |
+    |          svg-extension         |
     |         content script         |
-    |                                |
-    |   will add 'labels..' buttons  |
-    |        to hvactool system      |
+    | it will add 'labels..' buttons |
+    |     to the hvac-tool system    |
     |                                |`)
+    var endpoint = chrome.runtime.getURL("index.html")
+    console.log("endpoint:" , endpoint)
+    var system = null
     if (document.querySelector("#id")) {
-        //document.title = parseInt(document.querySelector("#id").value)
-        let system = parseDocument()
-        console.log("System:", system)
-        injectButtons(system)
+        const doSync = true
+        if (doSync) {
+            chrome.storage.sync.get({
+                svgPageSource: 'self'
+            }, function (items) {
+                console.log("Stored value for svgPageSource:", items);
+                if (items && items.svgPageSource && (!items.svgPageSource.match(/self/i))) {
+                    endpoint = items.svgPageSource
+                }
+                console.log("Browser action url:", endpoint)
+
+                system = parseDocument()
+                console.log("System:", system)
+                injectButtons(system)
+            });
+        } else {
+            console.log("svg-extension index.html url:", endpoint)
+            let system = parseDocument()
+            console.log("system:", system)
+            injectButtons(system)
+        }
     } else {
         console.log("Cannot find #id on the page. Wrong page?")
     }
     console.log(`
     |                                |
+    |          svg-extension         |
     |         content script         |
     |            The End.            |
     |ds______________________________|`)
