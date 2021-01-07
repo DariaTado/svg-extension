@@ -1,6 +1,4 @@
 {
-    const global_fontSize = "10px"
-
     const systemTypes = [{ type: "roomThermostat", nameForFile: "RT" }
         , { type: "roomThermostatReceiver", nameForFile: "RF_Receiver" }
         , { type: "auxiliaryControl", nameForFile: "External_Controller" }
