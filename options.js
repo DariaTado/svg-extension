@@ -1,8 +1,15 @@
 // Saves options to chrome.storage
 function save_options() {
-    var svgPageSource = document.getElementById('index-page-source').value;
+    var newSource = document.getElementById('index-page-source').value;
+    if (newSource) {
+        document.getElementById("test-link").href = newSource
+        document.getElementById("test-link").textContent = newSource
+    } else {
+        document.getElementById("test-link").href = chrome.runtime.getURL("index.html")
+        document.getElementById("test-link").textContent = "local"
+    }
     chrome.storage.sync.set({
-        svgPageSource: svgPageSource
+        svgPageSource: newSource
     }, function () {
         // Update status to let user know options were saved.
         var status = document.getElementById('status');
@@ -20,7 +27,15 @@ function restore_options() {
     chrome.storage.sync.get({
         svgPageSource: 'self'
     }, function (items) {
-        document.getElementById('index-page-source').value = items.svgPageSource;
+        if (items && items.svgPageSource) {
+            document.getElementById('index-page-source').value = items.svgPageSource;
+            document.getElementById("test-link").href = items.svgPageSource
+            document.getElementById("test-link").textContent = items.svgPageSource
+        } else {
+            document.getElementById("test-link").href = chrome.runtime.getURL("index.html")
+            document.getElementById("test-link").textContent = "local"
+        }
+
     });
 }
 
