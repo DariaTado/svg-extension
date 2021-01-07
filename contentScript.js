@@ -78,6 +78,7 @@
                         actionElement.className = "text-button"
                         actionElement.onclick = fireAction
                         actionElement.textContent = "labels..."
+                        actionElement.style.fontSize = "0.6em"
                         injectee.appendChild(actionElement)
                     }
                 } else {
