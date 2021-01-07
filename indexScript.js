@@ -172,7 +172,7 @@ function payload2obj(payload) {
         if (1 < names.length) {
             if (!obj.hasOwnProperty(names[0])) { obj[names[0]] = {} }
             addOrSetProperty(obj[names[0]], names.slice(1, names.length).join("."), value)
-        } else {
+        } else if (value) {
             if (value.match(/\[.*\]/) || value.match(/\{.*\}/)) {
                 obj[names[0]] = JSON.parse(value)
             } else {

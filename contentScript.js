@@ -232,6 +232,8 @@
             })[0]
 
             if (interface) {
+
+
                 let params = {
                     manufacturer: system.manufacturer
                     , name: system.name
@@ -246,19 +248,28 @@
                     }
                 }
 
-                let fakeLink = document.createElement("a")
-                fakeLink.href = `${endpoint}?${obj2payload(params)}`
-                fakeLink.download = "index.html"
-                fakeLink.target = "_blank"
-                console.log("clicking the fake link:", fakeLink)
-                fakeLink.dispatchEvent(new MouseEvent("click", {
-                    //view:"window",
-                    bubbles: false,
-                    cancelable: true
-                }))
+                chrome.storage.sync.get({
+                    svgPageSource: 'self'
+                }, function (items) {
+                    console.log("Stored value for index.html url:", items);
+                    if (items && items.svgPageSource && (!items.svgPageSource.match(/self/i))) {
+                        endpoint = items.svgPageSource
+                    } else {
+                        endpoint = chrome.runtime.getURL("index.html")
+                    }
+                    console.log("Resulting index.html url:", endpoint)
+                    let fakeLink = document.createElement("a")
+                    fakeLink.href = `${endpoint}?${obj2payload(params)}`
+                    fakeLink.download = "index.html"
+                    fakeLink.target = "_blank"
+                    console.log("clicking the fake link:", fakeLink)
+                    fakeLink.dispatchEvent(new MouseEvent("click", {
+                        //view:"window",
+                        bubbles: false,
+                        cancelable: true
+                    }))
+                });
             }
-
-
         }
     }
 
@@ -290,7 +301,7 @@
         parseDocument()
         console.log("system:", system)
     }
-    
+
     console.log(`
     |                                |
     |          svg-extension         |
