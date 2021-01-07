@@ -92,7 +92,7 @@
 
     function parseDocument() {
         if (!document.querySelector("#id")) { console.log("#id not found in the document. Wrong callee?"); return null }
-        let system = { id: parseInt(document.querySelector("#id").value) }
+        system = { id: parseInt(document.querySelector("#id").value) }
         if (!document.querySelector("form[action][method=get]").getAttribute("action").match(/^\/(\w+)\//)) {
             console.log("System class cannot be detected from the form action. Wrong callee?");
             return null
@@ -120,7 +120,6 @@
 
         let cssInterfaces = "div[class*=interface][data-id]"
         let interfaceNodeList = document.querySelectorAll(cssInterfaces)
-        let interfaceIndex = 0
         if (interfaceNodeList && (0 < interfaceNodeList.length)) {
             let interfaces = []
             for (let interfaceNode of interfaceNodeList) {
@@ -157,9 +156,25 @@
 
                 interface.terminalsAndLabels = terminalsAndLabels
                 console.log("Found interface:", interface.name, interface.terminalsAndLabels)
+                //inject 'labels' button here
+                let injectee = document.querySelector(`div[class*=interface][data-id='${interface.compatibilityId}'] div.interface-name`)
+                if (injectee) {
+                    console.log("Adding button to the interface:", injectee)
+                    let actionId = ["button", interface.compatibilityId].join("-")
+                    let actionElement = document.getElementById(actionId)
+                    if (!actionElement) {
+                        actionElement = document.createElement("button")
+                        actionElement.id = actionId
+                        actionElement.className = "text-button"
+                        actionElement.onclick = fireAction
+                        actionElement.textContent = "labels..."
+                        injectee.appendChild(actionElement)
+                    }
+                } else {
+                    console.log("injection node not found?", `div[class*=interface][data-id='${interface.compatibilityId}'] div.interface-name`)
+                }
 
                 interfaces.push(interface)
-                interfaceIndex++
             }
             system.interfaces = interfaces
         }
@@ -198,15 +213,11 @@
         }
     }
 
-    function obj2payload(obj) {
-        return obj2payloadRecursive(obj)
-    }
-
-    function obj2payloadRecursive(obj, name) {
+    function obj2payload(obj, name) {
         if (("object" === typeof obj) && (!Array.isArray(obj))) {
             return Object.keys(obj)
                 .filter(elem => { return elem })
-                .map(elem => { return obj2payloadRecursive(obj[elem], [name, elem].filter(elem => { return elem }).join(".")) })
+                .map(elem => { return obj2payload(obj[elem], [name, elem].filter(elem => { return elem }).join(".")) })
                 .join("&")
         } else {
             return [name, obj].join("=")
@@ -253,31 +264,6 @@
         }
     }
 
-    function injectButtons() {
-        if (system && system.interfaces && Array.isArray(system.interfaces) && (0 < system.interfaces.length)) {
-            system.interfaces.filter(interface => {
-                return interface.name ? !interface.name.match("WIRELESS") : null
-            }).forEach(interface => {
-                let interfaceNode = document.querySelector(`div[class*=interface][data-id='${interface.compatibilityId}'] div.interface-name`)
-                if (interfaceNode) {
-                    console.log("Adding button to the interface:", interfaceNode)
-
-                    //injectInterfaceAction(interfaceNode, interface)
-                    let actionId = ["button", interface.compatibilityId].join("-")
-                    let actionElement = document.getElementById(actionId)
-                    if (!actionElement) {
-                        actionElement = document.createElement("button")
-                        actionElement.id = actionId
-                        actionElement.className = "text-button"
-                        actionElement.onclick = fireAction
-                        actionElement.textContent = "labels..."
-                        interfaceNode.appendChild(actionElement)
-                    }
-                }
-            })
-        }
-    }
-
     console.log(`
      ________________________________
     |          svg-extension         |
@@ -286,33 +272,27 @@
     |     to the hvac-tool system    |
     |                                |`)
     var endpoint = chrome.runtime.getURL("index.html")
-    console.log("endpoint:" , endpoint)
+    console.log("endpoint:", endpoint)
     var system = null
-    if (document.querySelector("#id")) {
-        const doSync = true
-        if (doSync) {
-            chrome.storage.sync.get({
-                svgPageSource: 'self'
-            }, function (items) {
-                console.log("Stored value for svgPageSource:", items);
-                if (items && items.svgPageSource && (!items.svgPageSource.match(/self/i))) {
-                    endpoint = items.svgPageSource
-                }
-                console.log("Browser action url:", endpoint)
-
-                system = parseDocument()
-                console.log("System:", system)
-                injectButtons(system)
-            });
-        } else {
-            console.log("svg-extension index.html url:", endpoint)
-            let system = parseDocument()
-            console.log("system:", system)
-            injectButtons(system)
-        }
+    console.log("system:", system)
+    const doSync = true
+    if (doSync) {
+        chrome.storage.sync.get({
+            svgPageSource: 'self'
+        }, function (items) {
+            console.log("Stored value for svgPageSource:", items);
+            if (items && items.svgPageSource && (!items.svgPageSource.match(/self/i))) {
+                endpoint = items.svgPageSource
+            }
+            console.log("Resulting svg-extension index.html url:", endpoint)
+            parseDocument()
+        });
     } else {
-        console.log("Cannot find #id on the page. Wrong page?")
+        console.log("Default svg-extension index.html url:", endpoint)
+        parseDocument()
+        console.log("system:", system)
     }
+    
     console.log(`
     |                                |
     |          svg-extension         |

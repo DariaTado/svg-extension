@@ -7,14 +7,14 @@
 
 .linksContainer {
     display: grid;
-    grid-template-columns: repeat(auto-fill, 120px);
+    grid-template-columns: repeat(auto-fill, 3.5em);
     gap: 10px;
 }
 
 .picturesContainer {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 0.6em;
 }
 
 h1 {
@@ -37,9 +37,8 @@ hr {
 .input-label {
     /* color: #999999; */
     color: #999999;
-    
-    /* font-weight: bold;
-    font-size: 110%; */
+    font-family: Arial, sans-serif;
+    font-size: 0.8em
 }
 
 .input-writing{
