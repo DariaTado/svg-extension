@@ -7,14 +7,14 @@
 
 .linksContainer {
     display: grid;
-    grid-template-columns: repeat(auto-fill, 120px);
+    grid-template-columns: repeat(auto-fill, 3.5em);
     gap: 10px;
 }
 
 .picturesContainer {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px;
+    gap: 0.6em;
 }
 
 h1 {
@@ -36,16 +36,15 @@ hr {
 
 .input-label {
     /* color: #999999; */
-    color: #666666;
-    
-    font-weight: bold;
-    font-size: 110%;
+    color: #999999;
+    font-family: Arial, sans-serif;
+    font-size: 0.8em
 }
 
 .input-writing{
     color: #3a86ad;
     font-weight: normal;
-    font-size: 175%;
+    font-size: 155%;
 }
 
 .input-writing:focus {

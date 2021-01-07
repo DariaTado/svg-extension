@@ -58,20 +58,38 @@ eventList.forEach(function (e) {
 
 console.log(`
 ----------------------------------
-|                                |
+|           svg-extension        |
 |         Background script      |
 |                                |
 |   will add the index.html link |
 |        to the 'cat' button     |
 |                                |
 `)
-const actionUrl = chrome.runtime.getURL("index.html")
-console.log("index.html's url:", actionUrl)
-chrome.browserAction.onClicked.addListener(function (window) {
-  chrome.tabs.create({ url: actionUrl }) //opens the page with 'default' stickers
-})
+
+const doSync = true
+let actionUrl = chrome.runtime.getURL("index.html")
+if (doSync) {
+  chrome.storage.sync.get({
+    svgPageSource: 'self'
+  }, function (items) {
+    console.log("Stored value for page source:", items.svgPageSource);
+    if('self' !== items.svgPageSource ){
+      actionUrl = items.svgPageSource
+    }
+    console.log("Browser action url:", actionUrl)
+    chrome.browserAction.onClicked.addListener(function (window) {
+      chrome.tabs.create({ url: actionUrl }) 
+    })
+  });
+} else {
+  console.log("Browser action url:", actionUrl)
+  chrome.browserAction.onClicked.addListener(function (window) {
+    chrome.tabs.create({ url: actionUrl }) 
+  })
+}
+
 console.log(`
-|                                |
+|           svg-extension        |
 |        Background script       |
 |            The End.            |
 |ds______________________________|
