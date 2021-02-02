@@ -20,7 +20,7 @@
       
 <g title="system terminal label">
    <circle cx="24" cy="24" r="22" stroke="#3A86AD" stroke-width="3"
-    fill="transparent"></circle>
+    fill="none"></circle>
    <text text-anchor="middle" y="36" fill="#3A86AD" stroke="#3A86AD" stroke-width="2" stroke-miterlimit="10"
       font-family="Journal" transform="scale(0.70 1)" x="34" font-size="34">N</text>
 </g>
@@ -48,7 +48,7 @@
       
 <g title="system terminal label">
    <circle cx="24" cy="24" r="22" stroke="#3A86AD" stroke-width="3"
-    fill="transparent"></circle>
+    fill="none"></circle>
    <text text-anchor="middle" y="36" fill="#3A86AD" stroke="#3A86AD" stroke-width="2" stroke-miterlimit="10"
       font-family="Journal" transform="scale(0.70 1)" x="34" font-size="34">L</text>
 </g>
@@ -76,7 +76,7 @@
       
 <g title="system terminal label">
    <circle cx="24" cy="24" r="22" stroke="#3A86AD" stroke-width="3"
-    fill="transparent"></circle>
+    fill="none"></circle>
    <text text-anchor="middle" y="36" fill="#3A86AD" stroke="#3A86AD" stroke-width="2" stroke-miterlimit="10"
       font-family="Journal" transform="scale(0.70 1)" x="34" font-size="34"></text>
 </g>
@@ -115,7 +115,7 @@
       
 <g title="system terminal label">
    <circle cx="24" cy="24" r="22" stroke="#3A86AD" stroke-width="3"
-   stroke-dasharray="5" fill="transparent"></circle>
+   stroke-dasharray="5" fill="none"></circle>
    <text text-anchor="middle" y="36" fill="#3A86AD" stroke="#3A86AD" stroke-width="2" stroke-miterlimit="10"
       font-family="Journal" transform="scale(0.70 1)" x="34" font-size="34">2</text>
 </g>
@@ -153,7 +153,7 @@
       
 <g title="system terminal label">
    <circle cx="24" cy="24" r="22" stroke="#3A86AD" stroke-width="3"
-    fill="transparent"></circle>
+    fill="none"></circle>
    <text text-anchor="middle" y="36" fill="#3A86AD" stroke="#3A86AD" stroke-width="2" stroke-miterlimit="10"
       font-family="Journal" transform="scale(0.70 1)" x="34" font-size="34">4</text>
 </g>
@@ -191,7 +191,7 @@
 
 <g title="system terminal label">
    <circle cx="24" cy="24" r="22" stroke="#3A86AD" stroke-width="3"
-    fill="transparent"></circle>
+    fill="none"></circle>
    <text text-anchor="middle" y="36" fill="#3A86AD" stroke="#3A86AD" stroke-width="2" stroke-miterlimit="10"
       font-family="Journal" transform="scale(0.70 1)" x="34" font-size="34"></text>
 </g>
@@ -229,7 +229,7 @@
 
 <g title="system terminal label">
    <circle cx="24" cy="24" r="22" stroke="#3A86AD" stroke-width="3" stroke-dasharray="5"
-    fill="transparent"></circle>
+    fill="none"></circle>
    <text text-anchor="middle" y="36" fill="#3A86AD" stroke="#3A86AD" stroke-width="2" stroke-miterlimit="10"
       font-family="Journal" transform="scale(0.70 1)" x="34" font-size="34">1</text>
 </g>
@@ -266,7 +266,7 @@
 
 <g title="system terminal label">
    <circle cx="24" cy="24" r="22" stroke="#3A86AD" stroke-width="3"
-    fill="transparent"></circle>
+    fill="none"></circle>
    <text text-anchor="middle" y="36" fill="#3A86AD" stroke="#3A86AD" stroke-width="2" stroke-miterlimit="10"
       font-family="Journal" transform="scale(0.70 1)" x="34" font-size="34">3</text>
 </g>
@@ -303,7 +303,7 @@
 
 <g title="system terminal label">
    <circle cx="24" cy="24" r="22" stroke="#3A86AD" stroke-width="3" stroke-dasharray="5"
-    fill="transparent"></circle>
+    fill="none"></circle>
    <text text-anchor="middle" y="36" fill="#3A86AD" stroke="#3A86AD" stroke-width="2" stroke-miterlimit="10"
       font-family="Journal" transform="scale(0.70 1)" x="34" font-size="34">⏚</text>
 </g>
@@ -331,7 +331,7 @@
 
 <g title="system terminal label">
    <circle cx="24" cy="24" r="22" stroke="#3A86AD" stroke-width="3"
-    fill="transparent"></circle>
+    fill="none"></circle>
    <text text-anchor="middle" y="36" fill="#3A86AD" stroke="#3A86AD" stroke-width="2" stroke-miterlimit="10"
       font-family="Journal" transform="scale(0.70 1)" x="34" font-size="34"></text>
 </g>
@@ -359,7 +359,7 @@
 
 <g title="system terminal label">
    <circle cx="24" cy="24" r="22" stroke="#3A86AD" stroke-width="3"
-    fill="transparent"></circle>
+    fill="none"></circle>
    <text text-anchor="middle" y="36" fill="#3A86AD" stroke="#3A86AD" stroke-width="2" stroke-miterlimit="10"
       font-family="Journal" transform="scale(0.70 1)" x="34" font-size="34"></text>
 </g>

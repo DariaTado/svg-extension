@@ -239,7 +239,7 @@ function applyWriting(device, terminal) {
         if ((menus[device][terminal].writtenText.textContent || newWriting)
             && (newWriting !== menus[device][terminal].writtenText.textContent)) {
             menus[device][terminal].writtenText.textContent = newWriting //this updates the svg text' elements text
-            console.log("New writing:", newWriting)
+            //console.log("New writing:", newWriting)
             if (newWriting && (3 < newWriting.toString().length)) {
                 //tilt up the writing 45°
                 let oldTransform = menus[device][terminal].writtenText.getAttribute("transform")
@@ -251,7 +251,7 @@ function applyWriting(device, terminal) {
                 }
                 let newTransform = [oldTransform, "rotate(-30)"].join(" ")
                 menus[device][terminal].writtenText.setAttribute("transform", newTransform) //this rotates the text element
-                menus[device][terminal].circle.style.visibility = "hidden" //this hides the circle around the text element
+                menus[device][terminal].circle.style.display = "none" //this hides the circle around the text element
             } else {
                 let oldTransform = menus[device][terminal].writtenText.getAttribute("transform")
                 if (oldTransform) {
@@ -262,9 +262,9 @@ function applyWriting(device, terminal) {
                 }
                 let newTransform = oldTransform
                 menus[device][terminal].writtenText.setAttribute("transform", newTransform)
-                menus[device][terminal].circle.style.visibility = menus[device][terminal].present
+                menus[device][terminal].circle.style.display = menus[device][terminal].present
                     && (!menus[device][terminal].hide)
-                    ? "visible" : "hidden"
+                    ? "block" : "none"
             }
         }
     }
@@ -287,6 +287,7 @@ function onForceBridge(e) {
         let terminal = element.id.split("-")[2]
         menus[device][terminal].forceBridge = element.checked
         applyMenu(device, terminal, false)
+        //console.log(device, terminal,"forceBridge:", menus[device][terminal])
     }
 }
 
@@ -574,19 +575,20 @@ function fixHWBridge(terminals) {
 }
 
 function applyHide(device, terminal) {
+    //TODO: rewrite .visibility:"visible","hidden" with .display:"block","none"
     if (menus[device][terminal].connectRule) {
         menus[device][terminal].connectRule.style.visibility = menus[device][terminal].present && (!menus[device][terminal].hide)
             ? "visible" : "hidden"
     } else if (menus[device][terminal].connectWirePath) {
-        console.log(menus[device][terminal].forceBridge, menus[device][terminal])
+        //console.log(menus[device][terminal].forceBridge, menus[device][terminal])
         menus[device][terminal].connectWirePath.style.visibility = terminal.match(/^Bridge/)
             ? (menus[device][terminal].present && (!menus[device][terminal].hide)) || menus[device][terminal].forceBridge
                 ? "visible" : "hidden"
             : menus[device][terminal].connectWirePath.style.visibility
     }
-    if (menus[device][terminal].labelingGroup) {
-        menus[device][terminal].labelingGroup.style.display = menus[device][terminal].hide ? "none" : ""
-        //menus[device][deviceTerminal].labelingGroup.style.visibility = "hidden"
+    if (menus[device][terminal].circleAndTextGroup) {
+        menus[device][terminal].circleAndTextGroup.style.display = menus[device][terminal].hide ? "none" : ""
+        //menus[device][deviceTerminal].circleAndTextGroup.style.visibility = "hidden"
     }
     if (menus[device][terminal].connectGroup) {
         menus[device][terminal].connectGroup.style.visibility = (menus[device][terminal].present && (!menus[device][terminal].hide)) || menus[device][terminal].forceBridge
@@ -601,10 +603,10 @@ function applyHide(device, terminal) {
             ? "visible" : "hidden"
     }
     if (menus[device][terminal].circle) {
-        menus[device][terminal].circle.visibility = menus[device][terminal].present && (!menus[device][terminal].hide)
+        menus[device][terminal].circle.style.display = menus[device][terminal].present && (!menus[device][terminal].hide)
             ? 3 < menus[device][terminal].label.toString().length
-                ? "hidden"
-                : "visible"
+                ? "none"
+                : "block"
             : ""
     }
 }
@@ -638,6 +640,8 @@ function applyMenu(device, terminal, doCalcPictureType) {
     //console.log(bBox, viewPort, parentSVG.viewBox)
     if (parentSVG.viewBox.baseVal.y !== bBox.y) { parentSVG.viewBox.baseVal.y = bBox.y }
     if (parentSVG.viewBox.baseVal.height !== bBox.height) { parentSVG.viewBox.baseVal.height = bBox.height }
+    /* if (parentSVG.viewBox.baseVal.x !== bBox.x) { parentSVG.viewBox.baseVal.x = bBox.x }
+    if (parentSVG.viewBox.baseVal.width !== bBox.width) { parentSVG.viewBox.baseVal.width = bBox.width } */
 }
 
 function calculateBridges(doCreateNewBridges) {
@@ -668,65 +672,88 @@ function calculateBridges(doCreateNewBridges) {
     }
 }
 
-function downloadImageFile(event) {
-    let device = event.target.id.split("-")[3]
-    let pictureName = event.target.id.split("-")[2]
-    let pictureType = event.target.id.split("-")[1]
-    let svgObject = document.getElementById(["svgObject", pictureName, device].join("-"))
-    if (svgObject) {
-        let svgElement = svgObject.contentDocument.getElementsByTagName("svg")[0]
-        if (svgElement) {
-            let fakeDownloadLink = document.createElement("a")
-            fakeDownloadLink.download = event.target.textContent
-            let serializer = new XMLSerializer()
-            let source = serializer.serializeToString(svgElement)
-            switch (pictureType) {
-                case "svg":
-                    if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
-                        source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
-                    }
-                    if (!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
-                        source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
-                    }
-                    //add xml declaration
-                    source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
-                    //convert svg source to URI data scheme.
-                    let svgUri = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(source);
-                    fakeDownloadLink.href = svgUri
+function onClickSVGContent(event) {
+    let svgTag = event.target.ownerDocument.getElementsByTagName("svg")[0]
+    let pictureName = svgTag.getAttribute("saveAsName")
+        ? svgTag.getAttribute("saveAsName")
+        : "picture"
+    let fileType = svgTag.getAttribute("saveAsType")
+        ? svgTag.getAttribute("saveAsType")
+        : "png"
+    console.log("svg was clicked:", event, svgTag, pictureName, fileType)
+    downloadSVGAs(svgTag, fileType, pictureName)
+}
+
+function downloadSVGAs(svgElement, fileType, pictureName) {
+    if (svgElement && fileType) {
+        let fakeDownloadLink = document.createElement("a")
+        //TODO: get svgObject to get the pictureName
+        fakeDownloadLink.download = `${pictureName}.${fileType}`
+        let serializer = new XMLSerializer()
+        let source = serializer.serializeToString(svgElement)
+        switch (fileType) {
+            case "svg":
+                if (!source.match(/^<svg[^>]+xmlns="http\:\/\/www\.w3\.org\/2000\/svg"/)) {
+                    source = source.replace(/^<svg/, '<svg xmlns="http://www.w3.org/2000/svg"');
+                }
+                if (!source.match(/^<svg[^>]+"http\:\/\/www\.w3\.org\/1999\/xlink"/)) {
+                    source = source.replace(/^<svg/, '<svg xmlns:xlink="http://www.w3.org/1999/xlink"');
+                }
+                //add xml declaration
+                source = '<?xml version="1.0" standalone="no"?>\r\n' + source;
+                //convert svg source to URI data scheme.
+                let svgUri = "data:image/svg+xml;charset=utf-8," + encodeURIComponent(source);
+                fakeDownloadLink.href = svgUri
+                fakeDownloadLink.dispatchEvent(new MouseEvent("click", {
+                    bubbles: false,
+                    cancelable: true
+                }))
+                fakeDownloadLink.remove()
+                break
+            case "png":
+                let canvas = document.createElement('canvas');
+                //canvas.id = ["canvas", svgElement.parentNode.id].join("-")
+                //let dimensions = svgElement.getBBox()
+                let dimensions = {
+                    width: svgElement.getAttribute("width")
+                    , height: svgElement.getAttribute("height")
+                }
+                canvas.width = dimensions.width
+                canvas.height = dimensions.height
+                let svgBlob = new Blob([source], { type: 'image/svg+xml;charset=utf-8' });
+                let DOMURL = self.URL || self.webkitURL || self
+                let svgBlobUri = DOMURL.createObjectURL(svgBlob);
+                let ctx = canvas.getContext('2d');
+                let img = new Image();
+                console.log("onclick saving png:", svgElement)
+                img.onload = function (e) {
+                    ctx.drawImage(img, 0, 0);
+                    let imgURI = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream')
+                    //let svgImgUri = canvas.toDataURL("image/svg-xml")
+                    fakeDownloadLink.href = imgURI
                     fakeDownloadLink.dispatchEvent(new MouseEvent("click", {
                         bubbles: false,
                         cancelable: true
                     }))
+
+                    DOMURL.revokeObjectURL(svgBlobUri);
                     fakeDownloadLink.remove()
-                    break
-                case "png":
-                    let canvas = document.createElement('canvas');
-                    canvas.id = ["canvas", event.target.id].join("-")
-                    canvas.width = svgElement.width.baseVal.value
-                    canvas.height = svgElement.height.baseVal.value
-                    let svgBlob = new Blob([source], { type: 'image/svg+xml;charset=utf-8' });
-                    let DOMURL = self.URL || self.webkitURL || self
-                    let svgBlobUri = DOMURL.createObjectURL(svgBlob);
-                    let ctx = canvas.getContext('2d');
-                    let img = new Image();
-
-                    img.onload = function (e) {
-                        ctx.drawImage(img, 0, 0);
-                        let imgURI = canvas.toDataURL('image/png').replace('image/png', 'image/octet-stream')
-                        //let svgImgUri = canvas.toDataURL("image/svg-xml")
-                        fakeDownloadLink.href = imgURI
-                        fakeDownloadLink.dispatchEvent(new MouseEvent("click", {
-                            bubbles: false,
-                            cancelable: true
-                        }))
-
-                        DOMURL.revokeObjectURL(svgBlobUri);
-                        fakeDownloadLink.remove()
-                    }
-                    img.src = svgBlobUri
-                    break
-            }
+                }
+                img.src = svgBlobUri
+                break
         }
+    }
+}
+
+function onClickDownloadButton(event) {
+    let device = event.target.id.split("-")[3]
+    let pictureName = event.target.id.split("-")[2]
+    let fileType = event.target.id.split("-")[1]
+    let svgObject = document.getElementById(["svgObject", pictureName, device].join("-"))
+    if (svgObject) {
+        let svgElement = svgObject.contentDocument.getElementsByTagName("svg")[0]
+        let fileName = `${svgObject.id.split("-").filter(word => { return "svgObject" !== word }).join("-")}.${fileType}`
+        downloadSVGAs(svgElement, fileType, fileName)
     }
 }
 
@@ -762,9 +789,9 @@ const root = document.getElementById("root")
 const urlParams = decodeURI(window.location.search.substring(1)) ? payload2obj(decodeURI(window.location.search.substring(1))) : null
 const useDefault = !(urlParams && (0 < Object.keys(urlParams).length) && (urlParams.interface) && (urlParams.interface.terminalsAndLabels))
 
-console.log("URL parameters:", urlParams)
-console.log("MENUS:", menus)
-console.log("useDEFAULT:", useDefault)
+console.log("URL parameters:\n", urlParams)
+console.log("MENUS:\n", menus)
+console.log("useDEFAULT:\n", useDefault)
 
 let header = document.createElement("h1")
 header.style.visibility = "hidden"
@@ -778,7 +805,7 @@ if (!useDefault) {
             accMap[terminal] = urlParams.interface.terminalsAndLabels[terminal]
             return accMap
         }, {})
-    console.log("Not empty URL terminals:", notEmptyUrlTerminalMap)
+    console.log(`Not empty terminals from the URL:\n`, notEmptyUrlTerminalMap)
     for (let device in glbDeviceDict) {
         let matchedTerminalMap = matchDeviceAndSystem(device, notEmptyUrlTerminalMap)
         //console.log(device, "Matched terminals:", matchedTerminalMap)
@@ -995,7 +1022,7 @@ for (let menuDevice in menus) {
             //downloadLink.download = downloadLink.textContent
             //downloadLink.target = "_blank"
             //downloadLink.href = downloadLink.textContent
-            downloadLink.onclick = downloadImageFile
+            downloadLink.onclick = onClickDownloadButton
             linksContainer.appendChild(downloadLink)
             return downloadLink
         })
@@ -1024,11 +1051,15 @@ for (let menuDevice in menus) {
             let svgNameParts = getInfoFromFileName(this.data)
             let svgPictureName = svgNameParts.pictureName
             let svgDevice = svgNameParts.device
+            let svgTag = this.contentDocument.getElementsByTagName("svg")[0]
+            svgTag.setAttribute("saveAsType", "png")
+            svgTag.setAttribute("saveAsName", svgPictureName)
+            svgTag.onclick = onClickSVGContent
             //console.log("onload()", this.data.match(/svg\/(.+\.svg)$/)[1], "--->", svgDevice, svgPictureName)
             if ("labeling" === svgPictureName) {
                 //resize the labeling svg (make space on the left and top)
-                let outerSvgTag = this.contentDocument.querySelector("svg")
-                outerSvgTag.setAttribute("style", "transform: scale(0.9) translate(-2.5%, 5%);")
+                //svgTag.setAttribute("style", "transform: scale(0.9) translate(-2.5%, 5%);")
+                svgTag.setAttribute("style", "transform: scale(0.9);")
                 let labelingStickerList = this.contentDocument.querySelectorAll("g[transform*=translate] g[title*='terminal sticker']")
                 let maxTsi = Math.min(labelingStickerList.length, Object.keys(glbDeviceDict[svgDevice].terminals).length)
                 for (let tsi = 0; tsi < maxTsi; tsi++) {
@@ -1040,7 +1071,7 @@ for (let menuDevice in menus) {
                     menus[svgDevice][terminal].arrowTip = labelingStickerList[tsi].parentNode.querySelector("g[title='system terminal label arrow'] polygon")
                     menus[svgDevice][terminal].systemTerminalLabelGroup = labelingStickerList[tsi].parentNode.querySelector("g[title='system terminal label'")
                     menus[svgDevice][terminal].arrowGroup = labelingStickerList[tsi].parentNode.querySelector("g[title='system terminal label arrow']")
-                    menus[svgDevice][terminal].labelingGroup = labelingStickerList[tsi].parentNode
+                    menus[svgDevice][terminal].circleAndTextGroup = labelingStickerList[tsi].parentNode
                     applyMenu(svgDevice, terminal, false)
                 }// end reading elements from labeling.svg
 

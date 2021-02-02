@@ -3,7 +3,7 @@
       id="svg" version="1.0" width="340" height="420"
       viewBox="0.00 0.00 340 420"
       enable-background="new 0 0 340 420" x="0px" y="0px">
-   <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="340" height="420" viewBox="0 0 340 420">
+   <!-- <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="340" height="420" viewBox="0 0 340 420"> -->
   <defs>
     <clipPath id="clip-path">
       <circle cx="168.656" cy="263.725" r="147.637" fill="none"/>
@@ -736,6 +736,6 @@
   <g id="Bridge_L_-_HWCOM" class="BridgePositionLHWCOM">
       <path style="fill: palegoldenrod;" d="M170.839,282.319h-68.57c-16.264,0-29.736-13.233-29.5-29.5.013-.889,1.369.01,3.026.01s2.961-.846,2.974-.01a23.657,23.657,0,0,0,23.5,23.5h68.57a23.521,23.521,0,0,0,23.494-23.5v-.654c.093-.843,1.131.109,2.789.109s3.171-.9,3.211-.109v.654A29.528,29.528,0,0,1,170.839,282.319Z" fill="#fff" stroke="#333" stroke-linecap="round" stroke-linejoin="round" stroke-width="0.5"/>
  </g>
-</svg>
+<!-- </svg> -->
 
 </svg>
