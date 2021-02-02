@@ -29,7 +29,8 @@
         "64": "images/cat-orange_64.png",
         "128": "images/cat-orange_128.png",
         "256": "images/cat-orange_256.png"
-      }
+      },
+      "default_title": "Click to open the Label generator"
     },
     "web_accessible_resources": [
       "index.html"

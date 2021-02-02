@@ -238,9 +238,10 @@ function applyWriting(device, terminal) {
     if (menus[device][terminal].writtenText) {
         if ((menus[device][terminal].writtenText.textContent || newWriting)
             && (newWriting !== menus[device][terminal].writtenText.textContent)) {
-            menus[device][terminal].writtenText.textContent = newWriting
-
+            menus[device][terminal].writtenText.textContent = newWriting //this updates the svg text' elements text
+            console.log("New writing:", newWriting)
             if (newWriting && (3 < newWriting.toString().length)) {
+                //tilt up the writing 45°
                 let oldTransform = menus[device][terminal].writtenText.getAttribute("transform")
                 if (oldTransform) {
                     let rotatePos = oldTransform.indexOf("rotate")
@@ -249,8 +250,8 @@ function applyWriting(device, terminal) {
                     }
                 }
                 let newTransform = [oldTransform, "rotate(-30)"].join(" ")
-                menus[device][terminal].writtenText.setAttribute("transform", newTransform)
-                menus[device][terminal].circle.style.visibility = "hidden"
+                menus[device][terminal].writtenText.setAttribute("transform", newTransform) //this rotates the text element
+                menus[device][terminal].circle.style.visibility = "hidden" //this hides the circle around the text element
             } else {
                 let oldTransform = menus[device][terminal].writtenText.getAttribute("transform")
                 if (oldTransform) {
@@ -265,6 +266,14 @@ function applyWriting(device, terminal) {
                     && (!menus[device][terminal].hide)
                     ? "visible" : "hidden"
             }
+
+            //increasing the viewBox of the SVG
+            let parentSVG = menus[device][terminal].writtenText.ownerDocument.firstElementChild
+            let bBox = parentSVG.getBBox()
+            let viewPort = parentSVG.getAttribute("viewBox")
+            //console.log(bBox, viewPort, parentSVG.viewBox)
+            parentSVG.viewBox.baseVal.y = bBox.y
+            parentSVG.viewBox.baseVal.height = bBox.height
         }
     }
 }
@@ -275,6 +284,16 @@ function onHideSticker(e) {
         let device = element.id.split("-")[1]
         let terminal = element.id.split("-")[2]
         menus[device][terminal].hide = element.checked
+        applyMenu(device, terminal, false)
+    }
+}
+
+function onForceBridge(e) {
+    let element = e.target
+    if (element) {
+        let device = element.id.split("-")[1]
+        let terminal = element.id.split("-")[2]
+        menus[device][terminal].forceBridge = element.checked
         applyMenu(device, terminal, false)
     }
 }
@@ -567,8 +586,9 @@ function applyHide(device, terminal) {
         menus[device][terminal].connectRule.style.visibility = menus[device][terminal].present && (!menus[device][terminal].hide)
             ? "visible" : "hidden"
     } else if (menus[device][terminal].connectWirePath) {
+        console.log(menus[device][terminal].forceBridge, menus[device][terminal])
         menus[device][terminal].connectWirePath.style.visibility = terminal.match(/^Bridge/)
-            ? menus[device][terminal].present && (!menus[device][terminal].hide)
+            ? (menus[device][terminal].present && (!menus[device][terminal].hide))||menus[device][terminal].forceBridge
                 ? "visible" : "hidden"
             : menus[device][terminal].connectWirePath.style.visibility
     }
@@ -577,7 +597,7 @@ function applyHide(device, terminal) {
         //menus[device][deviceTerminal].labelingGroup.style.visibility = "hidden"
     }
     if (menus[device][terminal].connectGroup) {
-        menus[device][terminal].connectGroup.style.visibility = menus[device][terminal].present && (!menus[device][terminal].hide)
+        menus[device][terminal].connectGroup.style.visibility = (menus[device][terminal].present && (!menus[device][terminal].hide))||menus[device][terminal].forceBridge
             ? "visible" : "hidden"
     }
     if (menus[device][terminal].arrowGroup) {
@@ -782,9 +802,9 @@ if (!useDefault) {
         }
     }
     //display system manufacturer and name in the heading
-    header.textContent = [urlParams.manufacturer, urlParams.name].join(" - ")
+    header.textContent = [urlParams.manufacturer, urlParams.name].filter(word => { return word }).join(" - ")
         + ` (${urlParams.placement ? [urlParams.placement, urlParams.type].join(" ") : urlParams.type})`
-        + ` - ${urlParams.interface.name}`
+        + ` - ${[urlParams.interface.name, urlParams.interface.connectorName].filter(word => { return word }).join(" - ")}`
 } else {
     console.log("Empty URL parameters. Generating 'DEFAULT' stickers.")
     //fill menu from defaultLabels
@@ -816,7 +836,7 @@ for (let menuDevice in menus) {
 
     let deviceHeading = document.createElement("h2")
     deviceHeading.className = "deviceHeading"
-    deviceHeading.textContent = ["\t-",menuDevice].join("\t")
+    deviceHeading.textContent = ["\t-", menuDevice].join("\t")
     superContainer.appendChild(deviceHeading)
 
     let deviceContainer = document.createElement("div")
@@ -902,6 +922,28 @@ for (let menuDevice in menus) {
             hideStickerGroup.appendChild(checkboxHide)
             cell.appendChild(hideStickerGroup)
             menus[menuDevice][terminal].inputHide = checkboxHide
+
+            if (terminal.match(/^Bridge/i)) {
+                //TODO: add checkbox 'force bridge'
+                let forceBridgeGroup = document.createElement("div")
+
+                let cbForceBridge = document.createElement("input");
+                cbForceBridge.checked = menus[menuDevice][terminal].hide
+                cbForceBridge.className = "input-checkbox"
+                cbForceBridge.id = [menuItemId, "forceBridge"].join("-")
+                cbForceBridge.oninput = onForceBridge
+                cbForceBridge.tabIndex = tabsPerDevice * menuDeviceIndex + 1 + 2
+                cbForceBridge.type = "checkbox";
+
+                let lblForceBridge = document.createElement("label")
+                lblForceBridge.textContent = "force"
+                lblForceBridge.for = cbForceBridge.id
+
+                forceBridgeGroup.appendChild(lblForceBridge)
+                forceBridgeGroup.appendChild(cbForceBridge)
+                cell.appendChild(forceBridgeGroup)
+                menus[menuDevice][terminal].forceBridgeCheckBox = cbForceBridge
+            }
         }
     } else { console.log(menuDevice, "has no menu???") }
 
@@ -918,12 +960,12 @@ for (let menuDevice in menus) {
             switch (elemDisplay) {
                 case "none":
                     e.target.classList.remove("hideDeviceContainer")
-                    e.target.textContent = e.target.textContent.replace("+","-")
+                    e.target.textContent = e.target.textContent.replace("+", "-")
                     deviceContainer.style.display = "block"
                     break
                 case "block":
                     e.target.classList.add("hideDeviceContainer")
-                    e.target.textContent = e.target.textContent.replace("-","+")
+                    e.target.textContent = e.target.textContent.replace("-", "+")
                     deviceContainer.style.display = "none"
                     break
             }

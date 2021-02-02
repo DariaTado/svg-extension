@@ -18,11 +18,11 @@
 }
 
 h1 {
-    color: #666666;
+    color: #bbbbbb;
 }
 
 h2 {
-    color: #666666;
+    color: #999999;
     background-color: #eeeeee;
 }
 
@@ -36,7 +36,7 @@ hr {
 
 .input-label {
     /* color: #999999; */
-    color: #999999;
+    color: #666666;
     font-family: Arial, sans-serif;
     font-size: 0.8em
 }
