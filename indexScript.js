@@ -266,14 +266,6 @@ function applyWriting(device, terminal) {
                     && (!menus[device][terminal].hide)
                     ? "visible" : "hidden"
             }
-
-            //increasing the viewBox of the SVG
-            let parentSVG = menus[device][terminal].writtenText.ownerDocument.firstElementChild
-            let bBox = parentSVG.getBBox()
-            let viewPort = parentSVG.getAttribute("viewBox")
-            //console.log(bBox, viewPort, parentSVG.viewBox)
-            parentSVG.viewBox.baseVal.y = bBox.y
-            parentSVG.viewBox.baseVal.height = bBox.height
         }
     }
 }
@@ -588,7 +580,7 @@ function applyHide(device, terminal) {
     } else if (menus[device][terminal].connectWirePath) {
         console.log(menus[device][terminal].forceBridge, menus[device][terminal])
         menus[device][terminal].connectWirePath.style.visibility = terminal.match(/^Bridge/)
-            ? (menus[device][terminal].present && (!menus[device][terminal].hide))||menus[device][terminal].forceBridge
+            ? (menus[device][terminal].present && (!menus[device][terminal].hide)) || menus[device][terminal].forceBridge
                 ? "visible" : "hidden"
             : menus[device][terminal].connectWirePath.style.visibility
     }
@@ -597,7 +589,7 @@ function applyHide(device, terminal) {
         //menus[device][deviceTerminal].labelingGroup.style.visibility = "hidden"
     }
     if (menus[device][terminal].connectGroup) {
-        menus[device][terminal].connectGroup.style.visibility = (menus[device][terminal].present && (!menus[device][terminal].hide))||menus[device][terminal].forceBridge
+        menus[device][terminal].connectGroup.style.visibility = (menus[device][terminal].present && (!menus[device][terminal].hide)) || menus[device][terminal].forceBridge
             ? "visible" : "hidden"
     }
     if (menus[device][terminal].arrowGroup) {
@@ -637,6 +629,15 @@ function applyMenu(device, terminal, doCalcPictureType) {
     applyDashed(device, terminal)
 
     applyHide(device, terminal)
+
+    //increasing the viewBox of the SVG
+    let svgObject = document.getElementById(["svgObject", "labeling", device].join("-"))
+    let parentSVG = svgObject.contentDocument.getElementsByTagName("svg")[0]
+    let bBox = parentSVG.getBBox()
+    let viewPort = parentSVG.getAttribute("viewBox")
+    //console.log(bBox, viewPort, parentSVG.viewBox)
+    if (parentSVG.viewBox.baseVal.y !== bBox.y) { parentSVG.viewBox.baseVal.y = bBox.y }
+    if (parentSVG.viewBox.baseVal.height !== bBox.height) { parentSVG.viewBox.baseVal.height = bBox.height }
 }
 
 function calculateBridges(doCreateNewBridges) {
@@ -924,7 +925,7 @@ for (let menuDevice in menus) {
             menus[menuDevice][terminal].inputHide = checkboxHide
 
             if (terminal.match(/^Bridge/i)) {
-                //TODO: add checkbox 'force bridge'
+                //add checkbox 'force bridge'
                 let forceBridgeGroup = document.createElement("div")
 
                 let cbForceBridge = document.createElement("input");
