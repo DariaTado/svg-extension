@@ -12,7 +12,7 @@ Note 1: It should not be necessary to remove previous version of the extension.
 Note 2: Since this extension is not published in the Chrome WebStore, there is only one way to download and install it: from a ZIP archive.
 
 ## Download
-Goto the GitHub page of this project (if you are reading this, you are already at this page). Make sure that you are in the correct branch of the GitHub. At the moment it is: https://github.com/tadodotcom/InstallationsAndHVACDatabase/tree/label-generator-v1.4
+Goto the GitHub page of this project (if you are reading this, you are already at this page). Make sure that you are in the correct branch of the GitHub. At the moment it is: https://github.com/tadodotcom/InstallationsAndHVACDatabase/tree/label-generator-v1.5
 
 From the GitHub, click the tab **'< > Code'**. When the 'Code' page is loaded, at the top-right you will notice a large green button **'Code'**. 
 
